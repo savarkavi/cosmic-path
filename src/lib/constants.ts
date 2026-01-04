@@ -20,3 +20,21 @@ export const heroServices = [
     desc: "Online kundali consulations and matching.",
   },
 ];
+
+export const headerItems = [
+  {
+    label: "Home",
+  },
+  {
+    label: "Courses",
+  },
+  {
+    label: "Consulations",
+  },
+  {
+    label: "About",
+  },
+  {
+    label: "Contact",
+  },
+];
