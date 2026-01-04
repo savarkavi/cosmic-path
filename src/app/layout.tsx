@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Italiana } from "next/font/google";
+import { Italiana, EB_Garamond } from "next/font/google";
 import "./globals.css";
-
-const bodoniModa = Bodoni_Moda({
-  variable: "--font-bodoni-moda",
-  subsets: ["latin"],
-});
+import Header from "@/components/layout/header";
 
 const italiana = Italiana({
   variable: "--font-italiana",
   weight: ["400"],
+  subsets: ["latin"],
+});
+
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -26,8 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bodoniModa.variable} ${italiana.variable} antialiased`}
+        className={`${ebGaramond.variable} ${italiana.variable} antialiased`}
       >
+        <Header />
         {children}
       </body>
     </html>

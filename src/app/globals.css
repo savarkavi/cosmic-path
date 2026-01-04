@@ -159,7 +159,7 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   --font-italiana: var(--font-italiana);
-  --font-bodoni-moda: var(--font-bodoni-moda);
+  --font-eb-garamond: var(--font-eb-garamond);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -181,6 +181,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply text-foreground bg-background font-bodoni-moda;
+    @apply text-foreground bg-background font-eb-garamond;
   }
 }
