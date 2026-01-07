@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { BookOpen, Calendar } from "lucide-react";
 import HeroServices from "./hero-services";
+import { Separator } from "@/components/ui/separator";
 
 const HeroContent = () => {
   return (
@@ -13,15 +14,17 @@ const HeroContent = () => {
           <p className="font-italiana flex flex-col text-8xl">
             <span className="flex items-center gap-2">
               <span>Expert</span>
-              <span>Astrology</span>
+              <span className="text-accent-foreground">Astrology</span>
             </span>
             <span>Guidance &</span>
             <span className="text-primary">Beyond</span>
           </p>
-          <p className="text-muted-foreground max-w-[600px] text-3xl font-light">
-            Follow the path of the cosmos. Bring order to your chaos and
-            illuminate the lives of those around you through ancient starlit
-            wisdom.
+          <p className="text-muted-foreground text-3xl font-light">
+            Follow the path of the <span className="text-black">cosmos</span>.
+            Bring order to your chaos and{" "}
+            <span className="text-black">illuminate</span> the lives of those
+            around you through ancient{" "}
+            <span className="text-black">starlit wisdom</span>.
           </p>
         </div>
         <div className="flex items-center gap-6">
@@ -40,7 +43,7 @@ const HeroContent = () => {
             <Calendar />
           </Button>
         </div>
-        <div className="bg-muted-foreground my-8 h-px"></div>
+        <Separator className="my-8 w-full bg-gray-300" />
         <HeroServices />
       </div>
     </div>
