@@ -38,3 +38,34 @@ export const headerItems = [
     label: "Contact",
   },
 ];
+
+export const coursesData = [
+  {
+    img: "/card-img-1.png",
+    title: "Vedic astrology basics",
+    desc: "A deep dive into your soul's blueprint. Understand your karma, dharma, and life path through the lens of Vedic astrology.",
+    price: "1,000",
+    length: "3 weeks",
+  },
+  {
+    img: "/card-img-2.png",
+    title: "Practice sessions",
+    desc: "Begin your journey as a seer. Learn the basics of planets, signs, and houses in this comprehensive 8-week course.",
+    price: "1,000",
+    length: "2 weeks",
+  },
+  {
+    img: "/card-img-3.jpg",
+    title: "Palmistry - The roadmap of your life",
+    desc: "Understand the cosmic dynamics between you and your partner. Discover harmony and areas for growth.",
+    price: "1,000",
+    length: "3 weeks",
+  },
+  {
+    img: "/card-img-4.jpg",
+    title: "Vedic astrology research",
+    desc: "Master the art of Dashas and Transits. For students who have completed the foundations course",
+    price: "2,000",
+    length: "5 weeks",
+  },
+];
