@@ -1,0 +1,47 @@
+import Image from "next/image";
+import { FaQuoteLeft, FaStar } from "react-icons/fa";
+
+type TestimonyType = {
+  name: string;
+  avatar: string;
+  quote: string;
+  date: string;
+  stars: number;
+};
+
+interface TestimonialCardProps {
+  data: TestimonyType;
+}
+
+const TestimonialCard = ({ data }: TestimonialCardProps) => {
+  return (
+    <div className="relative w-full max-w-[500px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl">
+      <div className="bg-primary absolute -top-1/2 flex h-30 w-30 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full text-white">
+        <FaQuoteLeft className="absolute size-6 translate-[75%]" />
+      </div>
+      <div className="ml-20 flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="relative h-14 w-14 rounded-full">
+            <Image
+              src={data.avatar}
+              alt="user profile"
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
+          <p className="text-accent-foreground text-2xl font-bold">
+            {data.name}
+          </p>
+        </div>
+        <div className="flex items-center gap-1">
+          {Array.from({ length: data.stars }, (_, i) => (
+            <FaStar key={i} className="fill-amber-400" />
+          ))}
+        </div>
+        <p className="text-muted-foreground">{data.quote}</p>
+      </div>
+    </div>
+  );
+};
+
+export default TestimonialCard;
