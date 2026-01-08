@@ -24,7 +24,9 @@ const Header = () => {
     <div
       className={cn(
         "fixed top-0 left-0 z-90 flex w-full items-center justify-between p-6",
-        scrolled ? "bg-white/5 backdrop-blur-2xl" : "bg-transparent",
+        scrolled
+          ? "bg-white/5 text-black backdrop-blur-2xl"
+          : "text-muted-foreground bg-transparent",
       )}
     >
       <div className="flex items-center gap-2">
@@ -42,10 +44,7 @@ const Header = () => {
       </div>
       <div className="absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-10">
         {headerItems.map((item) => (
-          <p
-            key={item.label}
-            className="text-muted-foreground cursor-pointer text-lg font-semibold"
-          >
+          <p key={item.label} className="cursor-pointer text-lg font-semibold">
             {item.label}
           </p>
         ))}
