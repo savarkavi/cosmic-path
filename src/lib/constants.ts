@@ -69,3 +69,30 @@ export const coursesData = [
     length: "5 weeks",
   },
 ];
+
+export const testimonialsData = [
+  {
+    name: "Ananya Sharma",
+    avatar: "/testimonial-avatar-1.jpg",
+    quote:
+      "The course gave me a completely new perspective on astrology. The concepts were explained with clarity and depth, and I now feel confident reading my own chart.",
+    stars: 5,
+    date: "March 12, 2025",
+  },
+  {
+    name: "Rohit Verma",
+    avatar: "/testimonial-avatar-2.jpg",
+    quote:
+      "I had read many astrology books before, but this course connected everything logically. The teachings felt authentic and deeply rooted in tradition.",
+    stars: 5,
+    date: "February 28, 2025",
+  },
+  {
+    name: "Priya Nair",
+    avatar: "/testimonial-avatar-3.jpg",
+    quote:
+      "This course helped me understand planetary energies in a very practical way. I’ve started applying the knowledge in daily life with amazing results.",
+    stars: 5,
+    date: "January 19, 2025",
+  },
+];
