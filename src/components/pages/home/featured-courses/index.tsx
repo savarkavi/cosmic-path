@@ -1,18 +1,17 @@
-import CourseCard from "@/components/shared/course-card";
 import SectionTitle from "@/components/shared/section-title";
-import { coursesData } from "@/lib/constants";
+import CoursesCarousel from "./courses-carousel";
+import { Button } from "@/components/ui/button";
 
 const FeaturedCoursesSection = () => {
   return (
-    <section className="min-h-screen pt-12">
-      <div className="flex justify-center">
+    <section className="mx-auto min-h-screen max-w-[1400px] pt-12">
+      <div className="relative flex justify-center">
         <SectionTitle title="Our Courses" />
+        <Button className="absolute right-0 -bottom-12 text-white">
+          Explore More
+        </Button>
       </div>
-      <div className="mx-auto mt-16 grid max-w-[1400px] grid-cols-2 justify-items-center gap-20">
-        {coursesData.map((course, i) => (
-          <CourseCard key={i} course={course} />
-        ))}
-      </div>
+      <CoursesCarousel />
     </section>
   );
 };

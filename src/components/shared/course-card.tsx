@@ -17,8 +17,8 @@ interface CourseCardProps {
 
 const CourseCard = ({ course }: CourseCardProps) => {
   return (
-    <div className="bg-accent w-full rounded-md shadow-lg">
-      <div className="relative h-[400px] w-full rounded-t-md">
+    <div className="bg-accent h-full w-full rounded-md shadow-lg">
+      <div className="relative h-[300px] w-full rounded-t-md">
         <Image
           src={course.img}
           alt="course banner image"
@@ -29,10 +29,10 @@ const CourseCard = ({ course }: CourseCardProps) => {
       </div>
       <div className="mt-4 flex flex-col gap-2 p-4">
         <div className="flex items-center justify-between">
-          <p className="text-2xl uppercase">{course.title}</p>
+          <p className="line-clamp-1 text-2xl uppercase">{course.title}</p>
           <p className="bg-primary rounded-full px-4 py-1 text-white">{`₹${course.price}`}</p>
         </div>
-        <p className="text-muted-foreground">{course.desc}</p>
+        <p className="text-muted-foreground line-clamp-2">{course.desc}</p>
         <Separator className="my-4 w-full" />
         <div className="text-muted-foreground flex items-center justify-between">
           <div className="flex items-center gap-2">
