@@ -52,7 +52,7 @@ export const coursesData = [
     title: "Practice sessions",
     desc: "Begin your journey as a seer. Learn the basics of planets, signs, and houses in this comprehensive 8-week course.",
     price: "1,000",
-    length: "2 weeks",
+    length: "8 weeks",
   },
   {
     img: "/card-img-3.jpg",
@@ -67,6 +67,20 @@ export const coursesData = [
     desc: "Master the art of Dashas and Transits. For students who have completed the foundations course",
     price: "2,000",
     length: "5 weeks",
+  },
+  {
+    img: "/card-img-5.jpg",
+    title: "Astro palmistry and vastu",
+    desc: "Understand the cosmic dynamics between you and your partner. Discover harmony and areas for growth.",
+    price: "1,000",
+    length: "3 weeks",
+  },
+  {
+    img: "/card-img-6.jpg",
+    title: "Vedic astrology professional",
+    desc: "Begin your journey as a seer. Learn the basics of planets, signs, and houses in this comprehensive 8-week course.",
+    price: "2,000",
+    length: "6 weeks",
   },
 ];
 
