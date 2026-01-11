@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Italiana, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 const italiana = Italiana({
   variable: "--font-italiana",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
