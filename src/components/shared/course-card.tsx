@@ -44,7 +44,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
             <p>{course.length}</p>
           </div>
         </div>
-        <Button className="bg-foreground mt-4 cursor-pointer text-white">
+        <Button className="bg-foreground mt-4 cursor-pointer py-6 text-lg text-white">
           Enroll now
         </Button>
       </div>
