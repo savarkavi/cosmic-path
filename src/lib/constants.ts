@@ -1,4 +1,10 @@
-import { GraduationCap, Users, CalendarCheck } from "lucide-react";
+import {
+  GraduationCap,
+  Users,
+  CalendarCheck,
+  Phone,
+  BadgeCheck,
+} from "lucide-react";
 
 export const heroServices = [
   {
@@ -108,5 +114,20 @@ export const testimonialsData = [
       "This course helped me understand planetary energies in a very practical way. I’ve started applying the knowledge in daily life with amazing results.",
     stars: 5,
     date: "January 19, 2025",
+  },
+];
+
+export const bookConsultationInfo = [
+  {
+    label: "Select expert",
+    icon: BadgeCheck,
+  },
+  {
+    label: "Choose type",
+    icon: Phone,
+  },
+  {
+    label: "Schedule",
+    icon: CalendarCheck,
   },
 ];
