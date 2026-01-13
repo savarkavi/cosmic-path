@@ -4,10 +4,10 @@ import TestimonialCard from "./testimonial-card";
 
 const TestimonialSection = () => {
   return (
-    <section className="pt-12">
-      <div className="flex flex-col items-center justify-center gap-8">
+    <section>
+      <div className="flex flex-col items-center gap-8">
         <SectionTitle title="Testimonials" />
-        <p className="text-center text-2xl">
+        <p className="text-muted-foreground text-center text-2xl">
           See what our customers have to say about our services
         </p>
       </div>

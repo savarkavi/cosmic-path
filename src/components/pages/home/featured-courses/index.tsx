@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const FeaturedCoursesSection = () => {
   return (
-    <section className="mx-auto min-h-screen max-w-[1400px] pt-12">
+    <section className="mx-auto min-h-screen max-w-[1360px] pt-12">
       <div className="relative flex justify-center">
         <SectionTitle title="Our Courses" />
         <Button className="absolute right-0 -bottom-12 text-white">
