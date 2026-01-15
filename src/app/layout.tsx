@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ebGaramond.variable} ${italiana.variable} antialiased`}
+        className={`${ebGaramond.variable} ${italiana.variable} flex min-h-screen flex-col justify-between antialiased`}
       >
         <Header />
         {children}
