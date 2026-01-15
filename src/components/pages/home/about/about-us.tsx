@@ -9,7 +9,7 @@ What sets us apart is our commitment to integrity, authenticity, and personalize
 
 const AboutUs = () => {
   return (
-    <div className="bg-accent-foreground mt-16 flex w-full py-8">
+    <div className="bg-accent-foreground mt-16 flex w-full py-12">
       <div className="mx-auto flex items-center gap-40">
         <div className="relative h-[600px] w-[280px] shrink-0">
           <Image
@@ -20,7 +20,7 @@ const AboutUs = () => {
           />
         </div>
         <div className="flex max-w-[600px] flex-col gap-12 text-white">
-          <p className="font-italiana text-3xl font-semibold uppercase">
+          <p className="text-5xl font-semibold uppercase">
             See beyond through ancient wisdom
           </p>
           <div

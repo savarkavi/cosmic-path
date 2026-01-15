@@ -5,10 +5,10 @@ import Image from "next/image";
 const BookConsultation = () => {
   return (
     <div className="bg-accent relative mt-16 h-[650px] w-full overflow-hidden py-16">
-      <div className="mx-auto flex max-w-[1400px] items-center">
+      <div className="mx-auto flex max-w-[1360px] items-center">
         <div className="flex flex-col gap-12">
           <div className="flex max-w-[800px] flex-col gap-6">
-            <p className="font-italiana text-accent-foreground text-6xl font-semibold uppercase">
+            <p className="font-italiana text-accent-foreground text-5xl font-semibold uppercase">
               Gain clarity of your life through Expert Readings
             </p>
             <p className="text-muted-foreground text-2xl">
@@ -24,7 +24,7 @@ const BookConsultation = () => {
               return (
                 <div
                   key={info.label}
-                  className="flex w-[200px] flex-col items-center justify-center gap-2 rounded-lg border bg-white px-4 py-3"
+                  className="flex w-[200px] flex-col items-center justify-center gap-2 rounded-lg bg-white px-4 py-3 shadow-lg"
                 >
                   <Icon
                     size={36}
