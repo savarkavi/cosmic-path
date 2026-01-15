@@ -131,3 +131,36 @@ export const bookConsultationInfo = [
     icon: CalendarCheck,
   },
 ];
+
+export const servicesData = [
+  {
+    label: "Premium courses",
+    desc: "Enroll in state-of-the-art astrology courses taught by highly qualified professionals.",
+    img: "/card-img-1.png",
+  },
+  {
+    label: "Marriage consultation",
+    desc: "Receive personalized guidance on love, compatibility, and marital harmony through expert astrological analysis.",
+    img: "/card-img-2.png",
+  },
+  {
+    label: "Career consultation",
+    desc: "Discover the best career path, growth opportunities, and success timings based on your birth chart.",
+    img: "/card-img-3.jpg",
+  },
+  {
+    label: "Health consultation",
+    desc: "Understand potential health challenges and receive preventive astrological remedies for long-term well-being.",
+    img: "/card-img-4.jpg",
+  },
+  {
+    label: "Exams consultation",
+    desc: "Get strategic astrological guidance to improve focus, confidence, and performance in competitive and academic exams.",
+    img: "/card-img-5.jpg",
+  },
+  {
+    label: "Remedies consultation",
+    desc: "Obtain effective spiritual and astrological remedies to overcome obstacles and attract positive energy.",
+    img: "/card-img-6.jpg",
+  },
+];
