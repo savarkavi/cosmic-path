@@ -1,5 +1,6 @@
 import AboutSection from "@/components/pages/home/about";
 import BookConsultationSection from "@/components/pages/home/book-consultation";
+import ServicesSection from "@/components/pages/home/services";
 import FeaturedCoursesSection from "@/components/pages/home/featured-courses";
 import HeroSection from "@/components/pages/home/hero";
 import TestimonialSection from "@/components/pages/home/testimonial";
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <FeaturedCoursesSection />
       <AboutSection />
+      <ServicesSection />
       <BookConsultationSection />
       <TestimonialSection />
     </div>
