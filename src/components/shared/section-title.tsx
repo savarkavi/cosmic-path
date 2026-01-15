@@ -12,8 +12,8 @@ const SectionTitle = ({ title }: SectionTitleProps) => {
           <p
             key={i}
             className={cn(
-              "text-7xl capitalize",
-              i === 1 && "font-italiana text-accent-foreground italic",
+              "text-6xl uppercase",
+              i === 1 && "text-accent-foreground",
             )}
           >
             {word}
