@@ -29,7 +29,7 @@ const BundleBanner = () => {
             <p className="text-4xl text-white">₹ 15,000</p>
           </div>
           <Button className="rounded-full bg-white px-8 py-6 text-lg">
-            Get full acess
+            Get full access
           </Button>
         </div>
       </div>
