@@ -30,8 +30,22 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
         </div>
         <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
         <Separator className="my-4 w-full" />
+        <div className="text-muted-foreground flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="relative h-10 w-10 rounded-full">
+              <Image
+                src="/testimonial-avatar-2.jpg"
+                alt="avatar image"
+                fill
+                className="rounded-full object-cover"
+              />
+            </div>
+            <p>Yash Sharma</p>
+          </div>
+          <p>₹ 15/Min</p>
+        </div>
         <Button className="bg-foreground mt-4 cursor-pointer py-6 text-lg text-white">
-          Book now
+          Book Now
         </Button>
       </div>
     </div>
