@@ -4,6 +4,9 @@ import {
   CalendarCheck,
   Phone,
   BadgeCheck,
+  UsersRound,
+  SquareChartGantt,
+  Sparkles,
 } from "lucide-react";
 
 export const heroServices = [
@@ -30,18 +33,23 @@ export const heroServices = [
 export const headerItems = [
   {
     label: "Home",
+    href: "/",
   },
   {
     label: "Courses",
+    href: "/courses",
   },
   {
-    label: "Consulations",
+    label: "Services",
+    href: "services",
   },
   {
     label: "About",
+    href: "/about",
   },
   {
     label: "Contact",
+    href: "/",
   },
 ];
 
@@ -134,33 +142,51 @@ export const bookConsultationInfo = [
 
 export const servicesData = [
   {
-    label: "Premium courses",
-    desc: "Enroll in state-of-the-art astrology courses taught by highly qualified professionals.",
-    img: "/card-img-1.png",
+    label: "Life purpose",
+    desc: "Uncover your true calling, strengths, and soul path through deep astrological and spiritual insights.",
+    img: "/service-course-img.jpg",
   },
   {
     label: "Marriage consultation",
     desc: "Receive personalized guidance on love, compatibility, and marital harmony through expert astrological analysis.",
-    img: "/card-img-2.png",
+    img: "/service-marriage-img.jpg",
   },
   {
     label: "Career consultation",
     desc: "Discover the best career path, growth opportunities, and success timings based on your birth chart.",
-    img: "/card-img-3.jpg",
+    img: "/service-career-img.jpg",
   },
   {
     label: "Health consultation",
     desc: "Understand potential health challenges and receive preventive astrological remedies for long-term well-being.",
-    img: "/card-img-4.jpg",
+    img: "/service-health-img.jpg",
   },
   {
     label: "Exams consultation",
     desc: "Get strategic astrological guidance to improve focus, confidence, and performance in competitive and academic exams.",
-    img: "/card-img-5.jpg",
+    img: "/service-exams-img.jpg",
   },
   {
     label: "Remedies consultation",
     desc: "Obtain effective spiritual and astrological remedies to overcome obstacles and attract positive energy.",
-    img: "/card-img-6.jpg",
+    img: "/service-remedies-img.jpg",
+  },
+];
+
+export const aboutStats = [
+  {
+    label: "Happy Students",
+    stats: "100+",
+    icon: UsersRound,
+  },
+  {
+    label: "Chart Reads",
+    stats: "2000+",
+    icon: SquareChartGantt,
+  },
+  {
+    label: "Years of Wisdom",
+    stats: "15+",
+    icon: Sparkles,
   },
 ];

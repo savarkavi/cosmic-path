@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -44,9 +45,13 @@ const Header = () => {
       </div>
       <div className="absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-10">
         {headerItems.map((item) => (
-          <p key={item.label} className="cursor-pointer text-lg font-semibold">
+          <Link
+            href={item.href}
+            key={item.label}
+            className="cursor-pointer text-lg font-semibold"
+          >
             {item.label}
-          </p>
+          </Link>
         ))}
       </div>
       <div className="flex items-center gap-4">
