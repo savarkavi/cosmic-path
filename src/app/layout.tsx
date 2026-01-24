@@ -4,6 +4,9 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
+import { ClerkProvider } from "@clerk/nextjs";
+import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
+
 const italiana = Italiana({
   variable: "--font-italiana",
   weight: ["400"],
@@ -31,9 +34,13 @@ export default function RootLayout({
       <body
         className={`${ebGaramond.variable} ${italiana.variable} flex min-h-screen flex-col justify-between antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <ClerkProvider>
+          <ConvexClientProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ConvexClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

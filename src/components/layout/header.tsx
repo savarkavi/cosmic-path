@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
+import { SignInButton } from "@clerk/nextjs";
+import { Unauthenticated } from "convex/react";
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -56,12 +59,16 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-4">
         <Handbag className="cursor-pointer" />
-        <Button
-          size="lg"
-          className="bg-foreground cursor-pointer rounded-full text-white"
-        >
-          Sign In
-        </Button>
+        <Unauthenticated>
+          <SignInButton>
+            <Button
+              size="lg"
+              className="bg-foreground cursor-pointer rounded-full text-white"
+            >
+              Sign In
+            </Button>
+          </SignInButton>
+        </Unauthenticated>
       </div>
     </div>
   );
