@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-import { SignInButton } from "@clerk/nextjs";
-import { Unauthenticated } from "convex/react";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { Authenticated, Unauthenticated } from "convex/react";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -57,7 +57,7 @@ const Header = () => {
           </Link>
         ))}
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         <Handbag className="cursor-pointer" />
         <Unauthenticated>
           <SignInButton>
@@ -69,6 +69,18 @@ const Header = () => {
             </Button>
           </SignInButton>
         </Unauthenticated>
+        <Authenticated>
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonAvatarBox: {
+                  width: "36px",
+                  height: "36px",
+                },
+              },
+            }}
+          />
+        </Authenticated>
       </div>
     </div>
   );
