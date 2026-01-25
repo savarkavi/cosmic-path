@@ -33,9 +33,14 @@ import { courseSchema, type CourseFormValues } from "../../lib/zodSchema";
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 export function CreateCourseForm() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
+  const generateUploadUrl = useMutation(api.courses.generateUploadUrl);
+  const createCourse = useMutation(api.courses.createCourse);
 
   const form = useForm<CourseFormValues>({
     resolver: zodResolver(courseSchema),
@@ -47,11 +52,32 @@ export function CreateCourseForm() {
     },
   });
 
-  function onSubmit(data: CourseFormValues) {
-    toast.success("Course Created", {
-      description: "Your new course has been successfully added.",
-    });
-    console.log("Form Submitted:", data);
+  async function onSubmit(data: CourseFormValues) {
+    try {
+      const postUrl = await generateUploadUrl();
+
+      const result = await fetch(postUrl, {
+        method: "POST",
+        headers: { "Content-Type": data.image!.type },
+        body: data.image,
+      });
+
+      const { storageId } = await result.json();
+
+      await createCourse({
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        duration: data.duration,
+        imageId: storageId,
+      });
+
+      toast.success("Course Created");
+      form.reset();
+    } catch (error) {
+      toast.error("Failed to create the course");
+      console.log(error);
+    }
   }
 
   return (
