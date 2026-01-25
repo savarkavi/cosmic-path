@@ -2,7 +2,7 @@ import AboutCosmicPath from "@/components/pages/about/about-cosmic-path";
 import AboutFounder from "@/components/pages/about/about-founder";
 import Image from "next/image";
 
-const About = () => {
+const AboutPage = () => {
   return (
     <div className="mx-auto w-full max-w-340 pt-36">
       <div className="flex w-full items-center justify-center gap-16">
@@ -21,4 +21,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;
