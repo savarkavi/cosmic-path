@@ -16,5 +16,6 @@ export default defineSchema({
     price: v.number(),
     duration: v.string(),
     imageId: v.id("_storage"),
+    imageUrl: v.nullable(v.string()),
   }),
 });

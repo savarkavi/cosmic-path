@@ -1,5 +1,16 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query, QueryCtx } from "./_generated/server";
+import { paginationOptsValidator } from "convex/server";
+import { Doc } from "./_generated/dataModel";
+
+const getImageUrls = async (ctx: QueryCtx, courses: Doc<"courses">[]) => {
+  return await Promise.all(
+    courses.map(async (course) => ({
+      ...course,
+      imageUrl: await ctx.storage.getUrl(course.imageId),
+    })),
+  );
+};
 
 export const createCourse = mutation({
   args: {
@@ -20,7 +31,29 @@ export const createCourse = mutation({
       price: args.price,
       duration: args.duration,
       imageId: args.imageId,
+      imageUrl: null,
     });
+  },
+});
+
+export const getFeaturedCourses = query({
+  args: {},
+  handler: async (ctx) => {
+    const courses = await ctx.db.query("courses").order("desc").take(6);
+
+    return getImageUrls(ctx, courses);
+  },
+});
+
+export const getAllCourses = query({
+  args: { paginationOpts: paginationOptsValidator },
+  handler: async (ctx, args) => {
+    const courses = await ctx.db
+      .query("courses")
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    return courses;
   },
 });
 
