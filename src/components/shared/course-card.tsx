@@ -2,17 +2,10 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { Clock, Users2 } from "lucide-react";
 import { Button } from "../ui/button";
-
-type course = {
-  title: string;
-  img: string;
-  desc: string;
-  price: string;
-  length: string;
-};
+import { Doc } from "../../../convex/_generated/dataModel";
 
 interface CourseCardProps {
-  course: course;
+  course: Doc<"courses">;
 }
 
 const CourseCard = ({ course }: CourseCardProps) => {
@@ -20,7 +13,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
     <div className="bg-accent h-full w-full rounded-md shadow-lg">
       <div className="relative h-[300px] w-full rounded-t-md">
         <Image
-          src={course.img}
+          src={course.imageUrl ? course.imageUrl : "/placeholder.png"}
           alt="course banner image"
           fill
           className="rounded-t-md object-cover"
@@ -32,7 +25,9 @@ const CourseCard = ({ course }: CourseCardProps) => {
           <p className="line-clamp-1 text-2xl uppercase">{course.title}</p>
           <p className="bg-primary rounded-full px-4 py-1 text-white">{`₹${course.price}`}</p>
         </div>
-        <p className="text-muted-foreground line-clamp-2">{course.desc}</p>
+        <p className="text-muted-foreground line-clamp-2">
+          {course.description}
+        </p>
         <Separator className="my-4 w-full" />
         <div className="text-muted-foreground flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -41,7 +36,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
           </div>
           <div className="flex items-center gap-2">
             <Clock size={16} />
-            <p>{course.length}</p>
+            <p>{course.duration}</p>
           </div>
         </div>
         <Button className="bg-foreground mt-4 cursor-pointer py-6 text-lg text-white">

@@ -38,6 +38,7 @@ import { api } from "../../../convex/_generated/api";
 
 export function CreateCourseForm() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const generateUploadUrl = useMutation(api.courses.generateUploadUrl);
   const createCourse = useMutation(api.courses.createCourse);
@@ -53,7 +54,9 @@ export function CreateCourseForm() {
   });
 
   async function onSubmit(data: CourseFormValues) {
-    try {
+    setIsSubmitting(true);
+
+    const promise = (async () => {
       const postUrl = await generateUploadUrl();
 
       const result = await fetch(postUrl, {
@@ -61,6 +64,10 @@ export function CreateCourseForm() {
         headers: { "Content-Type": data.image!.type },
         body: data.image,
       });
+
+      if (!result.ok) {
+        throw new Error(`Upload failed: ${result.statusText}`);
+      }
 
       const { storageId } = await result.json();
 
@@ -71,13 +78,25 @@ export function CreateCourseForm() {
         duration: data.duration,
         imageId: storageId,
       });
+    })();
 
-      toast.success("Course Created");
-      form.reset();
-    } catch (error) {
-      toast.error("Failed to create the course");
-      console.log(error);
-    }
+    toast.promise(promise, {
+      loading: "Creating the course...",
+      success: "Course created successfully!",
+      error: (error) => {
+        console.log(error);
+        return "Failed to create the course";
+      },
+    });
+
+    promise
+      .then(() => {
+        form.reset();
+        setImagePreviewUrl(null);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   }
 
   return (
@@ -172,7 +191,7 @@ export function CreateCourseForm() {
                     <Input
                       {...field}
                       id="course-duration"
-                      placeholder="e.g. 5h 30m"
+                      placeholder="e.g. 3 weeks"
                       aria-invalid={fieldState.invalid}
                     />
                     {fieldState.invalid && (
@@ -262,10 +281,24 @@ export function CreateCourseForm() {
       </CardContent>
       <CardFooter>
         <Field orientation="horizontal" className="w-full justify-end gap-2">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
+          <Button
+            disabled={isSubmitting}
+            type="button"
+            variant="outline"
+            onClick={() => form.reset()}
+            className="cursor-pointer"
+          >
             Reset
           </Button>
-          <Button type="submit" form="create-course-form">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            form="create-course-form"
+            className={cn(
+              "cursor-pointer",
+              isSubmitting && "cursor-not-allowed",
+            )}
+          >
             Create Course
           </Button>
         </Field>

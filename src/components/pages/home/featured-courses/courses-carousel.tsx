@@ -1,6 +1,5 @@
 "use client";
 
-import { coursesData } from "@/lib/constants";
 import CourseCard from "@/components/shared/course-card";
 import {
   Carousel,
@@ -10,8 +9,25 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { useQuery } from "convex/react";
+import { api } from "../../../../../convex/_generated/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CoursesCarousel = () => {
+  const data = useQuery(api.courses.getFeaturedCourses);
+
+  if (data === undefined)
+    return (
+      <div className="mt-16 flex w-full items-center justify-between gap-10">
+        {[1, 2, 3].map((item) => (
+          <Skeleton
+            key={item}
+            className="h-125 w-full rounded-xl bg-gray-200"
+          />
+        ))}{" "}
+      </div>
+    );
+
   return (
     <Carousel
       opts={{
@@ -28,7 +44,7 @@ const CoursesCarousel = () => {
       className="relative mt-16"
     >
       <CarouselContent>
-        {coursesData.map((course, i) => (
+        {data.map((course, i) => (
           <CarouselItem key={i} className="basis-1/3">
             <CourseCard course={course} />
           </CarouselItem>
