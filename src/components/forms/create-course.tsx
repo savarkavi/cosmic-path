@@ -48,7 +48,9 @@ export function CreateCourseForm() {
     defaultValues: {
       title: "",
       description: "",
+      about: "",
       price: 0,
+      discount: 0,
       duration: "",
     },
   });
@@ -74,7 +76,9 @@ export function CreateCourseForm() {
       await createCourse({
         title: data.title,
         description: data.description,
+        about: data.about,
         price: data.price,
+        discount: data.discount,
         duration: data.duration,
         imageId: storageId,
       });
@@ -129,7 +133,6 @@ export function CreateCourseForm() {
                 </Field>
               )}
             />
-
             <Controller
               name="description"
               control={form.control}
@@ -140,14 +143,44 @@ export function CreateCourseForm() {
                     <InputGroupTextarea
                       {...field}
                       id="course-desc"
-                      placeholder="What will students learn in this course?"
+                      placeholder="A small description about this course."
                       rows={4}
-                      className="min-h-24 resize-none"
+                      className="min-h-20 resize-none"
                       aria-invalid={fieldState.invalid}
                     />
                     <InputGroupAddon align="block-end">
                       <InputGroupText className="tabular-nums">
-                        {field.value?.length || 0}/500
+                        {field.value?.length || 0}/100
+                      </InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            <Controller
+              name="about"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="course-about">
+                    About the Course
+                  </FieldLabel>
+                  <InputGroup>
+                    <InputGroupTextarea
+                      {...field}
+                      id="course-about"
+                      placeholder="What will students learn in this course?"
+                      rows={4}
+                      className="min-h-36 resize-none"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText className="tabular-nums">
+                        {field.value?.length || 0}/1500
                       </InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
@@ -167,12 +200,31 @@ export function CreateCourseForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="course-price">Price ($)</FieldLabel>
+                    <FieldLabel htmlFor="course-price">Price (₹)</FieldLabel>
                     <Input
                       {...field}
                       id="course-price"
                       type="number"
-                      placeholder="99.00"
+                      placeholder="10,000"
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="discount"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="discount">Discount (%)</FieldLabel>
+                    <Input
+                      {...field}
+                      id="discount"
+                      type="number"
+                      placeholder="10 %"
                       aria-invalid={fieldState.invalid}
                     />
                     {fieldState.invalid && (
@@ -187,7 +239,7 @@ export function CreateCourseForm() {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="course-duration">Length</FieldLabel>
+                    <FieldLabel htmlFor="course-duration">Duration</FieldLabel>
                     <Input
                       {...field}
                       id="course-duration"

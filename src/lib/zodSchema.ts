@@ -18,8 +18,18 @@ export const courseSchema = z.object({
     .string()
     .trim()
     .min(10, "Description must be at least 10 characters.")
-    .max(500, "Description must be at most 500 characters."),
+    .max(100, "Description must be at most 200 characters."),
+  about: z
+    .string()
+    .trim()
+    .min(50, "About must be at least 50 characters.")
+    .max(1500, "Description must be at most 1500 characters."),
   price: z.coerce.number<number>().min(0, "Price must be a positive number."),
+  discount: z.coerce
+    .number<number>()
+    .min(0, "Discount cannot be negative.")
+    .max(100, "Discount cannot exceed 100.")
+    .optional(),
   duration: z
     .string()
     .min(1, "Please specify the course length (e.g., '12 Hours')."),
