@@ -16,7 +16,9 @@ export const createCourse = mutation({
   args: {
     title: v.string(),
     description: v.string(),
+    about: v.string(),
     price: v.number(),
+    discount: v.optional(v.number()),
     duration: v.string(),
     imageId: v.id("_storage"),
   },
@@ -25,10 +27,37 @@ export const createCourse = mutation({
 
     if (!identity) throw new Error("Unauthorized");
 
+    const baseSlug = args.title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    let slug = baseSlug;
+    let counter = 1;
+
+    while (true) {
+      const existing = await ctx.db
+        .query("courses")
+        .withIndex("by_slug", (q) => q.eq("slug", slug))
+        .first();
+
+      if (!existing) {
+        break;
+      }
+
+      slug = `${baseSlug}-${counter}`;
+      counter++;
+    }
+
     await ctx.db.insert("courses", {
       title: args.title,
+      slug,
       description: args.description,
+      about: args.about,
       price: args.price,
+      discount: args.discount,
       duration: args.duration,
       imageId: args.imageId,
       imageUrl: null,
@@ -54,6 +83,26 @@ export const getAllCourses = query({
       .paginate(args.paginationOpts);
 
     return courses;
+  },
+});
+
+export const getCourseBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    let course = await ctx.db
+      .query("courses")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .unique();
+
+    if (course) {
+      const imageUrl = await ctx.storage.getUrl(course.imageId);
+      course = {
+        ...course,
+        imageUrl,
+      };
+    }
+
+    return course;
   },
 });
 

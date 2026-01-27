@@ -12,10 +12,13 @@ export default defineSchema({
 
   courses: defineTable({
     title: v.string(),
+    slug: v.string(),
     description: v.string(),
+    about: v.string(),
     price: v.number(),
+    discount: v.optional(v.number()),
     duration: v.string(),
     imageId: v.id("_storage"),
     imageUrl: v.nullable(v.string()),
-  }),
+  }).index("by_slug", ["slug"]),
 });
