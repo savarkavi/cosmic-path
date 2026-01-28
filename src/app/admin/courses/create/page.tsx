@@ -2,7 +2,7 @@ import { CreateCourseForm } from "@/components/forms/create-course";
 
 const CreateCoursePage = () => {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
+    <div className="bg-accent flex min-h-screen w-full items-center justify-center py-12">
       <CreateCourseForm />
     </div>
   );
