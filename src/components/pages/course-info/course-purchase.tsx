@@ -1,0 +1,34 @@
+import { Button } from "@/components/ui/button";
+import { calculateDiscountedPrice } from "@/lib/utils";
+import { Doc } from "../../../../convex/_generated/dataModel";
+
+interface CoursePurchaseProps {
+  course: Doc<"courses">;
+}
+
+const CoursePurchase = ({ course }: CoursePurchaseProps) => {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-baseline gap-3">
+        <span className="text-4xl font-bold text-slate-900">{`₹${calculateDiscountedPrice(course.price, course.discount)}`}</span>
+        <span className="text-lg text-slate-500 line-through">
+          ₹{course.price}
+        </span>
+        <span className="text-lg text-slate-600">${course.discount}% off</span>
+      </div>
+      <div className="mt-5 flex flex-col gap-3">
+        <Button
+          variant="outline"
+          className="border-primary w-full rounded-full py-6"
+        >
+          Add to cart
+        </Button>
+        <Button className="bg-foreground rounded-full py-6 text-white">
+          Buy Now
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default CoursePurchase;
