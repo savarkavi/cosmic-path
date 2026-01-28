@@ -3,6 +3,7 @@ import { Separator } from "../ui/separator";
 import { Clock, Users2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Doc } from "../../../convex/_generated/dataModel";
+import Link from "next/link";
 
 interface CourseCardProps {
   course: Doc<"courses">;
@@ -10,7 +11,10 @@ interface CourseCardProps {
 
 const CourseCard = ({ course }: CourseCardProps) => {
   return (
-    <div className="bg-accent h-full w-full rounded-md shadow-lg">
+    <Link
+      href={`/courses/${course.slug}`}
+      className="bg-accent h-full w-full rounded-md shadow-lg"
+    >
       <div className="relative h-[300px] w-full rounded-t-md">
         <Image
           src={course.imageUrl ? course.imageUrl : "/placeholder.png"}
@@ -43,7 +47,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
           Enroll now
         </Button>
       </div>
-    </div>
+    </Link>
   );
 };
 
