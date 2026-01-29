@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { calculateDiscountedPrice } from "@/lib/utils";
 import { Doc } from "../../../../convex/_generated/dataModel";
+import AddToCartButton from "@/components/cart/add-to-cart-button";
 
 interface CoursePurchaseProps {
   course: Doc<"courses">;
@@ -17,12 +18,7 @@ const CoursePurchase = ({ course }: CoursePurchaseProps) => {
         <span className="text-lg text-slate-600">${course.discount}% off</span>
       </div>
       <div className="mt-5 flex flex-col gap-3">
-        <Button
-          variant="outline"
-          className="border-primary w-full rounded-full py-6"
-        >
-          Add to cart
-        </Button>
+        <AddToCartButton course={course} />
         <Button className="bg-foreground rounded-full py-6 text-white">
           Buy Now
         </Button>

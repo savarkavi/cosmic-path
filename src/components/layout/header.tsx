@@ -1,7 +1,6 @@
 "use client";
 
 import { headerItems } from "@/lib/constants";
-import { Handbag } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import Link from "next/link";
 
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
+import CartSheet from "../cart/cart-sheet";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -58,7 +58,7 @@ const Header = () => {
         ))}
       </div>
       <div className="flex items-center gap-6">
-        <Handbag className="cursor-pointer" />
+        <CartSheet />
         <Unauthenticated>
           <SignInButton>
             <Button
