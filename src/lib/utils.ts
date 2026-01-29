@@ -21,3 +21,18 @@ export function calculateDiscountedPrice(
 
   return Math.round(discountedPrice);
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function calculateCartTotal(cartItems: any[]) {
+  return cartItems.reduce((total, item) => {
+    const course = item.course;
+    if (!course) return total;
+
+    const discountedPrice = calculateDiscountedPrice(
+      course.price,
+      course.discount,
+    );
+
+    return total + discountedPrice;
+  }, 0);
+}
