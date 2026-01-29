@@ -21,4 +21,14 @@ export default defineSchema({
     imageId: v.id("_storage"),
     imageUrl: v.nullable(v.string()),
   }).index("by_slug", ["slug"]),
+
+  cartItems: defineTable({
+    userId: v.optional(v.string()),
+    guestId: v.optional(v.string()),
+    courseId: v.id("courses"),
+  })
+    .index("by_user_course", ["userId", "courseId"])
+    .index("by_guest_course", ["guestId", "courseId"])
+    .index("by_user", ["userId"])
+    .index("by_guest", ["guestId"]),
 });
