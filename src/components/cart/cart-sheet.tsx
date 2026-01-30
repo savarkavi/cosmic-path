@@ -10,12 +10,37 @@ import {
 } from "@/components/ui/sheet";
 import { useCart } from "@/hooks/useCart";
 import { calculateDiscountedPrice } from "@/lib/utils";
-import { ShoppingCart, X } from "lucide-react";
+import { Loader2, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useState } from "react";
+import { Id } from "../../../convex/_generated/dataModel";
+import { toast } from "sonner";
 
 const CartSheet = () => {
+  const [isRemoving, setIsRemoving] = useState({ itemId: "", loading: false });
+
   const { count, cartItems, isLoading, subtotal } = useCart();
+  const removeItem = useMutation(api.cartItems.removeFromCart);
+
+  const handleRemoveItem = async (
+    itemId: Id<"cartItems">,
+    guestId: string | undefined,
+  ) => {
+    setIsRemoving({ itemId, loading: true });
+
+    try {
+      await removeItem({ cartItemId: itemId, guestId });
+      toast.success("Item removed from the cart.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsRemoving({ itemId: "", loading: false });
+    }
+  };
 
   return (
     <Sheet>
@@ -51,10 +76,18 @@ const CartSheet = () => {
                 </div>
                 <Button
                   variant="outline"
-                  className="border-primary w-fit rounded-full text-sm"
+                  disabled={isRemoving.loading}
+                  className="border-primary w-fit min-w-24 cursor-pointer rounded-full text-sm"
+                  onClick={() => handleRemoveItem(item._id, item.guestId)}
                 >
-                  <X />
-                  Remove
+                  {isRemoving.itemId === item._id && isRemoving.loading ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <X />
+                      Remove
+                    </span>
+                  )}
                 </Button>
               </div>
             </div>

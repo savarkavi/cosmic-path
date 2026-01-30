@@ -19,7 +19,7 @@ export const addToCart = mutation({
         )
         .first();
 
-      if (existingCartItem) return { status: "item already in cart" };
+      if (existingCartItem) return { status: "Item already in cart" };
 
       await ctx.db.insert("cartItems", {
         courseId: args.courseId,
@@ -39,7 +39,7 @@ export const addToCart = mutation({
         )
         .first();
 
-      if (existingCartItem) return { status: "item already in cart" };
+      if (existingCartItem) return { status: "Item already in cart" };
 
       await ctx.db.insert("cartItems", {
         courseId: args.courseId,
@@ -49,6 +49,28 @@ export const addToCart = mutation({
 
       return { status: "added" };
     }
+  },
+});
+
+export const removeFromCart = mutation({
+  args: {
+    cartItemId: v.id("cartItems"),
+    guestId: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    const guestId = args.guestId;
+
+    const item = await ctx.db.get(args.cartItemId);
+    if (!item) return;
+
+    if (identity) {
+      if (item.userId !== identity.subject) throw new Error("Unauthorized");
+    } else {
+      if (item.guestId !== guestId) throw new Error("Unauthorized");
+    }
+
+    await ctx.db.delete(args.cartItemId);
   },
 });
 
