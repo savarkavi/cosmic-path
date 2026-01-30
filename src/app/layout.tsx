@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 import { Toaster } from "sonner";
+import CartMerger from "@/components/cart-merger";
 
 const italiana = Italiana({
   variable: "--font-italiana",
@@ -34,7 +35,10 @@ export default function RootLayout({
         className={`${ebGaramond.variable} ${italiana.variable} flex min-h-screen flex-col justify-between antialiased`}
       >
         <ClerkProvider>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
+          <ConvexClientProvider>
+            <CartMerger />
+            {children}
+          </ConvexClientProvider>
         </ClerkProvider>
         <Toaster position="top-right" />
       </body>

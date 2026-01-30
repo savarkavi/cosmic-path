@@ -119,3 +119,38 @@ export const getCart = query({
     return cartWithDetails.filter((item) => item !== null);
   },
 });
+
+export const mergeGuestCart = mutation({
+  args: { guestId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("You are not logged in.");
+
+    const userId = identity.subject;
+
+    const guestCartItems = await ctx.db
+      .query("cartItems")
+      .withIndex("by_guest", (q) => q.eq("guestId", args.guestId))
+      .collect();
+
+    if (guestCartItems.length === 0) return;
+
+    for (const item of guestCartItems) {
+      const existingItem = await ctx.db
+        .query("cartItems")
+        .withIndex("by_user_course", (q) =>
+          q.eq("userId", userId).eq("courseId", item.courseId),
+        )
+        .first();
+
+      if (existingItem) {
+        await ctx.db.delete(item._id);
+      } else {
+        await ctx.db.patch(item._id, {
+          userId,
+          guestId: undefined,
+        });
+      }
+    }
+  },
+});
