@@ -52,8 +52,13 @@ const CartSheet = () => {
       </SheetTrigger>
       <SheetContent className="z-99">
         <SheetHeader>
-          <SheetTitle className="text-3xl">Your Cart</SheetTitle>
+          <SheetTitle className="text-3xl">Cart</SheetTitle>
         </SheetHeader>
+        {cartItems.length === 0 && (
+          <div className="flex h-full items-center justify-center p-5">
+            <p className="text-2xl">Your cart is empty.</p>
+          </div>
+        )}
         <div className="mt-8 flex flex-col gap-8 p-5">
           {cartItems.map((item) => (
             <div key={item._id} className="flex gap-4">
@@ -93,15 +98,17 @@ const CartSheet = () => {
             </div>
           ))}
         </div>
-        <SheetFooter>
-          <div className="flex items-center gap-12 text-xl font-bold">
-            <p>Subtotal</p>
-            <p>{`₹${subtotal}`}</p>
-          </div>
-          <Button className="bg-foreground mt-4 w-full py-6 text-white">
-            Checkout
-          </Button>
-        </SheetFooter>
+        {cartItems.length !== 0 && (
+          <SheetFooter>
+            <div className="flex items-center gap-12 text-xl font-bold">
+              <p>Subtotal</p>
+              <p>{`₹${subtotal}`}</p>
+            </div>
+            <Button className="bg-foreground mt-4 w-full py-6 text-white">
+              Checkout
+            </Button>
+          </SheetFooter>
+        )}
       </SheetContent>
     </Sheet>
   );
