@@ -1,17 +1,28 @@
 import SectionTitle from "@/components/shared/section-title";
-import ServicesCarousel from "./services-carousel";
+import ServiceCard from "@/components/shared/service-card";
 import { Button } from "@/components/ui/button";
+import { servicesData } from "@/lib/constants";
+import Link from "next/link";
 
 const ServicesSection = () => {
+  const subtitle =
+    "Explore our diverse range of spiritual and astrological consultations designed to guide you through life&apos;s journey with clarity and purpose.";
+
   return (
-    <section className="mx-auto min-h-screen max-w-[1360px] pt-12">
-      <div className="relative flex justify-center">
-        <SectionTitle title="Our Services" />
-        <Button className="absolute right-0 -bottom-12 text-white">
+    <section className="mx-auto flex min-h-screen max-w-[1360px] flex-col items-center pt-20">
+      <div>
+        <SectionTitle title="Our Services" subtitle={subtitle} />
+      </div>
+      <div className="mt-16 grid grid-cols-3 gap-12">
+        {servicesData.slice(0, 3).map((service, i) => (
+          <ServiceCard key={i} service={service} />
+        ))}
+      </div>
+      <Link href="/services">
+        <Button size="lg" className="mt-16 cursor-pointer text-white">
           Explore More
         </Button>
-      </div>
-      <ServicesCarousel />
+      </Link>
     </section>
   );
 };

@@ -3,10 +3,13 @@ import CoursesCarousel from "./courses-carousel";
 import { Button } from "@/components/ui/button";
 
 const FeaturedCoursesSection = () => {
+  const subtitle =
+    "Discover thoughtfully crafted courses that deepen your spiritual understanding and empower personal growth at your own pace.";
+
   return (
-    <section className="mx-auto min-h-screen max-w-[1360px] pt-12">
+    <section className="mx-auto min-h-screen max-w-[1360px] pt-20">
       <div className="relative flex justify-center">
-        <SectionTitle title="Our Courses" />
+        <SectionTitle title="Our Courses" subtitle={subtitle} />
         <Button className="absolute right-0 -bottom-12 text-white">
           Explore More
         </Button>
