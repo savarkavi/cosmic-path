@@ -13,9 +13,9 @@ function CheckoutStatus() {
 
   const orderId = searchParams.get("order_id");
 
-  const [status, setStatus] = useState<"VERIFYING" | "SUCCESS" | "FAILED">(
-    "VERIFYING",
-  );
+  const [status, setStatus] = useState<
+    "LOADING" | "PAID" | "FAILED" | "INCOMPLETE"
+  >("LOADING");
 
   useEffect(() => {
     if (!orderId) {
@@ -26,8 +26,10 @@ function CheckoutStatus() {
       try {
         const result = await verifyPayment({ orderId });
 
-        if (result === "SUCCESS") {
-          setStatus("SUCCESS");
+        if (result === "PAID") {
+          setStatus("PAID");
+        } else if (result === "PENDING") {
+          setStatus("INCOMPLETE");
         } else {
           setStatus("FAILED");
         }
@@ -55,7 +57,7 @@ function CheckoutStatus() {
     );
   }
 
-  if (status === "VERIFYING") {
+  if (status === "LOADING") {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-4 text-center">
         <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
@@ -67,7 +69,35 @@ function CheckoutStatus() {
     );
   }
 
-  if (status === "SUCCESS") {
+  if (status === "INCOMPLETE") {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-yellow-50 p-4 text-center">
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100 text-3xl text-yellow-600">
+          !
+        </div>
+        <h1 className="text-3xl font-bold text-yellow-700">
+          Payment Incomplete
+        </h1>
+        <p className="mt-2 max-w-md text-gray-700">
+          The payment process was not completed. If you just paid, please wait a
+          moment and refresh. If you did&apos;t pay, then go to home.
+        </p>
+        <div className="mt-8 space-x-4">
+          <Button onClick={() => window.location.reload()} variant="outline">
+            Refresh Status
+          </Button>
+          <Button
+            onClick={() => router.push("/")}
+            className="bg-yellow-600 text-white hover:bg-yellow-700"
+          >
+            Go to Home
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "PAID") {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-green-50 p-4 text-center">
         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600">
