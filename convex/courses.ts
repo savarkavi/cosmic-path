@@ -139,7 +139,8 @@ export const getCheckoutAmount = internalQuery({
       const course = await ctx.db.get(id);
       if (!course) continue;
 
-      totalAmount += course.price;
+      const price = calculateDiscountedPrice(course.price, course.discount);
+      totalAmount += price;
       courses.push(course);
     }
 
@@ -149,3 +150,20 @@ export const getCheckoutAmount = internalQuery({
     };
   },
 });
+
+function calculateDiscountedPrice(
+  price: number,
+  discountPercentage?: number,
+): number {
+  if (!discountPercentage || discountPercentage <= 0) {
+    return price;
+  }
+
+  if (discountPercentage >= 100) {
+    return 0;
+  }
+
+  const discountedPrice = price - (price * discountPercentage) / 100;
+
+  return Math.round(discountedPrice);
+}
