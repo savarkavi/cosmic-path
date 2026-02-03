@@ -7,6 +7,7 @@ export default defineSchema({
     email: v.string(),
     name: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
+    phone: v.optional(v.string()),
     role: v.union(v.literal("user"), v.literal("admin")),
   }).index("by_clerk_id", ["clerkId"]),
 
@@ -31,4 +32,19 @@ export default defineSchema({
     .index("by_guest_course", ["guestId", "courseId"])
     .index("by_user", ["userId"])
     .index("by_guest", ["guestId"]),
+
+  orders: defineTable({
+    userId: v.string(),
+    userEmail: v.string(),
+    userPhone: v.string(),
+    itemIds: v.array(v.id("courses")),
+    amount: v.number(),
+    orderId: v.string(),
+    paymentId: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("paid"),
+      v.literal("failed"),
+    ),
+  }).index("by_order_id", ["orderId"]),
 });
