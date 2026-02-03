@@ -14,7 +14,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
   return (
-    <div className="bg-accent h-full w-full rounded-md shadow-lg">
+    <div className="bg-background h-full w-full rounded-md shadow-lg">
       <div className="relative h-[300px] w-full rounded-t-md">
         <Image
           src={service.img}
@@ -40,13 +40,18 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
                 className="rounded-full object-cover"
               />
             </div>
-            <p>Yash Sharma</p>
+            <div className="flex flex-col">
+              <p className="text-[12px] uppercase">Consultant</p>
+              <p className="text-black">Yash Sharma</p>
+            </div>
           </div>
-          <p>₹ 15/Min</p>
+          <div className="flex flex-col">
+            <p className="text-[12px] uppercase">Rate</p>
+            <p className="text-black">
+              <span className="text-primary font-bold">₹15</span>/Min
+            </p>
+          </div>
         </div>
-        <Button className="bg-foreground mt-4 cursor-pointer py-6 text-lg text-white">
-          Book Now
-        </Button>
       </div>
     </div>
   );

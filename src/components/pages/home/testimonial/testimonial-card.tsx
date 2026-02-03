@@ -15,7 +15,7 @@ interface TestimonialCardProps {
 
 const TestimonialCard = ({ data }: TestimonialCardProps) => {
   return (
-    <div className="relative w-full max-w-[500px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl">
+    <div className="bg-background relative w-full max-w-[500px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl">
       <div className="bg-primary absolute -top-1/2 flex h-30 w-30 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full text-white">
         <FaQuoteLeft className="absolute size-6 translate-[75%]" />
       </div>

@@ -181,6 +181,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply text-foreground bg-background font-eb-garamond;
+    @apply text-foreground font-eb-garamond bg-[#F5F5F0];
   }
 }
