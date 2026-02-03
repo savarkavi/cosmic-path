@@ -30,11 +30,11 @@ const Header = () => {
         "fixed top-0 left-0 z-90 flex w-full items-center justify-between p-6",
         scrolled
           ? "bg-white/5 text-black backdrop-blur-2xl"
-          : "text-muted-foreground bg-transparent",
+          : "bg-transparent text-gray-600",
       )}
     >
-      <div className="flex items-center gap-2">
-        <div className="relative h-10 w-10">
+      <Link href="/" className="flex items-center gap-2">
+        <div className="relative h-8 w-8">
           <Image
             src="/cosmic-path-logo.svg"
             alt="logo"
@@ -42,11 +42,11 @@ const Header = () => {
             className="object-cover"
           />
         </div>
-        <p className="font-italiana text-2xl font-bold uppercase">
+        <p className="font-italiana text-2xl font-bold text-black uppercase">
           Cosmic Path
         </p>
-      </div>
-      <div className="absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-10">
+      </Link>
+      <div className="w-ful absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-14">
         {headerItems.map((item) => (
           <Link
             href={item.href}
