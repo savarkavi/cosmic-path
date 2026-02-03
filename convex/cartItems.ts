@@ -107,6 +107,7 @@ export const getCart = query({
         return {
           ...item,
           course: {
+            courseId: course._id,
             title: course.title,
             price: course.price,
             discount: course.discount,
