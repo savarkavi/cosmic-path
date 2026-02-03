@@ -118,7 +118,6 @@ const CartSheet = () => {
                 <CheckoutButton
                   courseIds={cartItems.map((item) => item.course.courseId)}
                   userPhone={user?.phone}
-                  amount={subtotal}
                 >
                   Checkout
                 </CheckoutButton>

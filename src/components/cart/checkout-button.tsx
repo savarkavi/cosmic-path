@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 
 interface CheckoutButtonProps {
   courseIds: Id<"courses">[];
-  amount: number;
   userPhone: string | undefined;
   children?: React.ReactNode;
   className?: string;
@@ -19,7 +18,6 @@ interface CheckoutButtonProps {
 
 export default function CheckoutButton({
   courseIds,
-  amount,
   userPhone,
   children = "Buy Now",
 }: CheckoutButtonProps) {
@@ -42,7 +40,6 @@ export default function CheckoutButton({
 
       const paymentSessionId = await createOrder({
         itemsIds: courseIds,
-        amount,
         userPhone,
       });
 
