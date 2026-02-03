@@ -9,8 +9,10 @@
  */
 
 import type * as cartItems from "../cartItems.js";
+import type * as cashfree from "../cashfree.js";
 import type * as courses from "../courses.js";
 import type * as http from "../http.js";
+import type * as orders from "../orders.js";
 import type * as users from "../users.js";
 
 import type {
@@ -21,8 +23,10 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   cartItems: typeof cartItems;
+  cashfree: typeof cashfree;
   courses: typeof courses;
   http: typeof http;
+  orders: typeof orders;
   users: typeof users;
 }>;
 
