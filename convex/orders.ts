@@ -36,3 +36,23 @@ export const markOrderAsPaid = internalMutation({
     });
   },
 });
+
+export const markOrderAsFailed = internalMutation({
+  args: { orderId: v.string() },
+  handler: async (ctx, args) => {
+    const order = await ctx.db
+      .query("orders")
+      .withIndex("by_order_id", (q) => q.eq("orderId", args.orderId))
+      .unique();
+
+    if (!order) {
+      console.warn(`Could not mark missing order ${args.orderId} as failed.`);
+      return;
+    }
+    if (order.status === "paid") return;
+
+    await ctx.db.patch(order._id, {
+      status: "failed",
+    });
+  },
+});

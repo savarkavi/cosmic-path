@@ -86,8 +86,14 @@ export const verifyPayment = action({
 
     const currentUserId = identity.subject;
 
-    const splitOrderId = args.orderId.split("_");
-    const orderUserId = splitOrderId[1];
+    const prefixLength = "order_".length;
+
+    const lastUnderscoreIndex = args.orderId.lastIndexOf("_");
+
+    const orderUserId = args.orderId.substring(
+      prefixLength,
+      lastUnderscoreIndex,
+    );
 
     if (orderUserId !== currentUserId) {
       console.error(
@@ -99,16 +105,28 @@ export const verifyPayment = action({
     try {
       const response = await cashfree.PGFetchOrder(args.orderId);
       const orderData = response.data;
+      const status = orderData.order_status;
 
-      if (orderData.order_status === "PAID") {
+      if (status === "PAID") {
         await ctx.runMutation(internal.orders.markOrderAsPaid, {
           orderId: args.orderId,
           paymentId: orderData.payment_session_id,
         });
-        return "SUCCESS";
+        return "PAID";
       }
 
-      return orderData.order_status;
+      if (
+        status === "EXPIRED" ||
+        status === "TERMINATED" ||
+        status === "TERMINATION_REQUESTED"
+      ) {
+        await ctx.runMutation(internal.orders.markOrderAsFailed, {
+          orderId: args.orderId,
+        });
+        return "FAILED";
+      }
+
+      return "PENDING";
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error setting up order request:", error.response.data);
