@@ -20,6 +20,7 @@ export default function CheckoutButton({
   courseIds,
   userPhone,
   children = "Buy Now",
+  className,
 }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,7 +62,7 @@ export default function CheckoutButton({
     <Button
       onClick={handleCheckout}
       disabled={isLoading}
-      className={`bg-foreground mt-4 w-full py-6 text-white`}
+      className={`bg-foreground mt-4 w-full py-6 text-white ${className || ""}`}
     >
       {isLoading ? "Processing..." : children}
     </Button>
