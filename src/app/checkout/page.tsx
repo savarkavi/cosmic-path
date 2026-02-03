@@ -76,21 +76,18 @@ function CheckoutStatus() {
           !
         </div>
         <h1 className="text-3xl font-bold text-yellow-700">
-          Payment Incomplete
+          Payment Cancelled
         </h1>
-        <p className="mt-2 max-w-md text-gray-700">
-          The payment process was not completed. If you just paid, please wait a
-          moment and refresh. If you did&apos;t pay, then go to home.
+        <p className="mt-2 text-lg text-gray-700">
+          Payment was not completed. No money was deducted.
         </p>
-        <div className="mt-8 space-x-4">
-          <Button onClick={() => window.location.reload()} variant="outline">
-            Refresh Status
-          </Button>
+        <div className="mt-8">
           <Button
-            onClick={() => router.push("/")}
-            className="bg-yellow-600 text-white hover:bg-yellow-700"
+            size="lg"
+            onClick={() => router.push("/cart")}
+            className="rounded-lg bg-yellow-600 font-medium text-white transition hover:bg-yellow-700"
           >
-            Go to Home
+            Return to Cart
           </Button>
         </div>
       </div>
@@ -137,7 +134,7 @@ function CheckoutStatus() {
       <div className="mt-8 space-x-4">
         <Button
           size="lg"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/cart")}
           className="bg-foreground rounded-lg font-medium text-white transition"
         >
           Try Again
