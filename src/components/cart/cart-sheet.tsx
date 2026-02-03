@@ -93,7 +93,7 @@ const CartSheet = () => {
                     <Button
                       variant="outline"
                       disabled={isRemoving.loading}
-                      className="border-primary w-fit min-w-24 cursor-pointer rounded-full text-sm"
+                      className="w-fit min-w-24 cursor-pointer rounded-full border-red-500 text-sm text-red-500 transition hover:bg-red-500 hover:text-white"
                       onClick={() => handleRemoveItem(item._id, item.guestId)}
                     >
                       {isRemoving.itemId === item._id && isRemoving.loading ? (
