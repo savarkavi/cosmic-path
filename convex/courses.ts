@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, query, QueryCtx } from "./_generated/server";
+import { internalQuery, mutation, query, QueryCtx } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
 import { Doc } from "./_generated/dataModel";
 
@@ -110,5 +110,42 @@ export const generateUploadUrl = mutation({
   args: {},
   handler: async (ctx) => {
     return await ctx.storage.generateUploadUrl();
+  },
+});
+
+export const getCheckoutAmount = internalQuery({
+  args: {
+    courseIds: v.array(v.id("courses")),
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userCartItems = await ctx.db
+      .query("cartItems")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
+
+    const cartCourseIds = new Set(userCartItems.map((c) => c.courseId));
+
+    const allItemsInCart = args.courseIds.every((id) => cartCourseIds.has(id));
+
+    if (!allItemsInCart) {
+      throw new Error("Cart mismatch: One or more items are not in your cart.");
+    }
+
+    let totalAmount = 0;
+    const courses = [];
+
+    for (const id of args.courseIds) {
+      const course = await ctx.db.get(id);
+      if (!course) continue;
+
+      totalAmount += course.price;
+      courses.push(course);
+    }
+
+    return {
+      amount: totalAmount,
+      validCourses: courses,
+    };
   },
 });

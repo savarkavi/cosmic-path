@@ -15,7 +15,6 @@ export const createOrder = action({
   args: {
     userPhone: v.string(),
     itemsIds: v.array(v.id("courses")),
-    amount: v.number(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -31,17 +30,26 @@ export const createOrder = action({
 
     const orderId = `order_${userId}_${Date.now()}`;
 
+    const { amount } = await ctx.runQuery(internal.courses.getCheckoutAmount, {
+      courseIds: args.itemsIds,
+      userId: userId,
+    });
+
+    if (amount <= 0) {
+      throw new Error("Invalid order amount.");
+    }
+
     await ctx.runMutation(internal.orders.savePendingOrder, {
       orderId,
       userId,
       userEmail,
       userPhone: args.userPhone,
       itemIds: args.itemsIds,
-      amount: args.amount,
+      amount: amount,
     });
 
     const request = {
-      order_amount: args.amount,
+      order_amount: amount,
       order_currency: "INR",
       order_id: orderId,
       customer_details: {
@@ -71,6 +79,23 @@ export const createOrder = action({
 export const verifyPayment = action({
   args: { orderId: v.string() },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthorized: You must be logged in.");
+    }
+
+    const currentUserId = identity.subject;
+
+    const splitOrderId = args.orderId.split("_");
+    const orderUserId = splitOrderId[1];
+
+    if (orderUserId !== currentUserId) {
+      console.error(
+        `Malicious attempt: User ${currentUserId} tried to verify order ${args.orderId}`,
+      );
+      throw new Error("Unauthorized: You can only verify your own orders.");
+    }
+
     try {
       const response = await cashfree.PGFetchOrder(args.orderId);
       const orderData = response.data;
