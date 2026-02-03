@@ -1,6 +1,6 @@
 import { v, Validator } from "convex/values";
 import { UserJSON } from "@clerk/backend";
-import { internalMutation, mutation } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 
 export const upsertFromClerk = internalMutation({
   args: { data: v.any() as Validator<UserJSON> },
@@ -62,5 +62,22 @@ export const onBoardUser = mutation({
     }
 
     await ctx.db.patch(user._id, { phone: args.phone });
+  },
+});
+
+export const getMe = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) return null;
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) throw new Error("User not saved in DB");
+
+    return user;
   },
 });
