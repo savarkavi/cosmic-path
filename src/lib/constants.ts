@@ -127,12 +127,12 @@ export const testimonialsData = [
 
 export const bookConsultationInfo = [
   {
-    label: "Select expert",
-    icon: BadgeCheck,
+    label: "Call expert",
+    icon: Phone,
   },
   {
     label: "Choose type",
-    icon: Phone,
+    icon: BadgeCheck,
   },
   {
     label: "Schedule",
