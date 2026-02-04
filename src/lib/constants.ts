@@ -7,6 +7,10 @@ import {
   UsersRound,
   SquareChartGantt,
   Sparkles,
+  Heart,
+  Briefcase,
+  Stethoscope,
+  Plane,
 } from "lucide-react";
 
 export const heroServices = [
@@ -188,5 +192,28 @@ export const aboutStats = [
     label: "Years of Wisdom",
     stats: "15+",
     icon: Sparkles,
+  },
+];
+
+export const consultationHighlights = [
+  {
+    label: "Love & Marriage",
+    icon: Heart,
+  },
+  {
+    label: "Education & Career",
+    icon: GraduationCap,
+  },
+  {
+    label: "Business & Finance",
+    icon: Briefcase,
+  },
+  {
+    label: "Health & Child Problems",
+    icon: Stethoscope,
+  },
+  {
+    label: "Travel Abroad & Legal Issues",
+    icon: Plane,
   },
 ];
