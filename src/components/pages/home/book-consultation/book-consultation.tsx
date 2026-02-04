@@ -13,9 +13,9 @@ const BookConsultation = () => {
             </p>
             <p className="text-muted-foreground text-2xl">
               Connect with a top astrologer in minutes! Simply choose your
-              expert, select a convenient time, provide your birth details, and
-              start your insightful consultation via call, chat, or detailed
-              report.
+              problem type, select a convenient time, provide your birth
+              details, and start your insightful consultation via call, chat, or
+              detailed report.
             </p>
           </div>
           <div className="flex items-center gap-12">
