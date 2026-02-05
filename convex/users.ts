@@ -81,3 +81,30 @@ export const getMe = query({
     return user;
   },
 });
+
+export const updateProfileFields = internalMutation({
+  args: {
+    userId: v.string(),
+    sex: v.union(v.literal("male"), v.literal("female"), v.literal("other")),
+    dateOfBirth: v.string(),
+    timeOfBirth: v.string(),
+    placeOfBirth: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.userId))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    await ctx.db.patch(user._id, {
+      sex: args.sex,
+      dateOfBirth: args.dateOfBirth,
+      timeOfBirth: args.timeOfBirth,
+      placeOfBirth: args.placeOfBirth,
+    });
+  },
+});
