@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Calendar } from "lucide-react";
 import HeroServices from "./hero-services";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const HeroContent = () => {
   return (
@@ -28,20 +29,24 @@ const HeroContent = () => {
           </p>
         </div>
         <div className="flex items-center gap-6">
-          <Button
-            size="lg"
-            className="bg-foreground flex cursor-pointer items-center gap-2 rounded-full px-12 py-6 text-white"
-          >
-            <span>Explore Courses</span>
-            <BookOpen />
-          </Button>
-          <Button
-            size="lg"
-            className="border-muted-foreground flex cursor-pointer items-center gap-2 rounded-full border bg-transparent py-6"
-          >
-            <span>Book Consultation</span>
-            <Calendar />
-          </Button>
+          <Link href="/courses">
+            <Button
+              size="lg"
+              className="bg-foreground flex cursor-pointer items-center gap-2 rounded-full px-12 py-6 text-white"
+            >
+              <span>Explore Courses</span>
+              <BookOpen />
+            </Button>
+          </Link>
+          <Link href="/consultation">
+            <Button
+              size="lg"
+              className="border-muted-foreground flex cursor-pointer items-center gap-2 rounded-full border bg-transparent py-6"
+            >
+              <span>Book Consultation</span>
+              <Calendar />
+            </Button>
+          </Link>
         </div>
         <Separator className="my-8 w-full bg-gray-300" />
         <HeroServices />
