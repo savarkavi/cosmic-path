@@ -146,32 +146,32 @@ export const bookConsultationInfo = [
 
 export const servicesData = [
   {
-    label: "Life purpose",
+    label: "Life purpose & Goals",
     desc: "Uncover your true calling, strengths, and soul path through deep astrological and spiritual insights.",
     img: "/service-course-img.jpg",
   },
   {
-    label: "Marriage consultation",
+    label: "Love & Marriage",
     desc: "Receive personalized guidance on love, compatibility, and marital harmony through expert astrological analysis.",
     img: "/service-marriage-img.jpg",
   },
   {
-    label: "Career consultation",
+    label: "Education & Career",
     desc: "Discover the best career path, growth opportunities, and success timings based on your birth chart.",
     img: "/service-career-img.jpg",
   },
   {
-    label: "Health consultation",
+    label: "Business & Finance",
     desc: "Understand potential health challenges and receive preventive astrological remedies for long-term well-being.",
     img: "/service-health-img.jpg",
   },
   {
-    label: "Exams consultation",
+    label: "Health & Child Problems",
     desc: "Get strategic astrological guidance to improve focus, confidence, and performance in competitive and academic exams.",
     img: "/service-exams-img.jpg",
   },
   {
-    label: "Remedies consultation",
+    label: "Travel Abroad & Legal Issues",
     desc: "Obtain effective spiritual and astrological remedies to overcome obstacles and attract positive energy.",
     img: "/service-remedies-img.jpg",
   },
