@@ -26,7 +26,7 @@ export default function CheckoutButton({
 
   const router = useRouter();
 
-  const createOrder = useAction(api.cashfree.createOrder);
+  const createOrder = useAction(api.cashfree.createCourseOrder);
 
   const handleCheckout = async () => {
     if (!userPhone) {
