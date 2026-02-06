@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const ConsultationPurchase = () => {
   return (
@@ -9,9 +10,11 @@ const ConsultationPurchase = () => {
         <span className="text-lg text-slate-600">40% off</span>
       </div>
       <div className="mt-5">
-        <Button className="bg-foreground w-full rounded-full px-12 py-6 text-white">
-          Book Now
-        </Button>
+        <Link href="/consultation/booking-details">
+          <Button className="bg-foreground w-full cursor-pointer rounded-full px-12 py-6 text-white">
+            Book Now
+          </Button>
+        </Link>
       </div>
     </div>
   );
