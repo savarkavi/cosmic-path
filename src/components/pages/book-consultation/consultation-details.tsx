@@ -7,7 +7,7 @@ const ConsultationDetails = () => {
     <div className="mx-auto mt-40 flex max-w-340 justify-center gap-14">
       <div className="relative h-170 w-150 shrink-0 rounded-lg shadow-xl">
         <Image
-          src="/service-banner-img.jpg"
+          src="/book-consultation-img.jpg"
           alt="consultation banner"
           fill
           className="rounded-lg object-cover"
