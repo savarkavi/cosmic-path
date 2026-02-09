@@ -36,3 +36,7 @@ export function calculateCartTotal(cartItems: any[]) {
     return total + discountedPrice;
   }, 0);
 }
+
+export function formatINR(value: number | string) {
+  return Number(value).toLocaleString("en-IN");
+}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
-import { calculateDiscountedPrice } from "@/lib/utils";
+import { calculateDiscountedPrice, formatINR } from "@/lib/utils";
 import { Loader2, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -64,12 +64,12 @@ const CartItem = ({ item }: CartItemProps) => {
           </h3>
           <div className="mt-1 flex items-center gap-2">
             <span className="text-primary text-xl font-bold">
-              ₹{discountedPrice}
+              ₹{formatINR(discountedPrice)}
             </span>
             {item.course.discount && item.course.discount > 0 && (
               <>
                 <span className="text-muted-foreground text-sm line-through">
-                  ₹{item.course.price}
+                  ₹{formatINR(item.course.price)}
                 </span>
                 <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-xs font-medium">
                   {item.course.discount}% off

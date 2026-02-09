@@ -4,6 +4,7 @@ import { Clock, Users2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Doc } from "../../../convex/_generated/dataModel";
 import Link from "next/link";
+import { formatINR } from "@/lib/utils";
 
 interface CourseCardProps {
   course: Doc<"courses">;
@@ -25,7 +26,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
         <div className="mt-4 flex flex-col gap-2 p-4">
           <div className="flex items-center justify-between">
             <p className="line-clamp-1 text-2xl uppercase">{course.title}</p>
-            <p className="bg-primary rounded-full px-4 py-1 text-white">{`₹${course.price}`}</p>
+            <p className="bg-primary rounded-full px-4 py-1 text-white">{`₹${formatINR(course.price)}`}</p>
           </div>
           <p className="text-muted-foreground line-clamp-2">
             {course.description}

@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import CheckoutButton from "./checkout-button";
+import { formatINR } from "@/lib/utils";
 
 interface CartSummaryProps {
   subtotal: number;
@@ -21,13 +22,13 @@ const CartSummary = ({ subtotal, itemCount, courseIds }: CartSummaryProps) => {
       <div className="space-y-3">
         <div className="text-muted-foreground flex justify-between">
           <span>Items ({itemCount})</span>
-          <span>₹{subtotal}</span>
+          <span>₹{formatINR(subtotal)}</span>
         </div>
 
         <div className="border-border border-t pt-3">
           <div className="text-foreground flex justify-between text-lg font-bold">
             <span>Subtotal</span>
-            <span className="text-primary">₹{subtotal}</span>
+            <span className="text-primary">₹{formatINR(subtotal)}</span>
           </div>
           <p className="text-muted-foreground mt-1 text-xs">
             Taxes and discounts calculated at checkout

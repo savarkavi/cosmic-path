@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useCart } from "@/hooks/useCart";
-import { calculateDiscountedPrice } from "@/lib/utils";
+import { calculateDiscountedPrice, formatINR } from "@/lib/utils";
 import { Loader2, ShoppingCart, X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -88,7 +88,7 @@ const CartSheet = () => {
                       <p className="font-bold text-black">
                         {item.course.title}
                       </p>
-                      <p>{`₹${calculateDiscountedPrice(item.course.price, item.course.discount)}`}</p>
+                      <p>{`₹${formatINR(calculateDiscountedPrice(item.course.price, item.course.discount))}`}</p>
                     </div>
                     <Button
                       variant="outline"
@@ -113,7 +113,7 @@ const CartSheet = () => {
               <SheetFooter>
                 <div className="mb-4 flex items-center gap-12 text-xl font-bold">
                   <p>Subtotal</p>
-                  <p>{`₹${subtotal}`}</p>
+                  <p>{`₹${formatINR(subtotal)}`}</p>
                 </div>
                 <Link href="/cart">
                   <Button className="bg-foreground w-full cursor-pointer py-6 text-lg text-white">

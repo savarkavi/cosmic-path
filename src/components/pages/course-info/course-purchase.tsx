@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { calculateDiscountedPrice } from "@/lib/utils";
+import { calculateDiscountedPrice, formatINR } from "@/lib/utils";
 import { Doc } from "../../../../convex/_generated/dataModel";
 import AddToCartButton from "@/components/cart/add-to-cart-button";
 
@@ -11,9 +11,9 @@ const CoursePurchase = ({ course }: CoursePurchaseProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-baseline gap-3">
-        <span className="text-4xl font-bold text-slate-900">{`₹${calculateDiscountedPrice(course.price, course.discount)}`}</span>
+        <span className="text-4xl font-bold text-slate-900">{`₹${formatINR(calculateDiscountedPrice(course.price, course.discount))}`}</span>
         <span className="text-lg text-slate-500 line-through">
-          ₹{course.price}
+          ₹{formatINR(course.price)}
         </span>
         <span className="text-lg text-slate-600">${course.discount}% off</span>
       </div>
