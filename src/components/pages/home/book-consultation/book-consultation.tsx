@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { bookConsultationInfo } from "@/lib/constants";
 import Image from "next/image";
+import Link from "next/link";
 
 const BookConsultation = () => {
   return (
@@ -37,9 +38,11 @@ const BookConsultation = () => {
               );
             })}
           </div>
-          <Button size="lg" className="w-fit text-white">
-            Book Now
-          </Button>
+          <Link href="/consultation">
+            <Button size="lg" className="w-fit cursor-pointer text-white">
+              Book Now
+            </Button>
+          </Link>
         </div>
         <div className="animation-duration-[20s] absolute top-1/2 right-0 h-[1210px] w-[1200px] translate-x-1/2 -translate-y-1/2 animate-spin">
           <Image
