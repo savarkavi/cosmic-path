@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { useQuery } from "convex/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,34 +33,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PlaceAutocomplete } from "@/components/ui/place-autocomplete";
 
 import {
   bookingDetailsSchema,
   type BookingDetailsFormValues,
 } from "@/lib/zodSchema";
 import { servicesData } from "@/lib/constants";
-import { api } from "../../../convex/_generated/api";
 import BookingCheckoutButton from "@/components/booking/booking-checkout-button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Doc } from "../../../convex/_generated/dataModel";
 
-export function BookingDetailsForm() {
-  const user = useQuery(api.users.getMe);
+export function BookingDetailsForm({ user }: { user: Doc<"users"> }) {
   const router = useRouter();
 
   const form = useForm<BookingDetailsFormValues>({
     resolver: zodResolver(bookingDetailsSchema),
     defaultValues: {
-      fullName: "",
-      sex: undefined,
-      dateOfBirth: "",
-      timeOfBirth: "",
-      placeOfBirth: "",
+      fullName: user.name || "",
+      sex: user.sex || undefined,
+      dateOfBirth: user.dateOfBirth || "",
+      timeOfBirth: user.timeOfBirth || "",
+      placeOfBirth: user.placeOfBirth || "",
       serviceType: "",
       message: "",
     },
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const formValues = form.watch();
   const isFormValid = form.formState.isValid;
 
@@ -189,11 +189,11 @@ export function BookingDetailsForm() {
                   <FieldLabel htmlFor="place-of-birth">
                     Place of Birth
                   </FieldLabel>
-                  <Input
-                    {...field}
+                  <PlaceAutocomplete
+                    value={field.value}
+                    onChange={field.onChange}
                     id="place-of-birth"
                     placeholder="e.g. Mumbai, Maharashtra, India"
-                    autoComplete="off"
                     aria-invalid={fieldState.invalid}
                   />
                   {fieldState.invalid && (
