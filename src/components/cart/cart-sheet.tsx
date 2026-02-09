@@ -18,7 +18,7 @@ import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
 import { Id } from "../../../convex/_generated/dataModel";
 import { toast } from "sonner";
-import CheckoutButton from "./checkout-button";
+import Link from "next/link";
 
 const CartSheet = () => {
   const [isRemoving, setIsRemoving] = useState({ itemId: "", loading: false });
@@ -111,16 +111,15 @@ const CartSheet = () => {
             </div>
             {cartItems.length !== 0 && (
               <SheetFooter>
-                <div className="flex items-center gap-12 text-xl font-bold">
+                <div className="mb-4 flex items-center gap-12 text-xl font-bold">
                   <p>Subtotal</p>
                   <p>{`₹${subtotal}`}</p>
                 </div>
-                <CheckoutButton
-                  courseIds={cartItems.map((item) => item.course.courseId)}
-                  userPhone={user?.phone}
-                >
-                  Checkout
-                </CheckoutButton>
+                <Link href="/cart">
+                  <Button className="bg-foreground w-full cursor-pointer py-6 text-lg text-white">
+                    Go to Cart
+                  </Button>
+                </Link>
               </SheetFooter>
             )}
           </>
