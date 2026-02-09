@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const about = `At Cosmic Path, we believe that astrology is not just a subject, but a timeless science that connects the cosmic with the human experience. Our mission is to provide authentic, structured, and practical education in Vedic Astrology, Palmistry, and Vastu Shastra, empowering learners to unlock the wisdom of the stars and apply it meaningfully in everyday life.<br /><br />
 
@@ -27,7 +28,11 @@ const AboutUs = () => {
             dangerouslySetInnerHTML={{ __html: about }}
             className="text-justify"
           ></div>
-          <Button className="w-fit text-white">Learn More</Button>
+          <Link href="/about">
+            <Button className="w-fit cursor-pointer text-white">
+              Learn More
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
