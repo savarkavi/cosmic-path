@@ -119,19 +119,6 @@ export const getCheckoutAmount = internalQuery({
     userId: v.string(),
   },
   handler: async (ctx, args) => {
-    const userCartItems = await ctx.db
-      .query("cartItems")
-      .withIndex("by_user", (q) => q.eq("userId", args.userId))
-      .collect();
-
-    const cartCourseIds = new Set(userCartItems.map((c) => c.courseId));
-
-    const allItemsInCart = args.courseIds.every((id) => cartCourseIds.has(id));
-
-    if (!allItemsInCart) {
-      throw new Error("Cart mismatch: One or more items are not in your cart.");
-    }
-
     let totalAmount = 0;
     const courses = [];
 

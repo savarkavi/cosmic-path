@@ -4,6 +4,10 @@ import { Cashfree, CFEnvironment } from "cashfree-pg";
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
+import { Resend } from "resend";
+import { StudentWelcomeEmail, AdminNotificationEmail } from "./emailTemplates";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const cashfree = new Cashfree(
   CFEnvironment.SANDBOX,
@@ -112,6 +116,52 @@ export const verifyCoursePayment = action({
           orderId: args.orderId,
           paymentId: orderData.payment_session_id,
         });
+
+        const order = await ctx.runQuery(internal.orders.getOrderDetails, {
+          orderId: args.orderId,
+        });
+
+        if (!order) {
+          console.error("Order missing for email sending");
+          return "PAID";
+        }
+
+        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+          clerkId: order.userId,
+        });
+
+        try {
+          await resend.emails.send({
+            from: "Acme Astrology <onboarding@resend.dev>",
+            to: order.userEmail,
+            subject: "Payment Received! Scheduling your Astrology Course",
+            react: (
+              <StudentWelcomeEmail
+                amount={order.amount}
+                name={user?.name || user?.email}
+                orderId={order.orderId}
+                courses={order.coursesDetails}
+              />
+            ),
+          });
+
+          await resend.emails.send({
+            from: "System <onboarding@resend.dev>",
+            to: "sushant20.sharma00@gmail.com",
+            subject: `New Sale: ₹${order.amount}`,
+            react: (
+              <AdminNotificationEmail
+                amount={order.amount}
+                courses={order.coursesDetails}
+                customerEmail={user?.email}
+                customerPhone={user?.phone}
+              />
+            ),
+          });
+        } catch (emailError) {
+          console.error("Failed to send emails:", emailError);
+        }
+
         return "PAID";
       }
 

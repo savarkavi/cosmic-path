@@ -12,6 +12,7 @@ import type * as bookings from "../bookings.js";
 import type * as cartItems from "../cartItems.js";
 import type * as cashfree from "../cashfree.js";
 import type * as courses from "../courses.js";
+import type * as emailTemplates from "../emailTemplates.js";
 import type * as http from "../http.js";
 import type * as orders from "../orders.js";
 import type * as users from "../users.js";
@@ -27,6 +28,7 @@ declare const fullApi: ApiFromModules<{
   cartItems: typeof cartItems;
   cashfree: typeof cashfree;
   courses: typeof courses;
+  emailTemplates: typeof emailTemplates;
   http: typeof http;
   orders: typeof orders;
   users: typeof users;
