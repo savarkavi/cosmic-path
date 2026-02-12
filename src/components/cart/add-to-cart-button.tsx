@@ -39,7 +39,7 @@ const AddToCartButton = ({ course }: AddToCartButton) => {
     <Button
       disabled={isLoading}
       variant="outline"
-      className="border-primary w-full rounded-full py-6"
+      className="border-primary w-full cursor-pointer rounded-full py-6"
       onClick={handleAddToCart}
     >
       {isLoading ? (

@@ -42,9 +42,7 @@ const Header = () => {
             className="object-cover"
           />
         </div>
-        <p className="font-italiana text-2xl font-bold text-black uppercase">
-          Cosmic Path
-        </p>
+        <p className="text-2xl text-black uppercase">Cosmic Path</p>
       </Link>
       <div className="w-ful absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-14">
         {headerItems.map((item) => (
