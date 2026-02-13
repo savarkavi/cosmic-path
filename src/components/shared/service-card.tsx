@@ -14,7 +14,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
   return (
-    <div className="bg-background h-full w-full rounded-md shadow-lg">
+    <div className="bg-background h-full w-full max-w-lg rounded-md shadow-lg">
       <div className="relative h-[300px] w-full rounded-t-md">
         <Image
           src={service.img}

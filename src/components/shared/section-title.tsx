@@ -8,19 +8,19 @@ interface SectionTitleProps {
 
 const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
   return (
-    <div className="flex w-fit flex-col items-center gap-8">
-      <div className="flex w-100 items-center gap-2">
+    <div className="flex w-full flex-col items-center gap-8">
+      <div className="flex w-full max-w-100 items-center gap-2">
         <div className="bg-primary h-px w-1/2" />
         <IoStar className="text-primary size-6" />
         <div className="bg-primary h-px w-1/2" />
       </div>
       <div className="relative flex flex-col items-center justify-center">
-        <div className="flex items-center gap-5">
+        <div className="flex flex-wrap items-center justify-center gap-5">
           {title.split(" ").map((word, i) => (
             <p
               key={i}
               className={cn(
-                "text-6xl uppercase",
+                "text-center text-4xl uppercase xl:text-6xl",
                 i === 1 && "text-accent-foreground italic",
               )}
             >
@@ -28,7 +28,7 @@ const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
             </p>
           ))}
         </div>
-        <p className="text-muted-foreground mt-4 max-w-150 text-center text-lg">
+        <p className="text-muted-foreground mt-4 max-w-150 text-center lg:text-lg">
           {subtitle}
         </p>
       </div>

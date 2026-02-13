@@ -5,21 +5,21 @@ import Link from "next/link";
 
 const BookConsultation = () => {
   return (
-    <div className="bg-accent relative mt-16 h-[650px] w-full overflow-hidden py-16">
+    <div className="bg-accent relative mt-16 min-h-[650px] w-full overflow-hidden rounded-lg px-4 py-16">
       <div className="mx-auto flex max-w-[1360px] items-center">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col items-center gap-12 sm:items-start">
           <div className="flex max-w-[800px] flex-col gap-6">
-            <p className="font-italiana text-accent-foreground text-5xl font-semibold uppercase">
+            <p className="font-italiana text-accent-foreground text-3xl font-semibold uppercase lg:text-5xl">
               Gain clarity of your life through Expert Readings
             </p>
-            <p className="text-muted-foreground text-2xl">
+            <p className="text-muted-foreground max-w-xl text-xl lg:text-2xl">
               Connect with a top astrologer in minutes! Simply choose your
               problem type, select a convenient time, provide your birth
               details, and start your insightful consultation via call, chat, or
               detailed report.
             </p>
           </div>
-          <div className="flex items-center gap-12">
+          <div className="flex flex-col flex-wrap items-center gap-12 sm:flex-row">
             {bookConsultationInfo.map((info) => {
               const Icon = info.icon;
               return (
@@ -44,7 +44,7 @@ const BookConsultation = () => {
             </Button>
           </Link>
         </div>
-        <div className="animation-duration-[20s] absolute top-1/2 right-0 h-[1210px] w-[1200px] translate-x-1/2 -translate-y-1/2 animate-spin">
+        <div className="animation-duration-[20s] absolute top-1/2 right-0 hidden h-[1010px] w-[1000px] translate-x-1/2 -translate-y-1/2 animate-spin xl:block 2xl:h-[1210px] 2xl:w-[1200px]">
           <Image
             src="/astrology-wheel.png"
             alt="astrology wheel"

@@ -7,10 +7,10 @@ const FeaturedCoursesSection = () => {
     "Discover thoughtfully crafted courses that deepen your spiritual understanding and empower personal growth at your own pace.";
 
   return (
-    <section className="mx-auto min-h-screen max-w-[1360px] pt-20">
+    <section className="mx-auto min-h-screen max-w-[1360px] px-4 pt-20">
       <div className="relative flex justify-center">
         <SectionTitle title="Our Courses" subtitle={subtitle} />
-        <Button className="absolute right-0 -bottom-12 text-white">
+        <Button className="absolute right-0 -bottom-12 p-2 text-[12px] text-white">
           Explore More
         </Button>
       </div>

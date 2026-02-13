@@ -2,7 +2,7 @@ import { heroServices } from "@/lib/constants";
 
 const HeroServices = () => {
   return (
-    <div className="flex flex-col gap-8 sm:flex-row">
+    <div className="flex flex-col gap-8 text-sm sm:flex-row lg:text-base">
       {heroServices.map((service) => {
         const Icon = service.icon;
 

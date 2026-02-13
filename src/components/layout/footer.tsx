@@ -4,9 +4,7 @@ const Footer = () => {
   return (
     <footer className="mt-40 bg-[#1a1512] pt-16 pb-8 text-gray-300">
       <div className="container mx-auto px-6 lg:px-12">
-        {/* Top Section: Grid Layout */}
-        <div className="flex justify-between">
-          {/* Column 1: Brand Info (Takes up more space on large screens if needed, or stays standard) */}
+        <div className="flex flex-col justify-between gap-12 lg:flex-row lg:gap-0">
           <div className="space-y-6">
             <h2 className="font-serif text-2xl tracking-wide text-white uppercase">
               Cosmic Path
@@ -39,8 +37,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Offerings */}
-          <div className="flex gap-52">
+          <div className="flex flex-col gap-8 sm:flex-row sm:gap-20 lg:gap-52">
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
                 Offerings
@@ -69,7 +66,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Column 3: Company */}
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
                 Company
@@ -100,10 +96,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="my-8 border-t border-white/10"></div>
 
-        {/* Bottom Section: Copyright & Signature */}
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-gray-500 md:flex-row">
           <p>© 2026 Cosmic Path Astrology. All rights reserved.</p>
           <p>Designed with Starlit Intentions.</p>

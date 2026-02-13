@@ -9,11 +9,11 @@ const ServicesSection = () => {
     "Explore our diverse range of spiritual and astrological consultations designed to guide you through life&apos;s journey with clarity and purpose.";
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-[1360px] flex-col items-center pt-30">
+    <section className="mx-auto flex min-h-screen max-w-[1360px] flex-col items-center px-4 pt-30">
       <div>
         <SectionTitle title="Our Services" subtitle={subtitle} />
       </div>
-      <div className="mt-16 grid grid-cols-3 gap-12">
+      <div className="grid-col-1 mt-16 grid gap-12 lg:grid-cols-2 xl:grid-cols-3">
         {servicesData.slice(0, 3).map((service, i) => (
           <ServiceCard key={i} service={service} />
         ))}

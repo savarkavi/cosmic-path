@@ -10,8 +10,8 @@ What sets us apart is our commitment to integrity, authenticity, and personalize
 
 const AboutUs = () => {
   return (
-    <div className="bg-accent-foreground mt-16 flex w-full py-12">
-      <div className="mx-auto flex items-center gap-40">
+    <div className="bg-accent-foreground mt-16 flex w-full rounded-lg px-4 py-12">
+      <div className="mx-auto flex flex-col items-center gap-10 lg:flex-row lg:gap-30 xl:gap-40">
         <div className="relative h-[600px] w-[280px] shrink-0">
           <Image
             src="/vedic-astrologer-cropped.png"

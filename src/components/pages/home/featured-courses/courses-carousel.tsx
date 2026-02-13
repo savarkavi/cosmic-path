@@ -41,17 +41,17 @@ const CoursesCarousel = () => {
           stopOnInteraction: false,
         }),
       ]}
-      className="relative mt-16"
+      className="relative mx-auto mt-16 w-full max-w-md lg:max-w-none"
     >
       <CarouselContent>
         {data.map((course, i) => (
-          <CarouselItem key={i} className="basis-1/3">
+          <CarouselItem key={i} className="lg:basis-1/2 xl:basis-1/3">
             <CourseCard course={course} />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="hidden md:flex lg:hidden 2xl:flex" />
+      <CarouselNext className="hidden md:flex lg:hidden 2xl:flex" />
     </Carousel>
   );
 };
