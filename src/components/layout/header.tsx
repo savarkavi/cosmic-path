@@ -6,13 +6,22 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
 import CartSheet from "../cart/cart-sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,7 +36,7 @@ const Header = () => {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 z-90 flex w-full items-center justify-between p-6",
+        "fixed top-0 left-0 z-90 flex w-full items-center justify-between px-4 py-4 md:p-6",
         scrolled
           ? "bg-white/5 text-black backdrop-blur-2xl"
           : "bg-transparent text-gray-600",
@@ -42,9 +51,12 @@ const Header = () => {
             className="object-cover"
           />
         </div>
-        <p className="text-2xl text-black uppercase">Cosmic Path</p>
+        <p className="hidden text-2xl text-black uppercase xl:block">
+          Cosmic Path
+        </p>
       </Link>
-      <div className="w-ful absolute top-1/2 left-1/2 flex -translate-1/2 items-center gap-14">
+
+      <div className="absolute top-1/2 left-1/2 hidden -translate-1/2 items-center gap-14 md:flex">
         {headerItems.map((item) => (
           <Link
             href={item.href}
@@ -55,15 +67,17 @@ const Header = () => {
           </Link>
         ))}
       </div>
+
       <div className="flex items-center gap-6">
         <CartSheet />
         <Unauthenticated>
           <SignInButton>
             <Button
               size="lg"
-              className="bg-foreground cursor-pointer rounded-full text-white"
+              className="bg-foreground cursor-pointer rounded-full text-white max-md:size-9 max-md:p-0"
             >
-              Sign In
+              <span className="hidden md:inline">Sign In</span>
+              <span className="text-xs md:hidden">Sign In</span>
             </Button>
           </SignInButton>
         </Unauthenticated>
@@ -79,6 +93,42 @@ const Header = () => {
             }}
           />
         </Authenticated>
+
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild className="md:hidden">
+            <Button variant="ghost" size="icon" className="cursor-pointer">
+              <Menu className="size-6 text-black" />
+              <span className="sr-only">Open menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="z-99 w-72">
+            <SheetHeader>
+              <SheetTitle className="flex items-center gap-2">
+                <div className="relative h-6 w-6">
+                  <Image
+                    src="/cosmic-path-logo.svg"
+                    alt="logo"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                Cosmic Path
+              </SheetTitle>
+            </SheetHeader>
+            <nav className="flex flex-col gap-2 px-4">
+              {headerItems.map((item) => (
+                <Link
+                  href={item.href}
+                  key={item.label}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-foreground hover:bg-accent rounded-md px-3 py-2.5 text-base font-semibold transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
