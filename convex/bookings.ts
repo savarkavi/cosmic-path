@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { internalMutation } from "./_generated/server";
+import { internalMutation, internalQuery } from "./_generated/server";
 
 export const savePendingBooking = internalMutation({
   args: {
@@ -55,5 +55,17 @@ export const markBookingAsFailed = internalMutation({
     await ctx.db.patch(booking._id, {
       status: "failed",
     });
+  },
+});
+
+export const getBookingDetails = internalQuery({
+  args: { orderId: v.string() },
+  handler: async (ctx, args) => {
+    const booking = await ctx.db
+      .query("bookings")
+      .withIndex("by_order_id", (q) => q.eq("orderId", args.orderId))
+      .unique();
+
+    return booking;
   },
 });

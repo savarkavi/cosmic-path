@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Html,
   Body,
@@ -35,7 +34,8 @@ export const StudentWelcomeEmail = ({
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-[40px] w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
-              Namaste, <strong className="capitalize">{name ?? "User"}</strong>!
+              Namaste🙏,{" "}
+              <strong className="capitalize">{name ?? "User"}</strong>!
             </Heading>
             <Text className="text-[14px] leading-[24px] text-black">
               Thank you for your purchase. We have successfully received your
@@ -88,7 +88,11 @@ interface AdminEmailProps {
   customerEmail: string | undefined;
   customerPhone: string | undefined;
   amount: number;
-  courses: { title: string }[];
+  courses?: { title: string }[];
+  bookingDetails?: {
+    serviceType: string;
+    message?: string;
+  };
 }
 
 export const AdminNotificationEmail = ({
@@ -96,6 +100,7 @@ export const AdminNotificationEmail = ({
   customerPhone,
   amount,
   courses,
+  bookingDetails,
 }: AdminEmailProps) => {
   return (
     <Html>
@@ -119,16 +124,32 @@ export const AdminNotificationEmail = ({
               </Text>
             </Section>
 
-            <Section>
-              <Text className="font-bold">Items Purchased:</Text>
-              <ul className="list-disc pl-5">
-                {courses.map((course, index) => (
-                  <li key={index} className="mb-1 text-[14px]">
-                    {course.title}
-                  </li>
-                ))}
-              </ul>
-            </Section>
+            {courses && courses.length > 0 && (
+              <Section>
+                <Text className="font-bold">Items Purchased:</Text>
+                <ul className="list-disc pl-5">
+                  {courses.map((course, index) => (
+                    <li key={index} className="mb-1 text-[14px]">
+                      {course.title}
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            )}
+
+            {bookingDetails && (
+              <Section>
+                <Text className="font-bold">Consultation Booked:</Text>
+                <Text className="m-0 text-[14px]">
+                  <strong>Service:</strong> {bookingDetails.serviceType}
+                </Text>
+                {bookingDetails.message && (
+                  <Text className="m-0 text-[14px]">
+                    <strong>Message:</strong> {bookingDetails.message}
+                  </Text>
+                )}
+              </Section>
+            )}
 
             <Section className="mt-[32px] text-center">
               <Button
@@ -137,6 +158,79 @@ export const AdminNotificationEmail = ({
               >
                 Go to Admin Dashboard
               </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+// --------------------------------------------------------
+// 3. STUDENT BOOKING EMAIL
+// --------------------------------------------------------
+interface StudentBookingEmailProps {
+  name: string | undefined;
+  orderId: string;
+  amount: number;
+  serviceType: string;
+  message?: string;
+}
+
+export const StudentBookingEmail = ({
+  name,
+  orderId,
+  amount,
+  serviceType,
+  message,
+}: StudentBookingEmailProps) => {
+  return (
+    <Html>
+      <Preview>Booking Confirmed! Consultation Scheduled.</Preview>
+      <Tailwind>
+        <Body className="mx-auto my-auto bg-white font-sans">
+          <Container className="mx-auto my-[40px] w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
+            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+              Namaste🙏,{" "}
+              <strong className="capitalize">{name ?? "User"}</strong>!
+            </Heading>
+            <Text className="text-[14px] leading-[24px] text-black">
+              Thank you for booking a consultation. We have successfully
+              received your payment of
+              <strong> ₹{amount}</strong>.
+            </Text>
+
+            <Section>
+              <Text className="text-[16px] font-bold text-black">
+                Booking Details:
+              </Text>
+              <Text className="mt-2 text-[14px] text-black">
+                <strong>Service Type:</strong> {serviceType}
+              </Text>
+              {message && (
+                <Text className="mt-1 text-[14px] text-black">
+                  <strong>Your Message:</strong> {message}
+                </Text>
+              )}
+            </Section>
+
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+
+            <Text className="text-[12px] leading-[24px] text-[#666666]">
+              <strong>Order ID:</strong> {orderId}
+            </Text>
+
+            <Section className="mt-[32px] mb-[32px] text-center">
+              <div className="rounded-lg bg-blue-50 p-4">
+                <Text className="m-0 text-[16px] font-bold text-blue-800">
+                  What happens next?
+                </Text>
+                <Text className="m-0 mt-2 text-[14px] text-blue-600">
+                  Our team will contact you shortly to confirm the scheduled
+                  time for your consultation. Please keep an eye on your email
+                  and phone.
+                </Text>
+              </div>
             </Section>
           </Container>
         </Body>

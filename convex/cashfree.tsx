@@ -1,11 +1,15 @@
 "use node";
 
 import { Cashfree, CFEnvironment } from "cashfree-pg";
-import { action } from "./_generated/server";
+import { action, internalAction } from "./_generated/server";
 import { v } from "convex/values";
 import { internal } from "./_generated/api";
 import { Resend } from "resend";
-import { StudentWelcomeEmail, AdminNotificationEmail } from "./emailTemplates";
+import {
+  StudentWelcomeEmail,
+  AdminNotificationEmail,
+  StudentBookingEmail,
+} from "./emailTemplates";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -185,7 +189,6 @@ export const verifyCoursePayment = action({
   },
 });
 
-// Fixed consultation booking price in INR
 const BOOKING_PRICE = 1500;
 
 export const createBookingOrder = action({
@@ -210,7 +213,6 @@ export const createBookingOrder = action({
       throw new Error("Your account must have an email to book.");
     }
 
-    // Update user profile fields
     await ctx.runMutation(internal.users.updateProfileFields, {
       userId,
       sex: args.sex,
@@ -221,7 +223,6 @@ export const createBookingOrder = action({
 
     const orderId = `booking_${userId}_${Date.now()}`;
 
-    // Save pending booking
     await ctx.runMutation(internal.bookings.savePendingBooking, {
       orderId,
       userId,
@@ -290,6 +291,58 @@ export const verifyBookingPayment = action({
       const status = orderData.order_status;
 
       if (status === "PAID") {
+        const booking = await ctx.runQuery(
+          internal.bookings.getBookingDetails,
+          {
+            orderId: args.orderId,
+          },
+        );
+
+        if (!booking) {
+          console.error("Booking missing for email sending");
+          return "PAID";
+        }
+
+        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+          clerkId: booking.userId,
+        });
+
+        try {
+          await resend.emails.send({
+            from: "Acme Astrology <onboarding@resend.dev>",
+            to: booking.userEmail,
+            subject: "Booking Confirmed! Consultation Scheduled",
+            react: (
+              <StudentBookingEmail
+                name={user?.name || user?.email}
+                orderId={booking.orderId}
+                amount={booking.amount}
+                serviceType={booking.serviceType}
+                message={booking.message}
+              />
+            ),
+          });
+
+          await resend.emails.send({
+            from: "System <onboarding@resend.dev>",
+            to: "sushant20.sharma00@gmail.com",
+            subject: `New Booking: ₹${booking.amount}`,
+            react: (
+              <AdminNotificationEmail
+                amount={booking.amount}
+                customerEmail={user?.email}
+                customerPhone={user?.phone}
+                bookingDetails={{
+                  serviceType: booking.serviceType,
+                  message: booking.message,
+                }}
+              />
+            ),
+          });
+        } catch (emailError) {
+          console.error("Failed to send booking emails:", emailError);
+        }
+
         await ctx.runMutation(internal.bookings.markBookingAsPaid, {
           orderId: args.orderId,
           paymentId: orderData.payment_session_id,
@@ -313,6 +366,173 @@ export const verifyBookingPayment = action({
     } catch (error: any) {
       console.error("Error verifying booking:", error.response.data);
       throw new Error("Booking verification failed (network)");
+    }
+  },
+});
+
+export const processWebhookPayment = internalAction({
+  args: {
+    signature: v.string(),
+    timestamp: v.string(),
+    rawBody: v.string(),
+  },
+  handler: async (ctx, args) => {
+    try {
+      cashfree.PGVerifyWebhookSignature(
+        args.signature,
+        args.rawBody,
+        args.timestamp,
+      );
+    } catch (error) {
+      console.error("Cashfree webhook signature verification failed:", error);
+      throw new Error("Invalid webhook signature");
+    }
+
+    const payload = JSON.parse(args.rawBody);
+    const eventType: string = payload.type;
+    const orderData = payload.data?.order;
+    const paymentData = payload.data?.payment;
+
+    if (!orderData?.order_id) {
+      console.error("Cashfree webhook: Missing order_id in payload");
+      return;
+    }
+
+    const orderId: string = orderData.order_id;
+    const isBooking = orderId.startsWith("booking_");
+    const isCourseOrder = orderId.startsWith("order_");
+
+    if (eventType === "PAYMENT_SUCCESS_WEBHOOK") {
+      const paymentId: string | undefined =
+        paymentData?.cf_payment_id?.toString();
+
+      if (isBooking) {
+        const booking = await ctx.runQuery(
+          internal.bookings.getBookingDetails,
+          { orderId },
+        );
+
+        if (!booking) {
+          console.error(`Webhook: Booking not found for ${orderId}`);
+          return;
+        }
+        if (booking.status === "paid") {
+          console.log(`Webhook: Booking ${orderId} already paid, skipping.`);
+          return;
+        }
+
+        await ctx.runMutation(internal.bookings.markBookingAsPaid, {
+          orderId,
+          paymentId,
+        });
+
+        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+          clerkId: booking.userId,
+        });
+
+        try {
+          await resend.emails.send({
+            from: "Acme Astrology <onboarding@resend.dev>",
+            to: booking.userEmail,
+            subject: "Booking Confirmed! Consultation Scheduled",
+            react: (
+              <StudentBookingEmail
+                name={user?.name || user?.email}
+                orderId={booking.orderId}
+                amount={booking.amount}
+                serviceType={booking.serviceType}
+                message={booking.message}
+              />
+            ),
+          });
+
+          await resend.emails.send({
+            from: "System <onboarding@resend.dev>",
+            to: "sushant20.sharma00@gmail.com",
+            subject: `New Booking: ₹${booking.amount}`,
+            react: (
+              <AdminNotificationEmail
+                amount={booking.amount}
+                customerEmail={user?.email}
+                customerPhone={user?.phone}
+                bookingDetails={{
+                  serviceType: booking.serviceType,
+                  message: booking.message,
+                }}
+              />
+            ),
+          });
+        } catch (emailError) {
+          console.error("Webhook: Failed to send booking emails:", emailError);
+        }
+      } else if (isCourseOrder) {
+        const order = await ctx.runQuery(internal.orders.getOrderDetails, {
+          orderId,
+        });
+
+        if (!order) {
+          console.error(`Webhook: Order not found for ${orderId}`);
+          return;
+        }
+        if (order.status === "paid") {
+          console.log(`Webhook: Order ${orderId} already paid, skipping.`);
+          return;
+        }
+
+        await ctx.runMutation(internal.orders.markOrderAsPaid, {
+          orderId,
+          paymentId,
+        });
+
+        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+          clerkId: order.userId,
+        });
+
+        try {
+          await resend.emails.send({
+            from: "Acme Astrology <onboarding@resend.dev>",
+            to: order.userEmail,
+            subject: "Payment Received! Scheduling your Astrology Course",
+            react: (
+              <StudentWelcomeEmail
+                amount={order.amount}
+                name={user?.name || user?.email}
+                orderId={order.orderId}
+                courses={order.coursesDetails}
+              />
+            ),
+          });
+
+          await resend.emails.send({
+            from: "System <onboarding@resend.dev>",
+            to: "sushant20.sharma00@gmail.com",
+            subject: `New Sale: ₹${order.amount}`,
+            react: (
+              <AdminNotificationEmail
+                amount={order.amount}
+                courses={order.coursesDetails}
+                customerEmail={user?.email}
+                customerPhone={user?.phone}
+              />
+            ),
+          });
+        } catch (emailError) {
+          console.error("Webhook: Failed to send course emails:", emailError);
+        }
+      }
+    }
+
+    if (
+      eventType === "PAYMENT_FAILED_WEBHOOK" ||
+      eventType === "PAYMENT_USER_DROPPED_WEBHOOK"
+    ) {
+      if (isBooking) {
+        await ctx.runMutation(internal.bookings.markBookingAsFailed, {
+          orderId,
+        });
+      } else if (isCourseOrder) {
+        await ctx.runMutation(internal.orders.markOrderAsFailed, { orderId });
+      }
     }
   },
 });

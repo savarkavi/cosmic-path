@@ -51,4 +51,26 @@ async function validateRequest(req: Request): Promise<WebhookEvent | null> {
   }
 }
 
+http.route({
+  path: "/cashfree-payment-webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const signature = request.headers.get("x-webhook-signature") || "";
+    const timestamp = request.headers.get("x-webhook-timestamp") || "";
+    const rawBody = await request.text();
+
+    try {
+      await ctx.runAction(internal.cashfree.processWebhookPayment, {
+        signature,
+        timestamp,
+        rawBody,
+      });
+    } catch (error) {
+      console.error("Cashfree webhook processing failed:", error);
+    }
+
+    return new Response("OK", { status: 200 });
+  }),
+});
+
 export default http;

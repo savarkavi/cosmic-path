@@ -25,7 +25,7 @@ function CheckoutStatus() {
       return;
     }
 
-    const checkStatus = async () => {
+    const checkStatus = async (retriesLeft = 3) => {
       try {
         const result = isBooking
           ? await verifyBookingPayment({ orderId })
@@ -33,6 +33,9 @@ function CheckoutStatus() {
 
         if (result === "PAID") {
           setStatus("PAID");
+        } else if (result === "PENDING" && retriesLeft > 0) {
+          // Payment may still be processing, retry after a delay
+          setTimeout(() => checkStatus(retriesLeft - 1), 3000);
         } else if (result === "PENDING") {
           setStatus("INCOMPLETE");
         } else {
@@ -68,7 +71,8 @@ function CheckoutStatus() {
         <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
         <h2 className="text-xl font-semibold">Verifying Payment...</h2>
         <p className="text-gray-500">
-          Please wait while we confirm your {isBooking ? "booking" : "order"}.
+          Please stay on this page while we confirm your{" "}
+          {isBooking ? "booking" : "order"}.
         </p>
       </div>
     );
