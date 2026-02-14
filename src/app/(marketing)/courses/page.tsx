@@ -4,7 +4,7 @@ import Header from "@/components/pages/courses/header";
 
 const CoursesPage = () => {
   return (
-    <div className="mx-auto w-full max-w-340 pt-46">
+    <div className="mx-auto w-full max-w-340 px-4 pt-28 md:pt-46">
       <Header />
       <BundleBanner />
       <CoursesContainer />

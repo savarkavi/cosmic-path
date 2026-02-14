@@ -12,7 +12,7 @@ We are not just teaching astrology — we are nurturing future astrologers, palm
 const AboutCosmicPath = () => {
   return (
     <div className="flex max-w-[620px] flex-col gap-8">
-      <p className="text-6xl capitalize">
+      <p className="text-3xl capitalize md:text-6xl">
         Bridging Ancient{" "}
         <span className="text-accent-foreground italic">Wisdom</span> with
         Modern Life

@@ -6,18 +6,18 @@ interface CourseAboutProps {
 }
 const CourseAbout = ({ course }: CourseAboutProps) => {
   return (
-    <div className="border-primary mx-auto mt-16 max-w-6xl border-t-3 pt-12">
+    <div className="border-primary mx-auto mt-16 max-w-6xl border-t-3 px-4 pt-12">
       <div>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div className="flex flex-col gap-12 md:flex-row">
           <div className="md:col-span-2">
             <h2 className="mb-6 text-3xl font-bold text-slate-900">
               About this course
             </h2>
-            <div className="text-justify leading-relaxed whitespace-pre-line text-slate-700">
+            <div className="shrink-0 text-justify leading-relaxed whitespace-pre-line text-slate-700 md:max-w-xl">
               <p>{course.about}</p>
             </div>
           </div>
-          <div className="bg-accent rounded-xl p-6">
+          <div className="bg-accent h-fit w-fit rounded-xl p-6">
             <h4 className="mb-4 text-xs font-bold tracking-wider uppercase">
               The Outcomes
             </h4>

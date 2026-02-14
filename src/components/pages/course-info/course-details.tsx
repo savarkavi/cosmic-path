@@ -9,8 +9,8 @@ interface CourseDetailsProps {
 
 const CourseDetails = ({ course }: CourseDetailsProps) => {
   return (
-    <div className="mx-auto mt-40 flex max-w-340 justify-center gap-14">
-      <div className="relative h-170 w-150 shrink-0 rounded-lg shadow-xl">
+    <div className="mx-auto mt-28 flex max-w-340 flex-col items-center gap-14 px-4 md:mt-40 lg:flex-row lg:justify-center">
+      <div className="relative h-80 w-full shrink-0 rounded-lg shadow-xl sm:h-120 lg:h-170 lg:w-150">
         <Image
           src={course.imageUrl ? course.imageUrl : "/placeholder.png"}
           alt="course banner"
@@ -20,7 +20,7 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
       </div>
       <div className="flex max-w-150 flex-col justify-center gap-12">
         <div className="flex flex-col gap-4">
-          <h1 className="text-accent-foreground text-6xl leading-tight capitalize">
+          <h1 className="text-accent-foreground text-3xl leading-tight capitalize md:text-6xl">
             {course.title}
           </h1>
           <p className="text-xl text-gray-600">{course.description}</p>

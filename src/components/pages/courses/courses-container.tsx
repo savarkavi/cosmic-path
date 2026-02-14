@@ -10,7 +10,7 @@ const CoursesContainer = () => {
 
   if (data === undefined)
     return (
-      <div className="mt-16 grid grid-cols-3 gap-12">
+      <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
         {[1, 2, 3].map((item) => (
           <Skeleton
             key={item}
@@ -22,7 +22,7 @@ const CoursesContainer = () => {
 
   return (
     <div className="mt-12">
-      <div className="grid grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
         {data.map((data) => (
           <CourseCard key={data.title} course={data} />
         ))}

@@ -14,7 +14,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
   return (
     <div className="bg-background h-full w-full rounded-md shadow-lg">
       <Link href={`/courses/${course.slug}`}>
-        <div className="relative h-[300px] w-full rounded-t-md">
+        <div className="relative h-[200px] w-full rounded-t-md md:h-[300px]">
           <Image
             src={course.imageUrl ? course.imageUrl : "/placeholder.png"}
             alt="course banner image"
@@ -25,7 +25,9 @@ const CourseCard = ({ course }: CourseCardProps) => {
         </div>
         <div className="mt-4 flex flex-col gap-2 p-4">
           <div className="flex items-center justify-between">
-            <p className="line-clamp-1 text-2xl uppercase">{course.title}</p>
+            <p className="line-clamp-1 text-lg uppercase md:text-2xl">
+              {course.title}
+            </p>
             <p className="bg-primary rounded-full px-4 py-1 text-white">{`₹${formatINR(course.price)}`}</p>
           </div>
           <p className="text-muted-foreground line-clamp-2">

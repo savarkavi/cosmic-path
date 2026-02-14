@@ -20,7 +20,7 @@ const CoursePurchase = ({ course }: CoursePurchaseProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-baseline gap-3">
-        <span className="text-4xl font-bold text-slate-900">{`₹${formatINR(calculateDiscountedPrice(course.price, course.discount))}`}</span>
+        <span className="text-2xl font-bold text-slate-900 md:text-4xl">{`₹${formatINR(calculateDiscountedPrice(course.price, course.discount))}`}</span>
         <span className="text-lg text-slate-500 line-through">
           ₹{formatINR(course.price)}
         </span>
