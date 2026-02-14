@@ -8,7 +8,7 @@ const TestimonialSection = () => {
 
   return (
     <section>
-      <div className="flex flex-col items-center gap-8 px-4 pt-30">
+      <div className="flex flex-col items-center gap-8 px-4 pt-30 2xl:px-0">
         <SectionTitle title="Testimonials" subtitle={subtitle} />
       </div>
       <div className="mx-auto mt-24 grid max-w-[1400px] grid-cols-1 items-center justify-items-center gap-8 px-4 md:grid-cols-2 lg:grid-cols-3">

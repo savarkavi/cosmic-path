@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const HeroContent = () => {
   return (
-    <div className="z-10 h-dvh w-full px-4">
+    <div className="z-10 h-dvh w-full px-4 2xl:px-0">
       <div className="flex h-full w-full flex-col justify-center gap-4 lg:gap-8">
         {/* <div className="bg-accent-foreground w-fit rounded-full px-8 py-2 text-white capitalize">
           <p>Vedic mastery course now available</p>

@@ -2,7 +2,7 @@ import ConsultationDetails from "@/components/pages/book-consultation/consultati
 
 const BookConsultationPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen px-4 pt-28 md:pt-0">
       <ConsultationDetails />
     </div>
   );

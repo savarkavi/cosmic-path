@@ -6,7 +6,7 @@ const AboutSection = () => {
     "Our purpose is to illuminate paths, nurture inner balance, and help you align with clarity, wisdom, and meaningful transformation.";
 
   return (
-    <section className="relative min-h-screen px-4 pt-20">
+    <section className="relative min-h-screen px-4 pt-20 2xl:px-0">
       <div className="flex justify-center">
         <SectionTitle title="Our purpose" subtitle={subtitle} />
       </div>

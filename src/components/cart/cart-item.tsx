@@ -48,8 +48,8 @@ const CartItem = ({ item }: CartItemProps) => {
   );
 
   return (
-    <div className="border-border flex gap-6 border-b pb-6">
-      <div className="relative h-28 w-40 shrink-0 overflow-hidden rounded-lg">
+    <div className="border-border flex gap-4 border-b pb-6 sm:gap-6">
+      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg sm:h-28 sm:w-40">
         <Image
           src={item.course.imageUrl ? item.course.imageUrl : "/placeholder.png"}
           alt={item.course.title}
@@ -59,19 +59,19 @@ const CartItem = ({ item }: CartItemProps) => {
       </div>
       <div className="flex flex-1 flex-col justify-between">
         <div>
-          <h3 className="text-foreground text-lg font-bold">
+          <h3 className="text-foreground text-base font-bold sm:text-lg">
             {item.course.title}
           </h3>
           <div className="mt-1 flex items-center gap-2">
-            <span className="text-primary text-xl font-bold">
+            <span className="text-primary text-lg font-bold sm:text-xl">
               ₹{formatINR(discountedPrice)}
             </span>
             {item.course.discount && item.course.discount > 0 && (
               <>
-                <span className="text-muted-foreground text-sm line-through">
+                <span className="text-muted-foreground text-xs line-through sm:text-sm">
                   ₹{formatINR(item.course.price)}
                 </span>
-                <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-xs font-medium">
+                <span className="bg-accent text-accent-foreground rounded-full px-2 py-0.5 text-[10px] font-medium sm:text-xs">
                   {item.course.discount}% off
                 </span>
               </>
@@ -81,14 +81,14 @@ const CartItem = ({ item }: CartItemProps) => {
         <Button
           variant="outline"
           disabled={isRemoving}
-          className="border-destructive text-destructive hover:bg-destructive mt-3 w-fit min-w-28 cursor-pointer rounded-full hover:text-white"
+          className="border-destructive text-destructive hover:bg-destructive mt-2 h-8 w-fit min-w-24 cursor-pointer rounded-full px-3 text-xs hover:text-white sm:mt-3 sm:h-10 sm:min-w-28 sm:px-4 sm:text-sm"
           onClick={handleRemoveItem}
         >
           {isRemoving ? (
-            <Loader2 className="animate-spin" />
+            <Loader2 className="h-3 w-3 animate-spin sm:h-4 sm:w-4" />
           ) : (
             <span className="flex items-center gap-1">
-              <X className="h-4 w-4" />
+              <X className="h-3 w-3 sm:h-4 sm:w-4" />
               Remove
             </span>
           )}

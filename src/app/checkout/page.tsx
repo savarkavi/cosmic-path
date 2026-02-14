@@ -84,7 +84,7 @@ function CheckoutStatus() {
         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100 text-3xl text-yellow-600">
           !
         </div>
-        <h1 className="text-3xl font-bold text-yellow-700">
+        <h1 className="text-2xl font-bold text-yellow-700 md:text-3xl">
           Payment Cancelled
         </h1>
         <p className="mt-2 text-lg text-gray-700">
@@ -109,7 +109,7 @@ function CheckoutStatus() {
         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600">
           ✓
         </div>
-        <h1 className="text-3xl font-bold text-green-700">
+        <h1 className="text-2xl font-bold text-green-700 md:text-3xl">
           Payment Successful!
         </h1>
         <p className="mt-2 max-w-md text-gray-700">
@@ -136,13 +136,15 @@ function CheckoutStatus() {
       <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600">
         ✕
       </div>
-      <h1 className="text-3xl font-bold text-red-700">Payment Failed</h1>
+      <h1 className="text-2xl font-bold text-red-700 md:text-3xl">
+        Payment Failed
+      </h1>
       <p className="mt-2 max-w-md text-gray-700">
         We couldn&apos;t verify your payment. If money was deducted, it will be
         automatically refunded within 5-7 days.
       </p>
 
-      <div className="mt-8 space-x-4">
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:space-x-4">
         <Button
           size="lg"
           onClick={() => router.push(isBooking ? "/consultation" : "/cart")}

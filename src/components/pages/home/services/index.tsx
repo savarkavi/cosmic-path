@@ -9,7 +9,7 @@ const ServicesSection = () => {
     "Explore our diverse range of spiritual and astrological consultations designed to guide you through life&apos;s journey with clarity and purpose.";
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-[1360px] flex-col items-center px-4 pt-30">
+    <section className="mx-auto flex min-h-screen max-w-[1360px] flex-col items-center px-4 pt-30 2xl:px-0">
       <div>
         <SectionTitle title="Our Services" subtitle={subtitle} />
       </div>
