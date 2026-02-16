@@ -45,7 +45,7 @@ export const headerItems = [
   },
   {
     label: "Services",
-    href: "services",
+    href: "/services",
   },
   {
     label: "About",
