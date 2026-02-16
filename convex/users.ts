@@ -25,9 +25,8 @@ export const upsertFromClerk = internalMutation({
     const userAttributes = {
       clerkId: args.data.id,
       email: args.data.email_addresses[0].email_address,
-      name: `${args.data.first_name} ${args.data.last_name}`,
+      name: `${args.data.first_name} ${args.data.last_name || ""}`,
       imageUrl: args.data.image_url,
-      role: "user" as const,
     };
 
     const existingUser = await ctx.db
@@ -36,7 +35,7 @@ export const upsertFromClerk = internalMutation({
       .unique();
 
     if (existingUser === null) {
-      await ctx.db.insert("users", userAttributes);
+      await ctx.db.insert("users", { ...userAttributes, role: "user" });
     } else {
       await ctx.db.patch(existingUser._id, userAttributes);
     }

@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { internalQuery, mutation, query, QueryCtx } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
 import { Doc } from "./_generated/dataModel";
+import { requireAdmin } from "./helpers";
 
 const getImageUrls = async (ctx: QueryCtx, courses: Doc<"courses">[]) => {
   return await Promise.all(
@@ -23,9 +24,7 @@ export const createCourse = mutation({
     imageId: v.id("_storage"),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-
-    if (!identity) throw new Error("Unauthorized");
+    await requireAdmin(ctx);
 
     const baseSlug = args.title
       .toLowerCase()
@@ -109,6 +108,7 @@ export const getCourseBySlug = query({
 export const generateUploadUrl = mutation({
   args: {},
   handler: async (ctx) => {
+    await requireAdmin(ctx);
     return await ctx.storage.generateUploadUrl();
   },
 });
