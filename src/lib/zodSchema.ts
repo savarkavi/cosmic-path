@@ -18,7 +18,7 @@ export const courseSchema = z.object({
     .string()
     .trim()
     .min(10, "Description must be at least 10 characters.")
-    .max(100, "Description must be at most 200 characters."),
+    .max(100, "Description must be at most 100 characters."),
   about: z
     .string()
     .trim()
