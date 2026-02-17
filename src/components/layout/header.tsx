@@ -43,7 +43,7 @@ const Header = () => {
       )}
     >
       <Link href="/" className="flex items-center gap-2">
-        <div className="relative h-8 w-8">
+        <div className="relative h-10 w-10">
           <Image
             src="/cosmic-path-logo.svg"
             alt="logo"
@@ -51,9 +51,14 @@ const Header = () => {
             className="object-cover"
           />
         </div>
-        <p className="hidden text-2xl text-black uppercase xl:block">
-          Cosmic Path
-        </p>
+        <div className="hidden text-xl leading-5 uppercase xl:block">
+          <p className="font-semibold text-[#bb8b32]">Cosmic Path</p>
+          <div className="text-foreground flex w-full justify-between text-sm">
+            {"See Beyond".split("").map((char, i) => (
+              <span key={i}>{char}</span>
+            ))}
+          </div>
+        </div>
       </Link>
 
       <div className="absolute top-1/2 left-1/2 hidden -translate-1/2 items-center gap-14 md:flex">
