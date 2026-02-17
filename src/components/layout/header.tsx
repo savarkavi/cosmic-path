@@ -6,10 +6,11 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, PlusCircle } from "lucide-react";
 
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import { Authenticated, Unauthenticated, useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import CartSheet from "../cart/cart-sheet";
 import {
   Sheet,
@@ -22,6 +23,8 @@ import {
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const user = useQuery(api.users.getMe);
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
     const onScroll = () => {
@@ -96,7 +99,17 @@ const Header = () => {
                 },
               },
             }}
-          />
+          >
+            {isAdmin && (
+              <UserButton.MenuItems>
+                <UserButton.Link
+                  label="Create Course"
+                  labelIcon={<PlusCircle size={16} />}
+                  href="/admin/courses/create"
+                />
+              </UserButton.MenuItems>
+            )}
+          </UserButton>
         </Authenticated>
 
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
