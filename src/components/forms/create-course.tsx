@@ -28,6 +28,13 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { courseSchema, type CourseFormValues } from "../../lib/zodSchema";
 import { useState } from "react";
@@ -80,6 +87,7 @@ export function CreateCourseForm() {
         price: data.price,
         discount: data.discount,
         duration: data.duration,
+        difficulty: data.difficulty,
         imageId: storageId,
       });
     })();
@@ -150,7 +158,7 @@ export function CreateCourseForm() {
                     />
                     <InputGroupAddon align="block-end">
                       <InputGroupText className="tabular-nums">
-                        {field.value?.length || 0}/100
+                        {field.value?.length || 0}/200
                       </InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
@@ -246,6 +254,34 @@ export function CreateCourseForm() {
                       placeholder="e.g. 3 weeks"
                       aria-invalid={fieldState.invalid}
                     />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="difficulty"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="course-difficulty">
+                      Difficulty
+                    </FieldLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        id="course-difficulty"
+                        className="w-full"
+                        aria-invalid={fieldState.invalid}
+                      >
+                        <SelectValue placeholder="Select difficulty" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="beginner">Beginner</SelectItem>
+                        <SelectItem value="advanced">Advanced</SelectItem>
+                      </SelectContent>
+                    </Select>
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}

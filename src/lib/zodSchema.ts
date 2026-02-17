@@ -18,7 +18,7 @@ export const courseSchema = z.object({
     .string()
     .trim()
     .min(10, "Description must be at least 10 characters.")
-    .max(100, "Description must be at most 100 characters."),
+    .max(200, "Description must be at most 200 characters."),
   about: z
     .string()
     .trim()
@@ -33,6 +33,7 @@ export const courseSchema = z.object({
   duration: z
     .string()
     .min(1, "Please specify the course length (e.g., '12 Hours')."),
+  difficulty: z.enum(["beginner", "advanced"]),
   image: z
     .file({ message: "Image is required" })
     .max(MAX_FILE_SIZE)

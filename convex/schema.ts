@@ -27,6 +27,7 @@ export default defineSchema({
     duration: v.string(),
     imageId: v.id("_storage"),
     imageUrl: v.nullable(v.string()),
+    difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
   }).index("by_slug", ["slug"]),
 
   cartItems: defineTable({
