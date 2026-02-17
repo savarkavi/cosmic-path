@@ -25,8 +25,10 @@ const AddToCartButton = ({ course }: AddToCartButton) => {
       const result = await addToCart({ courseId: course._id, guestId });
 
       if (result.status === "Item already in cart") {
-        toast.info(result.status);
+        return toast.info(result.status);
       }
+
+      toast.success("Item added to the cart");
     } catch (error) {
       toast.error("Failed to add to cart. Please try again.");
       console.error(error);

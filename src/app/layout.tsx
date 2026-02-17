@@ -20,7 +20,7 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Cosmic Path",
+  title: "Cosmic Path - See Beyond",
   description: "Astrology app",
 };
 
@@ -40,7 +40,17 @@ export default function RootLayout({
             {children}
           </ConvexClientProvider>
         </ClerkProvider>
-        <Toaster position="top-right" />
+        <Toaster
+          position="top-right"
+          closeButton
+          toastOptions={{
+            classNames: {
+              closeButton:
+                "!bg-red-500 !text-white !absolute !top-1/2 !right-2 !left-auto !transform-x-none !transform-y-1/2",
+            },
+          }}
+          className="z-99"
+        />
       </body>
     </html>
   );

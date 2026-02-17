@@ -52,7 +52,7 @@ const CartSheet = () => {
           {count}
         </span>
       </SheetTrigger>
-      <SheetContent className="z-99">
+      <SheetContent className="z-90">
         <SheetHeader>
           <SheetTitle className="text-3xl">Cart</SheetTitle>
         </SheetHeader>
