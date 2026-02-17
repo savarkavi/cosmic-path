@@ -14,7 +14,9 @@ import {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const cashfree = new Cashfree(
-  CFEnvironment.SANDBOX,
+  process.env.CASHFREE_ENV === "PRODUCTION"
+    ? CFEnvironment.PRODUCTION
+    : CFEnvironment.SANDBOX,
   process.env.CASHFREE_APP_ID,
   process.env.CASHFREE_SECRET_KEY,
 );

@@ -36,7 +36,10 @@ export default function CheckoutButton({
     setIsLoading(true);
     try {
       const cashfree = await load({
-        mode: "sandbox",
+        mode:
+          process.env.NEXT_PUBLIC_CASHFREE_MODE === "production"
+            ? "production"
+            : "sandbox",
       });
 
       const paymentSessionId = await createOrder({
