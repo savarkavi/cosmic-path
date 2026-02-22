@@ -15,7 +15,7 @@ interface TestimonialCardProps {
 
 const TestimonialCard = ({ data }: TestimonialCardProps) => {
   return (
-    <div className="bg-background relative h-full w-full max-w-[450px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl">
+    <div className="bg-background relative h-full w-full max-w-[450px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl transition-all duration-500 hover:-translate-y-2">
       <div className="bg-primary absolute top-0 left-0 flex h-30 w-30 -translate-1/2 items-center justify-center rounded-full text-white">
         <FaQuoteLeft className="absolute top-[65%] left-[60%] size-4 sm:top-[60%]" />
       </div>
@@ -29,7 +29,7 @@ const TestimonialCard = ({ data }: TestimonialCardProps) => {
               className="rounded-full object-cover"
             />
           </div>
-          <p className="text-accent-foreground text-2xl font-bold">
+          <p className="text-accent-foreground cursor-default text-2xl font-bold">
             {data.name}
           </p>
         </div>
@@ -38,7 +38,7 @@ const TestimonialCard = ({ data }: TestimonialCardProps) => {
             <FaStar key={i} className="fill-amber-400" />
           ))}
         </div>
-        <p className="text-muted-foreground">{data.quote}</p>
+        <p className="text-muted-foreground cursor-default">{data.quote}</p>
       </div>
     </div>
   );
