@@ -48,7 +48,7 @@ const CartSheet = () => {
     <Sheet>
       <SheetTrigger className="relative">
         <ShoppingCart className="cursor-pointer" />
-        <span className="bg-primary absolute -top-4 -right-4 flex h-4 w-4 shrink-0 items-center justify-center rounded-full p-3 text-sm text-white">
+        <span className="bg-primary absolute -top-3 -right-3 flex h-5 w-5 shrink-0 items-center justify-center rounded-full p-2 text-sm text-white">
           {count}
         </span>
       </SheetTrigger>
