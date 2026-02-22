@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Italiana, EB_Garamond } from "next/font/google";
+import { EB_Garamond, Playfair } from "next/font/google";
 import "./globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
@@ -7,9 +7,9 @@ import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 import { Toaster } from "sonner";
 import CartMerger from "@/components/cart-merger";
 
-const italiana = Italiana({
-  variable: "--font-italiana",
-  weight: ["400"],
+export const playfair = Playfair({
+  variable: "--font-playfair",
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
 });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ebGaramond.variable} ${italiana.variable} flex min-h-screen flex-col justify-between antialiased`}
+        className={`${ebGaramond.variable} ${playfair.variable} flex min-h-screen flex-col justify-between antialiased`}
       >
         <ClerkProvider>
           <ConvexClientProvider>
