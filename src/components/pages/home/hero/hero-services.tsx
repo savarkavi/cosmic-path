@@ -28,7 +28,7 @@ const HeroServices = () => {
                 style={{ backgroundColor: service.color }}
               />
               <div className="relative z-10 flex h-full flex-col items-start text-left">
-                <div className="relative mb-8 flex h-16 w-16 items-center justify-center">
+                <div className="relative mb-4 flex h-16 w-16 items-center justify-center">
                   <div
                     className="absolute inset-0 rounded-2xl opacity-10 transition-all duration-500 ease-out group-hover:scale-110 group-hover:rotate-6"
                     style={{ backgroundColor: service.color }}
