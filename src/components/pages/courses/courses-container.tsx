@@ -4,10 +4,10 @@ import CourseCard from "@/components/shared/course-card";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DifficultyFilter } from "./header";
+import { TypeFilter } from "./header";
 
 interface CoursesContainerProps {
-  filter: DifficultyFilter;
+  filter: TypeFilter;
 }
 
 const CoursesContainer = ({ filter }: CoursesContainerProps) => {
@@ -26,9 +26,7 @@ const CoursesContainer = ({ filter }: CoursesContainerProps) => {
     );
 
   const filteredData =
-    filter === "all"
-      ? data
-      : data.filter((course) => course.difficulty === filter);
+    filter === "all" ? data : data.filter((course) => course.type === filter);
 
   return (
     <div className="mt-12">
@@ -39,7 +37,7 @@ const CoursesContainer = ({ filter }: CoursesContainerProps) => {
           ))
         ) : (
           <p className="text-muted-foreground col-span-full py-12 text-center text-lg">
-            No courses found for this difficulty level.
+            No courses found of this type.
           </p>
         )}
       </div>

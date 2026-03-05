@@ -23,6 +23,11 @@ export const createCourse = mutation({
     duration: v.string(),
     imageId: v.id("_storage"),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
+    type: v.union(
+      v.literal("Astrology"),
+      v.literal("Vastu"),
+      v.literal("Tarot"),
+    ),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
@@ -60,6 +65,7 @@ export const createCourse = mutation({
       discount: args.discount,
       duration: args.duration,
       difficulty: args.difficulty,
+      type: args.type,
       imageId: args.imageId,
       imageUrl: null,
     });

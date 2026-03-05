@@ -88,6 +88,7 @@ export function CreateCourseForm() {
         discount: data.discount,
         duration: data.duration,
         difficulty: data.difficulty,
+        type: data.type,
         imageId: storageId,
       });
     })();
@@ -280,6 +281,33 @@ export function CreateCourseForm() {
                       <SelectContent>
                         <SelectItem value="beginner">Beginner</SelectItem>
                         <SelectItem value="advanced">Advanced</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="type"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="course-type">Course Type</FieldLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        id="course-type"
+                        className="w-full"
+                        aria-invalid={fieldState.invalid}
+                      >
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Astrology">Astrology</SelectItem>
+                        <SelectItem value="Vastu">Vastu</SelectItem>
+                        <SelectItem value="Tarot">Tarot</SelectItem>
                       </SelectContent>
                     </Select>
                     {fieldState.invalid && (

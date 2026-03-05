@@ -34,6 +34,7 @@ export const courseSchema = z.object({
     .string()
     .min(1, "Please specify the course length (e.g., '12 Hours')."),
   difficulty: z.enum(["beginner", "advanced"]),
+  type: z.enum(["Astrology", "Vastu", "Tarot"]),
   image: z
     .file({ message: "Image is required" })
     .max(MAX_FILE_SIZE)

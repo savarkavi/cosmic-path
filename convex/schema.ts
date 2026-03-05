@@ -28,6 +28,11 @@ export default defineSchema({
     imageId: v.id("_storage"),
     imageUrl: v.nullable(v.string()),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
+    type: v.union(
+      v.literal("Astrology"),
+      v.literal("Vastu"),
+      v.literal("Tarot"),
+    ),
   }).index("by_slug", ["slug"]),
 
   cartItems: defineTable({
