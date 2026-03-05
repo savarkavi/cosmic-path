@@ -2,6 +2,7 @@ import SectionTitle from "@/components/shared/section-title";
 import ServiceCard from "@/components/shared/service-card";
 import { Button } from "@/components/ui/button";
 import { servicesData } from "@/lib/constants";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const ServicesSection = () => {
@@ -19,8 +20,14 @@ const ServicesSection = () => {
         ))}
       </div>
       <Link href="/services">
-        <Button size="lg" className="mt-16 cursor-pointer text-white">
-          Explore More
+        <Button
+          variant="outline"
+          className="border-primary text-foreground mt-16 cursor-pointer rounded-full px-10 py-6"
+        >
+          <div className="flex items-center gap-2">
+            Explore More Services
+            <ArrowRight />
+          </div>
         </Button>
       </Link>
     </section>
