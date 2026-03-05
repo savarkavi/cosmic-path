@@ -1,12 +1,18 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-export type DifficultyFilter = "all" | "beginner" | "advanced";
+export type TypeFilter = "all" | "Astrology" | "Vastu" | "Tarot";
 
 interface HeaderProps {
-  filter: DifficultyFilter;
-  onFilterChange: (value: DifficultyFilter) => void;
+  filter: TypeFilter;
+  onFilterChange: (value: TypeFilter) => void;
 }
 
 const Header = ({ filter, onFilterChange }: HeaderProps) => {
@@ -16,31 +22,20 @@ const Header = ({ filter, onFilterChange }: HeaderProps) => {
         Explore the{" "}
         <span className="text-accent-foreground italic">Cosmic</span> sciences
       </p>
-      <Tabs
+      <Select
         value={filter}
-        onValueChange={(value) => onFilterChange(value as DifficultyFilter)}
+        onValueChange={(value) => onFilterChange(value as TypeFilter)}
       >
-        <TabsList className="h-auto gap-2 rounded-full bg-transparent p-0">
-          <TabsTrigger
-            value="all"
-            className="data-[state=active]:bg-foreground cursor-pointer rounded-full border px-8 py-2.5 text-sm font-medium shadow-lg data-[state=active]:text-white data-[state=active]:shadow-lg"
-          >
-            All courses
-          </TabsTrigger>
-          <TabsTrigger
-            value="beginner"
-            className="data-[state=active]:bg-foreground cursor-pointer rounded-full border px-8 py-2.5 text-sm font-medium shadow-lg data-[state=active]:text-white data-[state=active]:shadow-lg"
-          >
-            Beginner
-          </TabsTrigger>
-          <TabsTrigger
-            value="advanced"
-            className="data-[state=active]:bg-foreground cursor-pointer rounded-full border px-8 py-2.5 text-sm font-medium shadow-lg data-[state=active]:text-white data-[state=active]:shadow-lg"
-          >
-            Advanced
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
+        <SelectTrigger className="w-48 rounded-full border px-6 py-2.5 text-sm font-medium shadow-lg">
+          <SelectValue placeholder="Filter by type" />
+        </SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="all">All courses</SelectItem>
+          <SelectItem value="Astrology">Astrology</SelectItem>
+          <SelectItem value="Vastu">Vastu</SelectItem>
+          <SelectItem value="Tarot">Tarot</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 };
