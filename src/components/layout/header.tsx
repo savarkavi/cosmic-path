@@ -37,7 +37,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="fixed left-0 z-90 flex w-full flex-col transition-all">
+    <div className="fixed left-0 z-90 flex w-screen flex-col transition-all">
       <div
         className={cn(
           "hidden h-12 w-full bg-[#1a1512] px-4 py-3 xl:block",

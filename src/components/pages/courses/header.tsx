@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export type TypeFilter = "all" | "Astrology" | "Vastu" | "Tarot";
+export type TypeFilter = "all" | "astrology" | "vastu" | "tarot";
 
 interface HeaderProps {
   filter: TypeFilter;
@@ -26,14 +26,14 @@ const Header = ({ filter, onFilterChange }: HeaderProps) => {
         value={filter}
         onValueChange={(value) => onFilterChange(value as TypeFilter)}
       >
-        <SelectTrigger className="w-48 rounded-full border px-6 py-2.5 text-sm font-medium shadow-lg">
+        <SelectTrigger className="w-48 cursor-pointer rounded-full border px-6 py-2.5 text-sm font-medium shadow-lg">
           <SelectValue placeholder="Filter by type" />
         </SelectTrigger>
         <SelectContent position="popper">
           <SelectItem value="all">All courses</SelectItem>
-          <SelectItem value="Astrology">Astrology</SelectItem>
-          <SelectItem value="Vastu">Vastu</SelectItem>
-          <SelectItem value="Tarot">Tarot</SelectItem>
+          <SelectItem value="astrology">Astrology</SelectItem>
+          <SelectItem value="vastu">Vastu</SelectItem>
+          <SelectItem value="tarot">Tarot</SelectItem>
         </SelectContent>
       </Select>
     </div>
