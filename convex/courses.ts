@@ -24,9 +24,9 @@ export const createCourse = mutation({
     imageId: v.id("_storage"),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
     type: v.union(
-      v.literal("Astrology"),
-      v.literal("Vastu"),
-      v.literal("Tarot"),
+      v.literal("astrology"),
+      v.literal("vastu"),
+      v.literal("tarot"),
     ),
   },
   handler: async (ctx, args) => {

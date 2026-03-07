@@ -29,9 +29,9 @@ export default defineSchema({
     imageUrl: v.nullable(v.string()),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
     type: v.union(
-      v.literal("Astrology"),
-      v.literal("Vastu"),
-      v.literal("Tarot"),
+      v.literal("astrology"),
+      v.literal("vastu"),
+      v.literal("tarot"),
     ),
   }).index("by_slug", ["slug"]),
 

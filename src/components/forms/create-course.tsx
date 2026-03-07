@@ -305,9 +305,9 @@ export function CreateCourseForm() {
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Astrology">Astrology</SelectItem>
-                        <SelectItem value="Vastu">Vastu</SelectItem>
-                        <SelectItem value="Tarot">Tarot</SelectItem>
+                        <SelectItem value="astrology">Astrology</SelectItem>
+                        <SelectItem value="vastu">Vastu</SelectItem>
+                        <SelectItem value="tarot">Tarot</SelectItem>
                       </SelectContent>
                     </Select>
                     {fieldState.invalid && (
