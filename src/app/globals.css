@@ -158,7 +158,7 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
-  --font-italiana: var(--font-italiana);
+  --font-playfair: var(--font-playfair);
   --font-eb-garamond: var(--font-eb-garamond);
 
   --radius-sm: calc(var(--radius) - 4px);
