@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const BookConsultation = () => {
   return (
-    <div className="bg-accent relative mt-16 min-h-[650px] w-full overflow-hidden rounded-lg px-4 py-16">
-      <div className="mx-auto flex max-w-[1360px] items-center">
+    <div className="bg-accent relative mt-16 min-h-[650px] w-full overflow-hidden rounded-lg px-4 py-16 xl:px-0">
+      <div className="mx-auto flex max-w-300 items-center">
         <div className="flex flex-col items-center gap-12 sm:items-start">
           <div className="flex max-w-[800px] flex-col gap-6">
             <p className="font-italiana text-accent-foreground text-3xl font-semibold uppercase lg:text-5xl">

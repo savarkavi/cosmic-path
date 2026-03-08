@@ -31,7 +31,7 @@ const CoursesPageContent = () => {
   );
 
   return (
-    <div className="mx-auto w-full max-w-300 px-4 pt-28 md:pt-46 lg:px-0">
+    <div className="mx-auto w-full max-w-300 px-4 pt-28 md:pt-46 xl:px-0">
       <Header filter={filter} onFilterChange={setFilter} />
       <BundleBanner />
       <CoursesContainer filter={filter} />
