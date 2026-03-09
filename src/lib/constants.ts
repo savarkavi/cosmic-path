@@ -147,26 +147,31 @@ export const bookConsultationInfo = [
 export const servicesData = [
   {
     label: "Astrology consultations",
+    slug: "astrology-consultations",
     desc: "Get deep astrological and spiritual insights to navigate life's challenges and discover your true path.",
     img: "/service-course-img.jpg",
   },
   {
     label: "Vastu Consultations",
+    slug: "vastu-consultations",
     desc: "Harmonize your living and working spaces to attract positive cosmic energy, prosperity, and peace.",
     img: "/service-vastu-img.jpg",
   },
   {
     label: "Remedies",
+    slug: "remedies",
     desc: "Authentic Vedic remedies including Puja, Mantra Jaap, and Yagya Anushthan to overcome life's obstacles.",
     img: "/service-remedies-img.jpg",
   },
   {
     label: "Scientific logo design",
+    slug: "scientific-logo-design",
     desc: "Create a powerful brand identity with logos designed using Vastu and Astrological principles for success.",
     img: "/service-logo-design-img.jpg",
   },
   {
     label: "Wrist watch consultation",
+    slug: "wrist-watch-consultation",
     desc: "Optimize your time and energy by choosing the right wrist watch based on your planetary alignments.",
     img: "/service-watch-img.jpg",
   },
