@@ -1,6 +1,6 @@
 "use client";
 
-import { headerItems } from "@/lib/constants";
+import { headerItems, servicesData } from "@/lib/constants";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -19,6 +19,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -85,18 +93,111 @@ const Header = () => {
               />
             </div>
           </Link>
-          <div className="absolute top-1/2 left-1/2 hidden -translate-1/2 items-center gap-10 lg:flex">
-            {headerItems.map((item) => (
-              <Link
-                href={item.href}
-                key={item.label}
-                className="cursor-pointer text-lg font-semibold transition-colors hover:text-[#d49f3c]"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+          <div className="absolute top-1/2 left-1/2 hidden -translate-1/2 items-center lg:flex">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-8">
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                  >
+                    <Link href="/">Home</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="cursor-pointer bg-transparent px-0 text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]">
+                    Courses
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[240px] gap-1">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/courses?type=astrology"
+                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+                          >
+                            <span className="text-base font-medium">
+                              Astrology courses
+                            </span>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/courses?type=vastu"
+                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+                          >
+                            <span className="text-base font-medium">
+                              Vastu courses
+                            </span>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/courses?type=tarot"
+                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+                          >
+                            <span className="text-base font-medium">
+                              Tarot courses
+                            </span>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="cursor-pointer bg-transparent px-0 text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]">
+                    Services
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[320px] gap-1">
+                      {servicesData.map((service) => (
+                        <li key={service.label}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={
+                                service.slug
+                                  ? `/services/${service.slug}`
+                                  : "/services"
+                              }
+                              className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+                            >
+                              <span className="text-base font-medium">
+                                {service.label}
+                              </span>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                  >
+                    <Link href="/about">About</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                  >
+                    <Link href="/">Contact</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
           <div className="flex items-center gap-6">
             <CartSheet />
             <Unauthenticated>
