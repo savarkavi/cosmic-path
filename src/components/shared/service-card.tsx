@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
+import Link from "next/link";
 
 type service = {
   label: string;
+  slug?: string;
   img: string;
   desc: string;
 };
@@ -14,7 +15,10 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
   return (
-    <div className="bg-background h-full w-full max-w-lg rounded-md shadow-lg">
+    <Link
+      href={service.slug ? `/services/${service.slug}` : "#"}
+      className="bg-background h-full w-full max-w-lg rounded-md shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+    >
       <div className="relative h-[200px] w-full rounded-t-md md:h-[300px]">
         <Image
           src={service.img}
@@ -53,7 +57,7 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

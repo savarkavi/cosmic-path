@@ -4,7 +4,7 @@ import ConsultationPurchase from "./consultation-purchase";
 
 const ConsultationDetails = () => {
   return (
-    <div className="mx-auto mt-0 flex max-w-340 flex-col items-center gap-14 md:mt-40 lg:flex-row lg:justify-center">
+    <div className="mx-auto mt-0 flex max-w-300 flex-col items-center gap-14 md:mt-50 lg:flex-row lg:justify-center">
       <div className="relative h-80 w-full shrink-0 rounded-lg shadow-xl sm:h-120 lg:h-170 lg:w-130">
         <Image
           src="/book-consultation-img.jpg"
