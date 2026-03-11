@@ -6,6 +6,7 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const CourseCard = () => {
   return (
@@ -54,10 +55,12 @@ const CourseCard = () => {
             Yahskaran Sharma
           </span>
         </div>
-        <button className="flex cursor-pointer items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-[#d97706]">
-          Enroll Now
-          <ChevronRight className="h-4 w-4" />
-        </button>
+        <Link href="/courses/vedic-astrology-research">
+          <button className="flex cursor-pointer items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-[#d97706]">
+            Enroll Now
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </Link>
       </div>
     </div>
   );
