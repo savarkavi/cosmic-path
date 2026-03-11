@@ -292,7 +292,6 @@ export function BookingDetailsForm({ user }: { user: Doc<"users"> }) {
             }}
             userPhone={user?.phone}
             disabled={!isFormValid || user === undefined}
-            onSuccess={() => form.reset()}
           />
         </Field>
       </CardFooter>

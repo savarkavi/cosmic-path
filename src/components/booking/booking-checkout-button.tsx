@@ -29,7 +29,6 @@ interface BookingCheckoutButtonProps {
 export default function BookingCheckoutButton({
   formData,
   userPhone,
-  onSuccess,
   disabled = false,
   className,
 }: BookingCheckoutButtonProps) {
@@ -67,7 +66,6 @@ export default function BookingCheckoutButton({
         redirectTarget: "_self" as const,
       };
 
-      onSuccess?.();
       await cashfree.checkout(checkoutOptions);
     } catch (error) {
       console.error("Payment Error:", error);
