@@ -85,10 +85,12 @@ function CheckoutStatus() {
           !
         </div>
         <h1 className="text-2xl font-bold text-yellow-700 md:text-3xl">
-          Payment Cancelled
+          Payment on Hold
         </h1>
         <p className="mt-2 text-lg text-gray-700">
-          Payment was not completed. No money was deducted.
+          Payment is taking longer than expected to confirm. We will notify you
+          via email as soon as it is successful. Please check your bank before
+          trying again
         </p>
         <div className="mt-8">
           <Button
