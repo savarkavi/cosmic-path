@@ -1,4 +1,5 @@
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -40,56 +41,64 @@ const Footer = () => {
           <div className="flex flex-col gap-8 sm:flex-row sm:gap-20 lg:gap-52">
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
-                Offerings
+                Navigation
               </h3>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Natal Charts
-                  </a>
+                  <Link href="/" className="transition-colors hover:text-white">
+                    Home
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Relationship Synastry
-                  </a>
+                  <Link
+                    href="/courses"
+                    className="transition-colors hover:text-white"
+                  >
+                    Courses
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Vedic Courses
-                  </a>
+                  <Link
+                    href="/services"
+                    className="transition-colors hover:text-white"
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Muhurtha Selection
-                  </a>
+                  <Link
+                    href="/consultation/booking-details"
+                    className="transition-colors hover:text-white"
+                  >
+                    Book consultation
+                  </Link>
                 </li>
               </ul>
             </div>
-
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
                 Company
               </h3>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    About Rishi
-                  </a>
+                  <Link href="/about" className="transition-colors hover:text-white">
+                    About
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition-colors hover:text-white">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="transition-colors hover:text-white">
+                  <Link href="/privacy-policy" className="transition-colors hover:text-white">
                     Privacy Policy
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/refund-policy" className="transition-colors hover:text-white">
+                    Refund / Cancellation Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact-us" className="transition-colors hover:text-white">
+                    Contact Us
+                  </Link>
                 </li>
               </ul>
             </div>
