@@ -6,7 +6,6 @@ import {
   Heading,
   Hr,
   Section,
-  Button,
   Preview,
   Tailwind,
 } from "@react-email/components";
@@ -85,6 +84,7 @@ export const StudentWelcomeEmail = ({
 // 2. ADMIN NOTIFICATION EMAIL
 // --------------------------------------------------------
 interface AdminEmailProps {
+  customerName?: string | null;
   customerEmail: string | undefined;
   customerPhone: string | undefined;
   amount: number;
@@ -92,10 +92,14 @@ interface AdminEmailProps {
   bookingDetails?: {
     serviceType: string;
     message?: string;
+    dateOfBirth?: string;
+    timeOfBirth?: string;
+    placeOfBirth?: string;
   };
 }
 
 export const AdminNotificationEmail = ({
+  customerName,
   customerEmail,
   customerPhone,
   amount,
@@ -114,7 +118,10 @@ export const AdminNotificationEmail = ({
 
             <Section className="mb-4 rounded bg-gray-100 p-4">
               <Text className="m-0 text-[14px]">
-                <strong>User:</strong> {customerEmail}
+                <strong>Name:</strong> {customerName ?? "N/A"}
+              </Text>
+              <Text className="m-0 text-[14px]">
+                <strong>Email:</strong> {customerEmail}
               </Text>
               <Text className="m-0 text-[14px]">
                 <strong>Phone:</strong> {customerPhone ?? "N/A"}
@@ -143,6 +150,22 @@ export const AdminNotificationEmail = ({
                 <Text className="m-0 text-[14px]">
                   <strong>Service:</strong> {bookingDetails.serviceType}
                 </Text>
+                {bookingDetails.dateOfBirth && (
+                  <Text className="m-0 text-[14px]">
+                    <strong>DOB:</strong> {bookingDetails.dateOfBirth}
+                  </Text>
+                )}
+                {bookingDetails.timeOfBirth && (
+                  <Text className="m-0 text-[14px]">
+                    <strong>Time of Birth:</strong> {bookingDetails.timeOfBirth}
+                  </Text>
+                )}
+                {bookingDetails.placeOfBirth && (
+                  <Text className="m-0 text-[14px]">
+                    <strong>Place of Birth:</strong>{" "}
+                    {bookingDetails.placeOfBirth}
+                  </Text>
+                )}
                 {bookingDetails.message && (
                   <Text className="m-0 text-[14px]">
                     <strong>Message:</strong> {bookingDetails.message}
@@ -150,15 +173,6 @@ export const AdminNotificationEmail = ({
                 )}
               </Section>
             )}
-
-            <Section className="mt-[32px] text-center">
-              <Button
-                className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href="https://yoursite.com/admin"
-              >
-                Go to Admin Dashboard
-              </Button>
-            </Section>
           </Container>
         </Body>
       </Tailwind>

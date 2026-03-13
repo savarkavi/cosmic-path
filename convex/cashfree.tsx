@@ -159,6 +159,7 @@ export const verifyCoursePayment = action({
               <AdminNotificationEmail
                 amount={order.amount}
                 courses={order.coursesDetails}
+                customerName={user?.name}
                 customerEmail={user?.email}
                 customerPhone={user?.phone}
               />
@@ -332,11 +333,15 @@ export const verifyBookingPayment = action({
             react: (
               <AdminNotificationEmail
                 amount={booking.amount}
+                customerName={user?.name}
                 customerEmail={user?.email}
                 customerPhone={user?.phone}
                 bookingDetails={{
                   serviceType: booking.serviceType,
                   message: booking.message,
+                  dateOfBirth: user?.dateOfBirth,
+                  timeOfBirth: user?.timeOfBirth,
+                  placeOfBirth: user?.placeOfBirth,
                 }}
               />
             ),
@@ -455,11 +460,15 @@ export const processWebhookPayment = internalAction({
             react: (
               <AdminNotificationEmail
                 amount={booking.amount}
+                customerName={user?.name}
                 customerEmail={user?.email}
                 customerPhone={user?.phone}
                 bookingDetails={{
                   serviceType: booking.serviceType,
                   message: booking.message,
+                  dateOfBirth: user?.dateOfBirth,
+                  timeOfBirth: user?.timeOfBirth,
+                  placeOfBirth: user?.placeOfBirth,
                 }}
               />
             ),
@@ -513,6 +522,7 @@ export const processWebhookPayment = internalAction({
               <AdminNotificationEmail
                 amount={order.amount}
                 courses={order.coursesDetails}
+                customerName={user?.name}
                 customerEmail={user?.email}
                 customerPhone={user?.phone}
               />
