@@ -149,7 +149,7 @@ export const servicesData = [
     label: "Astrology consultations",
     slug: "astrology-consultations",
     desc: "Get deep astrological and spiritual insights to navigate life's challenges and discover your true path.",
-    img: "/service-course-img.jpg",
+    img: "/hero-img.jpg",
   },
   {
     label: "Vastu Consultations",
