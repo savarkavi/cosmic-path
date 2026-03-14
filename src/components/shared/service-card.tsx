@@ -46,7 +46,7 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
             </div>
             <div className="flex flex-col">
               <p className="text-[12px] uppercase">Consultant</p>
-              <p className="text-black">Yash Sharma</p>
+              <p className="text-black">Yashkaran Sharma</p>
             </div>
           </div>
           <div className="flex flex-col">

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 const BundleBanner = () => {
@@ -24,15 +23,6 @@ const BundleBanner = () => {
               mentorship, and official certification upon completion.
             </p>
           </div>
-        </div>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-8">
-          <div className="flex flex-col gap-1">
-            <p className="text-xl text-gray-400 line-through">₹ 18,000</p>
-            <p className="text-2xl text-white md:text-4xl">₹ 15,000</p>
-          </div>
-          <Button className="rounded-full bg-white px-8 py-6 text-lg">
-            Get full access
-          </Button>
         </div>
       </div>
     </div>
