@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, PlusCircle, Phone, Mail, MapPin } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { SignInButton, UserButton } from "@clerk/nextjs";
@@ -33,6 +34,8 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = useQuery(api.users.getMe);
   const isAdmin = user?.role === "admin";
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => {
@@ -99,13 +102,21 @@ const Header = () => {
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
-                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                    className={cn(
+                      "cursor-pointer bg-transparent text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent",
+                      pathname === "/" && "text-primary",
+                    )}
                   >
                     <Link href="/">Home</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="cursor-pointer bg-transparent px-0 text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]">
+                  <NavigationMenuTrigger
+                    className={cn(
+                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]",
+                      pathname.startsWith("/courses") && "text-primary",
+                    )}
+                  >
                     Courses
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -149,9 +160,14 @@ const Header = () => {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="cursor-pointer bg-transparent px-0 text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]">
+                  <NavigationMenuTrigger
+                    onClick={() => router.push("/services")}
+                    className={cn(
+                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]",
+                      pathname.startsWith("/services") && "text-primary",
+                    )}
+                  >
                     Services
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -165,7 +181,13 @@ const Header = () => {
                                   ? `/services/${service.slug}`
                                   : "/services"
                               }
-                              className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
+                              className={cn(
+                                "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
+                                pathname ===
+                                  (service.slug
+                                    ? `/services/${service.slug}`
+                                    : "/services") && "text-primary",
+                              )}
                             >
                               <span className="text-base font-medium">
                                 {service.label}
@@ -177,22 +199,26 @@ const Header = () => {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
-                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                    className={cn(
+                      "cursor-pointer bg-transparent text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent",
+                      pathname === "/consultation" && "text-primary",
+                    )}
                   >
-                    <Link href="/about">About</Link>
+                    <Link href="/consultation">Book Consultation</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
-
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
-                    className="cursor-pointer bg-transparent text-lg font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent"
+                    className={cn(
+                      "cursor-pointer bg-transparent text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent",
+                      pathname === "/about" && "text-primary",
+                    )}
                   >
-                    <Link href="/">Contact</Link>
+                    <Link href="/about">About</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -264,7 +290,13 @@ const Header = () => {
                       href={item.href}
                       key={item.label}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="hover:text-primary rounded-md px-3 py-2.5 text-base font-semibold transition-colors hover:bg-white/5"
+                      className={cn(
+                        "hover:text-primary rounded-md px-3 py-2.5 text-base font-semibold transition-colors hover:bg-white/5",
+                        (pathname === item.href ||
+                          (item.href !== "/" &&
+                            pathname.startsWith(item.href))) &&
+                          "text-primary",
+                      )}
                     >
                       {item.label}
                     </Link>
