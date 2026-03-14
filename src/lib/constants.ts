@@ -48,12 +48,12 @@ export const headerItems = [
     href: "/services",
   },
   {
-    label: "About",
-    href: "/about",
+    label: "Book Consultation",
+    href: "consultation",
   },
   {
-    label: "Contact",
-    href: "/",
+    label: "About",
+    href: "/about",
   },
 ];
 
