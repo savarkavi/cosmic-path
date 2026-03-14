@@ -7,10 +7,15 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, PlusCircle, Phone, Mail, MapPin } from "lucide-react";
+import { Menu, PlusCircle, Phone, Mail, MapPin, Loader2 } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated, useQuery } from "convex/react";
+import {
+  Authenticated,
+  AuthLoading,
+  Unauthenticated,
+  useQuery,
+} from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import CartSheet from "../cart/cart-sheet";
 import {
@@ -226,7 +231,10 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-6">
             <CartSheet />
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden items-center gap-6 lg:flex">
+              <AuthLoading>
+                <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+              </AuthLoading>
               <Unauthenticated>
                 <SignInButton>
                   <Button
@@ -304,6 +312,9 @@ const Header = () => {
                   ))}
                 </nav>
                 <div className="mt-auto flex flex-col gap-4 border-t border-gray-200 px-4 pt-6 pb-8">
+                  <AuthLoading>
+                    <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+                  </AuthLoading>
                   <Unauthenticated>
                     <SignInButton>
                       <Button
@@ -316,7 +327,9 @@ const Header = () => {
                   </Unauthenticated>
                   <Authenticated>
                     <div className="flex w-full items-center justify-between">
-                      <span className="text-base font-semibold">My Account</span>
+                      <span className="text-base font-semibold">
+                        My Account
+                      </span>
                       <UserButton
                         appearance={{
                           elements: {
