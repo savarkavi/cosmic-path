@@ -226,39 +226,40 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-6">
             <CartSheet />
-            <Unauthenticated>
-              <SignInButton>
-                <Button
-                  size="lg"
-                  className="bg-foreground cursor-pointer rounded-full text-white max-md:size-9 max-md:p-0"
-                >
-                  <span className="hidden md:inline">Sign In</span>
-                  <span className="text-xs md:hidden">Sign In</span>
-                </Button>
-              </SignInButton>
-            </Unauthenticated>
-            <Authenticated>
-              <UserButton
-                appearance={{
-                  elements: {
-                    userButtonAvatarBox: {
-                      width: "36px",
-                      height: "36px",
+            <div className="hidden lg:flex items-center gap-6">
+              <Unauthenticated>
+                <SignInButton>
+                  <Button
+                    size="lg"
+                    className="bg-foreground cursor-pointer rounded-full text-white"
+                  >
+                    Sign In
+                  </Button>
+                </SignInButton>
+              </Unauthenticated>
+              <Authenticated>
+                <UserButton
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: {
+                        width: "36px",
+                        height: "36px",
+                      },
                     },
-                  },
-                }}
-              >
-                {isAdmin && (
-                  <UserButton.MenuItems>
-                    <UserButton.Link
-                      label="Create Course"
-                      labelIcon={<PlusCircle size={16} />}
-                      href="/admin/courses/create"
-                    />
-                  </UserButton.MenuItems>
-                )}
-              </UserButton>
-            </Authenticated>
+                  }}
+                >
+                  {isAdmin && (
+                    <UserButton.MenuItems>
+                      <UserButton.Link
+                        label="Create Course"
+                        labelIcon={<PlusCircle size={16} />}
+                        href="/admin/courses/create"
+                      />
+                    </UserButton.MenuItems>
+                  )}
+                </UserButton>
+              </Authenticated>
+            </div>
 
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild className="lg:hidden">
@@ -269,7 +270,7 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="z-99 w-72 border-white/10 text-black"
+                className="z-99 flex w-72 flex-col border-white/10 text-black"
               >
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
@@ -302,6 +303,47 @@ const Header = () => {
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-auto flex flex-col gap-4 border-t border-gray-200 px-4 pt-6 pb-8">
+                  <Unauthenticated>
+                    <SignInButton>
+                      <Button
+                        size="lg"
+                        className="bg-foreground w-full cursor-pointer rounded-full text-white"
+                      >
+                        Sign In
+                      </Button>
+                    </SignInButton>
+                  </Unauthenticated>
+                  <Authenticated>
+                    <div className="flex w-full items-center justify-between">
+                      <span className="text-base font-semibold">My Account</span>
+                      <UserButton
+                        appearance={{
+                          elements: {
+                            userButtonAvatarBox: {
+                              width: "36px",
+                              height: "36px",
+                            },
+                            userButtonPopoverCard: {
+                              pointerEvents: "auto",
+                              zIndex: 99999,
+                            },
+                          },
+                        }}
+                      >
+                        {isAdmin && (
+                          <UserButton.MenuItems>
+                            <UserButton.Link
+                              label="Create Course"
+                              labelIcon={<PlusCircle size={16} />}
+                              href="/admin/courses/create"
+                            />
+                          </UserButton.MenuItems>
+                        )}
+                      </UserButton>
+                    </div>
+                  </Authenticated>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
