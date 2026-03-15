@@ -43,7 +43,7 @@ const ContactPage = () => {
                 <div>
                   <h3 className="text-lg font-semibold">Phone</h3>
                   <p className="text-muted-foreground mt-1 text-sm">
-                    +91 98765 43210
+                    +91 9654915719
                   </p>
                 </div>
               </div>
