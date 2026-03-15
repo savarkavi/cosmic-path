@@ -64,10 +64,10 @@ const PrivacyPolicyPage = () => {
             If you have any questions about this privacy policy or our privacy
             practices, please contact us at{" "}
             <a
-              href="mailto:contact@cosmicpath.com"
+              href="mailto:myaccount.abc@gmail.com"
               className="transition-colors hover:underline"
             >
-              contact@cosmicpath.com
+              myaccount.abc@gmail.com
             </a>
             .
           </p>

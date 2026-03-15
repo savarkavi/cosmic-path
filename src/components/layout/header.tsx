@@ -68,11 +68,11 @@ const Header = () => {
             </div>
             <div className="flex items-center gap-2">
               <Mail size={14} className="text-[#d49f3c]" />
-              <span>contact@cosmicpath.com</span>
+              <span>myaccount.abc@gmail.com</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin size={14} className="text-[#d49f3c]" />
-              <span>New Delhi, India</span>
+              <span>Shimla, India</span>
             </div>
           </div>
           <div className="flex items-center gap-4">

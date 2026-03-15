@@ -67,10 +67,10 @@ const RefundPolicyPage = () => {
             If you have any questions about our refund and cancellation policy,
             please contact us at{" "}
             <a
-              href="mailto:contact@cosmicpath.com"
+              href="mailto:myaccount.abc@gmail.com"
               className="transition-colors hover:underline"
             >
-              contact@cosmicpath.com
+              myaccount.abc@gmail.com
             </a>
             .
           </p>

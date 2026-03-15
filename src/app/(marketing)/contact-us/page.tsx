@@ -31,10 +31,7 @@ const ContactPage = () => {
                 <div>
                   <h3 className="text-lg font-semibold">Email</h3>
                   <p className="text-muted-foreground mt-1 text-sm">
-                    contact@cosmicpath.in
-                  </p>
-                  <p className="text-muted-foreground text-sm">
-                    support@cosmicpath.in
+                    myaccount.abc@gmail.com
                   </p>
                 </div>
               </div>
