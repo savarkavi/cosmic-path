@@ -239,7 +239,7 @@ const Header = () => {
                 <SignInButton>
                   <Button
                     size="lg"
-                    className="bg-foreground cursor-pointer rounded-full text-white"
+                    className="cursor-pointer rounded-full bg-white text-black"
                   >
                     Sign In
                   </Button>
