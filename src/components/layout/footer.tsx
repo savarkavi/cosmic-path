@@ -41,14 +41,9 @@ const Footer = () => {
           <div className="flex flex-col gap-8 sm:flex-row sm:gap-20 lg:gap-52">
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
-                Navigation
+                Company
               </h3>
               <ul className="space-y-4 text-sm">
-                <li>
-                  <Link href="/" className="transition-colors hover:text-white">
-                    Home
-                  </Link>
-                </li>
                 <li>
                   <Link
                     href="/courses"
@@ -73,30 +68,42 @@ const Footer = () => {
                     Book consultation
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/about"
+                    className="transition-colors hover:text-white"
+                  >
+                    About
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="mb-6 text-xs font-bold tracking-[0.15em] text-white uppercase">
-                Company
+                Legal
               </h3>
               <ul className="space-y-4 text-sm">
                 <li>
-                  <Link href="/about" className="transition-colors hover:text-white">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy-policy" className="transition-colors hover:text-white">
+                  <Link
+                    href="/privacy-policy"
+                    className="transition-colors hover:text-white"
+                  >
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/refund-policy" className="transition-colors hover:text-white">
+                  <Link
+                    href="/refund-policy"
+                    className="transition-colors hover:text-white"
+                  >
                     Refund / Cancellation Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact-us" className="transition-colors hover:text-white">
+                  <Link
+                    href="/contact-us"
+                    className="transition-colors hover:text-white"
+                  >
                     Contact Us
                   </Link>
                 </li>
