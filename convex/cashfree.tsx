@@ -56,7 +56,7 @@ export const fulfillOrder = internalAction({
 
     try {
       await resend.emails.send({
-        from: "Acme Astrology <onboarding@resend.dev>",
+        from: "Cosmic Path <onboarding@resend.dev>",
         to: order.userEmail,
         subject: "Payment Received! Scheduling your Astrology Course",
         react: (
@@ -71,7 +71,7 @@ export const fulfillOrder = internalAction({
 
       await resend.emails.send({
         from: "System <onboarding@resend.dev>",
-        to: "sushant20.sharma00@gmail.com",
+        to: "myaccount.abc@gmail.com",
         subject: `New Sale: ₹${order.amount}`,
         react: (
           <AdminNotificationEmail
@@ -124,7 +124,7 @@ export const fulfillBooking = internalAction({
 
     try {
       await resend.emails.send({
-        from: "Acme Astrology <onboarding@resend.dev>",
+        from: "Cosmic Path <onboarding@resend.dev>",
         to: booking.userEmail,
         subject: "Booking Confirmed! Consultation Scheduled",
         react: (
@@ -140,7 +140,7 @@ export const fulfillBooking = internalAction({
 
       await resend.emails.send({
         from: "System <onboarding@resend.dev>",
-        to: "sushant20.sharma00@gmail.com",
+        to: "myaccount.abc@gmail.com",
         subject: `New Booking: ₹${booking.amount}`,
         react: (
           <AdminNotificationEmail
@@ -201,6 +201,11 @@ export const createCourseOrder = action({
       amount: amount,
     });
 
+    const baseUrl =
+      process.env.CASHFREE_ENV === "PRODUCTION"
+        ? "https://cosmic-path.vercel.app"
+        : "http://localhost:3000";
+
     const request = {
       order_amount: amount,
       order_currency: "INR",
@@ -211,7 +216,7 @@ export const createCourseOrder = action({
         customer_phone: args.userPhone,
       },
       order_meta: {
-        return_url: `http://localhost:3000/checkout?order_id=${orderId}`,
+        return_url: `${baseUrl}/checkout?order_id=${orderId}`,
       },
     };
 
@@ -336,6 +341,11 @@ export const createBookingOrder = action({
       amount: BOOKING_PRICE,
     });
 
+    const baseUrl =
+      process.env.CASHFREE_ENV === "PRODUCTION"
+        ? "https://cosmic-path.vercel.app"
+        : "http://localhost:3000";
+
     const request = {
       order_amount: BOOKING_PRICE,
       order_currency: "INR",
@@ -346,7 +356,7 @@ export const createBookingOrder = action({
         customer_phone: args.userPhone,
       },
       order_meta: {
-        return_url: `http://localhost:3000/checkout?order_id=${orderId}`,
+        return_url: `${baseUrl}/checkout?order_id=${orderId}`,
       },
     };
 
