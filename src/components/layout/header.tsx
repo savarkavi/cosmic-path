@@ -56,11 +56,11 @@ const Header = () => {
     <div className="fixed left-0 z-90 flex w-screen flex-col transition-all">
       <div
         className={cn(
-          "hidden h-12 w-full bg-[#1a1512] px-4 py-3 xl:block",
+          "hidden h-12 w-full bg-white px-4 py-3 text-black xl:block",
           scrolled ? "-top-12" : "top-0",
         )}
       >
-        <div className="mx-auto flex w-full max-w-300 items-center justify-between text-sm text-gray-300">
+        <div className="mx-auto flex w-full max-w-300 items-center justify-between text-sm">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-[#d49f3c]" />
@@ -85,10 +85,10 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="w-full border-b border-gray-300 bg-[#F5F5F0] p-4 px-4 transition-all duration-300">
+      <div className="w-full bg-[#1a1512] p-4 px-4 transition-all duration-300">
         <div
           className={cn(
-            "relative mx-auto flex w-full max-w-300 items-center justify-between text-black",
+            "relative mx-auto flex w-full max-w-300 items-center justify-between text-white",
           )}
         >
           <Link href="/" className="flex items-center gap-2">
@@ -118,7 +118,7 @@ const Header = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={cn(
-                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]",
+                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c] data-[state=open]:hover:bg-transparent",
                       pathname.startsWith("/courses") && "text-primary",
                     )}
                   >
@@ -169,7 +169,7 @@ const Header = () => {
                   <NavigationMenuTrigger
                     onClick={() => router.push("/services")}
                     className={cn(
-                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c]",
+                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c] data-[state=open]:hover:bg-transparent",
                       pathname.startsWith("/services") && "text-primary",
                     )}
                   >
