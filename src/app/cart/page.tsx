@@ -51,7 +51,7 @@ export default function CartPage() {
 
   return (
     <main className="min-h-[70vh] px-4 py-24 md:px-8 md:py-32 lg:px-16">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto mt-20 max-w-6xl">
         <div className="mb-8">
           <h1 className="text-foreground text-4xl font-bold">Shopping Cart</h1>
           <p className="text-muted-foreground mt-1">
