@@ -67,6 +67,7 @@ http.route({
       });
     } catch (error) {
       console.error("Cashfree webhook processing failed:", error);
+      return new Response("Webhook processing failed", { status: 500 });
     }
 
     return new Response("OK", { status: 200 });
