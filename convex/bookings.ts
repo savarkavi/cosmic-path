@@ -28,13 +28,16 @@ export const markBookingAsPaid = internalMutation({
 
     if (booking.status === "paid") {
       console.log("Booking already marked as paid, skipping logic.");
-      return;
+      return { alreadyPaid: true };
     }
 
     await ctx.db.patch(booking._id, {
       status: "paid",
       paymentId: args.paymentId,
+      emailsSent: true,
     });
+
+    return { alreadyPaid: false };
   },
 });
 

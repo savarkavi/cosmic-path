@@ -27,12 +27,13 @@ export const markOrderAsPaid = internalMutation({
 
     if (order.status === "paid") {
       console.log("Order already marked as paid, skipping logic.");
-      return;
+      return { alreadyPaid: true };
     }
 
     await ctx.db.patch(order._id, {
       status: "paid",
       paymentId: args.paymentId,
+      emailsSent: true,
     });
 
     // Remove purchased courses from user's cart
@@ -48,6 +49,8 @@ export const markOrderAsPaid = internalMutation({
         await ctx.db.delete(cartItem._id);
       }
     }
+
+    return { alreadyPaid: false };
   },
 });
 

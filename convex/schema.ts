@@ -58,6 +58,7 @@ export default defineSchema({
       v.literal("paid"),
       v.literal("failed"),
     ),
+    emailsSent: v.optional(v.boolean()),
   }).index("by_order_id", ["orderId"]),
 
   bookings: defineTable({
@@ -74,5 +75,6 @@ export default defineSchema({
       v.literal("paid"),
       v.literal("failed"),
     ),
+    emailsSent: v.optional(v.boolean()),
   }).index("by_order_id", ["orderId"]),
 });

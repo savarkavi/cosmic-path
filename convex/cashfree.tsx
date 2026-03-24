@@ -21,6 +21,149 @@ const cashfree = new Cashfree(
   process.env.CASHFREE_SECRET_KEY,
 );
 
+export const fulfillOrder = internalAction({
+  args: { orderId: v.string(), paymentId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    const { alreadyPaid } = await ctx.runMutation(
+      internal.orders.markOrderAsPaid,
+      {
+        orderId: args.orderId,
+        paymentId: args.paymentId,
+      },
+    );
+
+    if (alreadyPaid) {
+      console.log(
+        `fulfillOrder: ${args.orderId} already fulfilled, skipping emails.`,
+      );
+      return;
+    }
+
+    const order = await ctx.runQuery(internal.orders.getOrderDetails, {
+      orderId: args.orderId,
+    });
+
+    if (!order) {
+      console.error(
+        `fulfillOrder: Order ${args.orderId} missing after marking paid`,
+      );
+      return;
+    }
+
+    const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+      clerkId: order.userId,
+    });
+
+    try {
+      await resend.emails.send({
+        from: "Acme Astrology <onboarding@resend.dev>",
+        to: order.userEmail,
+        subject: "Payment Received! Scheduling your Astrology Course",
+        react: (
+          <StudentWelcomeEmail
+            amount={order.amount}
+            name={user?.name || user?.email}
+            orderId={order.orderId}
+            courses={order.coursesDetails}
+          />
+        ),
+      });
+
+      await resend.emails.send({
+        from: "System <onboarding@resend.dev>",
+        to: "sushant20.sharma00@gmail.com",
+        subject: `New Sale: ₹${order.amount}`,
+        react: (
+          <AdminNotificationEmail
+            amount={order.amount}
+            courses={order.coursesDetails}
+            customerName={user?.name}
+            customerEmail={user?.email}
+            customerPhone={user?.phone}
+          />
+        ),
+      });
+    } catch (emailError) {
+      console.error("fulfillOrder: Failed to send emails:", emailError);
+    }
+  },
+});
+
+export const fulfillBooking = internalAction({
+  args: { orderId: v.string(), paymentId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    const { alreadyPaid } = await ctx.runMutation(
+      internal.bookings.markBookingAsPaid,
+      {
+        orderId: args.orderId,
+        paymentId: args.paymentId,
+      },
+    );
+
+    if (alreadyPaid) {
+      console.log(
+        `fulfillBooking: ${args.orderId} already fulfilled, skipping emails.`,
+      );
+      return;
+    }
+
+    const booking = await ctx.runQuery(internal.bookings.getBookingDetails, {
+      orderId: args.orderId,
+    });
+
+    if (!booking) {
+      console.error(
+        `fulfillBooking: Booking ${args.orderId} missing after marking paid`,
+      );
+      return;
+    }
+
+    const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+      clerkId: booking.userId,
+    });
+
+    try {
+      await resend.emails.send({
+        from: "Acme Astrology <onboarding@resend.dev>",
+        to: booking.userEmail,
+        subject: "Booking Confirmed! Consultation Scheduled",
+        react: (
+          <StudentBookingEmail
+            name={user?.name || user?.email}
+            orderId={booking.orderId}
+            amount={booking.amount}
+            serviceType={booking.serviceType}
+            message={booking.message}
+          />
+        ),
+      });
+
+      await resend.emails.send({
+        from: "System <onboarding@resend.dev>",
+        to: "sushant20.sharma00@gmail.com",
+        subject: `New Booking: ₹${booking.amount}`,
+        react: (
+          <AdminNotificationEmail
+            amount={booking.amount}
+            customerName={user?.name}
+            customerEmail={user?.email}
+            customerPhone={user?.phone}
+            bookingDetails={{
+              serviceType: booking.serviceType,
+              message: booking.message,
+              dateOfBirth: user?.dateOfBirth,
+              timeOfBirth: user?.timeOfBirth,
+              placeOfBirth: user?.placeOfBirth,
+            }}
+          />
+        ),
+      });
+    } catch (emailError) {
+      console.error("fulfillBooking: Failed to send emails:", emailError);
+    }
+  },
+});
+
 export const createCourseOrder = action({
   args: {
     userPhone: v.string(),
@@ -118,57 +261,10 @@ export const verifyCoursePayment = action({
       const status = orderData.order_status;
 
       if (status === "PAID") {
-        await ctx.runMutation(internal.orders.markOrderAsPaid, {
+        await ctx.runAction(internal.cashfree.fulfillOrder, {
           orderId: args.orderId,
           paymentId: orderData.payment_session_id,
         });
-
-        const order = await ctx.runQuery(internal.orders.getOrderDetails, {
-          orderId: args.orderId,
-        });
-
-        if (!order) {
-          console.error("Order missing for email sending");
-          return "PAID";
-        }
-
-        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
-          clerkId: order.userId,
-        });
-
-        try {
-          await resend.emails.send({
-            from: "Acme Astrology <onboarding@resend.dev>",
-            to: order.userEmail,
-            subject: "Payment Received! Scheduling your Astrology Course",
-            react: (
-              <StudentWelcomeEmail
-                amount={order.amount}
-                name={user?.name || user?.email}
-                orderId={order.orderId}
-                courses={order.coursesDetails}
-              />
-            ),
-          });
-
-          await resend.emails.send({
-            from: "System <onboarding@resend.dev>",
-            to: "sushant20.sharma00@gmail.com",
-            subject: `New Sale: ₹${order.amount}`,
-            react: (
-              <AdminNotificationEmail
-                amount={order.amount}
-                courses={order.coursesDetails}
-                customerName={user?.name}
-                customerEmail={user?.email}
-                customerPhone={user?.phone}
-              />
-            ),
-          });
-        } catch (emailError) {
-          console.error("Failed to send emails:", emailError);
-        }
-
         return "PAID";
       }
 
@@ -191,6 +287,10 @@ export const verifyCoursePayment = action({
     }
   },
 });
+
+// --------------------------------------------------------
+// Booking order creation & verification
+// --------------------------------------------------------
 
 const BOOKING_PRICE = 1500;
 
@@ -294,63 +394,7 @@ export const verifyBookingPayment = action({
       const status = orderData.order_status;
 
       if (status === "PAID") {
-        const booking = await ctx.runQuery(
-          internal.bookings.getBookingDetails,
-          {
-            orderId: args.orderId,
-          },
-        );
-
-        if (!booking) {
-          console.error("Booking missing for email sending");
-          return "PAID";
-        }
-
-        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
-          clerkId: booking.userId,
-        });
-
-        try {
-          await resend.emails.send({
-            from: "Acme Astrology <onboarding@resend.dev>",
-            to: booking.userEmail,
-            subject: "Booking Confirmed! Consultation Scheduled",
-            react: (
-              <StudentBookingEmail
-                name={user?.name || user?.email}
-                orderId={booking.orderId}
-                amount={booking.amount}
-                serviceType={booking.serviceType}
-                message={booking.message}
-              />
-            ),
-          });
-
-          await resend.emails.send({
-            from: "System <onboarding@resend.dev>",
-            to: "sushant20.sharma00@gmail.com",
-            subject: `New Booking: ₹${booking.amount}`,
-            react: (
-              <AdminNotificationEmail
-                amount={booking.amount}
-                customerName={user?.name}
-                customerEmail={user?.email}
-                customerPhone={user?.phone}
-                bookingDetails={{
-                  serviceType: booking.serviceType,
-                  message: booking.message,
-                  dateOfBirth: user?.dateOfBirth,
-                  timeOfBirth: user?.timeOfBirth,
-                  placeOfBirth: user?.placeOfBirth,
-                }}
-              />
-            ),
-          });
-        } catch (emailError) {
-          console.error("Failed to send booking emails:", emailError);
-        }
-
-        await ctx.runMutation(internal.bookings.markBookingAsPaid, {
+        await ctx.runAction(internal.cashfree.fulfillBooking, {
           orderId: args.orderId,
           paymentId: orderData.payment_session_id,
         });
@@ -377,6 +421,10 @@ export const verifyBookingPayment = action({
   },
 });
 
+// --------------------------------------------------------
+// Webhook handler
+// --------------------------------------------------------
+
 export const processWebhookPayment = internalAction({
   args: {
     signature: v.string(),
@@ -398,7 +446,6 @@ export const processWebhookPayment = internalAction({
     const payload = JSON.parse(args.rawBody);
     const eventType: string = payload.type;
     const orderData = payload.data?.order;
-    const paymentData = payload.data?.payment;
 
     if (!orderData?.order_id) {
       console.error("Cashfree webhook: Missing order_id in payload");
@@ -410,127 +457,20 @@ export const processWebhookPayment = internalAction({
     const isCourseOrder = orderId.startsWith("order_");
 
     if (eventType === "PAYMENT_SUCCESS_WEBHOOK") {
+      const paymentData = payload.data?.payment;
       const paymentId: string | undefined =
         paymentData?.cf_payment_id?.toString();
 
       if (isBooking) {
-        const booking = await ctx.runQuery(
-          internal.bookings.getBookingDetails,
-          { orderId },
-        );
-
-        if (!booking) {
-          console.error(`Webhook: Booking not found for ${orderId}`);
-          return;
-        }
-        if (booking.status === "paid") {
-          console.log(`Webhook: Booking ${orderId} already paid, skipping.`);
-          return;
-        }
-
-        await ctx.runMutation(internal.bookings.markBookingAsPaid, {
+        await ctx.runAction(internal.cashfree.fulfillBooking, {
           orderId,
           paymentId,
         });
-
-        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
-          clerkId: booking.userId,
-        });
-
-        try {
-          await resend.emails.send({
-            from: "Acme Astrology <onboarding@resend.dev>",
-            to: booking.userEmail,
-            subject: "Booking Confirmed! Consultation Scheduled",
-            react: (
-              <StudentBookingEmail
-                name={user?.name || user?.email}
-                orderId={booking.orderId}
-                amount={booking.amount}
-                serviceType={booking.serviceType}
-                message={booking.message}
-              />
-            ),
-          });
-
-          await resend.emails.send({
-            from: "System <onboarding@resend.dev>",
-            to: "sushant20.sharma00@gmail.com",
-            subject: `New Booking: ₹${booking.amount}`,
-            react: (
-              <AdminNotificationEmail
-                amount={booking.amount}
-                customerName={user?.name}
-                customerEmail={user?.email}
-                customerPhone={user?.phone}
-                bookingDetails={{
-                  serviceType: booking.serviceType,
-                  message: booking.message,
-                  dateOfBirth: user?.dateOfBirth,
-                  timeOfBirth: user?.timeOfBirth,
-                  placeOfBirth: user?.placeOfBirth,
-                }}
-              />
-            ),
-          });
-        } catch (emailError) {
-          console.error("Webhook: Failed to send booking emails:", emailError);
-        }
       } else if (isCourseOrder) {
-        const order = await ctx.runQuery(internal.orders.getOrderDetails, {
-          orderId,
-        });
-
-        if (!order) {
-          console.error(`Webhook: Order not found for ${orderId}`);
-          return;
-        }
-        if (order.status === "paid") {
-          console.log(`Webhook: Order ${orderId} already paid, skipping.`);
-          return;
-        }
-
-        await ctx.runMutation(internal.orders.markOrderAsPaid, {
+        await ctx.runAction(internal.cashfree.fulfillOrder, {
           orderId,
           paymentId,
         });
-
-        const user = await ctx.runQuery(internal.users.getUserByClerkId, {
-          clerkId: order.userId,
-        });
-
-        try {
-          await resend.emails.send({
-            from: "Acme Astrology <onboarding@resend.dev>",
-            to: order.userEmail,
-            subject: "Payment Received! Scheduling your Astrology Course",
-            react: (
-              <StudentWelcomeEmail
-                amount={order.amount}
-                name={user?.name || user?.email}
-                orderId={order.orderId}
-                courses={order.coursesDetails}
-              />
-            ),
-          });
-
-          await resend.emails.send({
-            from: "System <onboarding@resend.dev>",
-            to: "sushant20.sharma00@gmail.com",
-            subject: `New Sale: ₹${order.amount}`,
-            react: (
-              <AdminNotificationEmail
-                amount={order.amount}
-                courses={order.coursesDetails}
-                customerName={user?.name}
-                customerEmail={user?.email}
-                customerPhone={user?.phone}
-              />
-            ),
-          });
-        } catch (emailError) {
-          console.error("Webhook: Failed to send course emails:", emailError);
-        }
       }
     }
 
