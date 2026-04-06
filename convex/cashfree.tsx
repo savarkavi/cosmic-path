@@ -297,7 +297,14 @@ export const verifyCoursePayment = action({
 // Booking order creation & verification
 // --------------------------------------------------------
 
-const BOOKING_PRICE = 1500;
+export const SERVICE_PRICES: Record<string, number> = {
+  "Astrology consultation": 5000,
+  Remedies: 2100,
+  "Vastu Consultations": 31000,
+  "Scientific logo design": 30000,
+  "Wrist watch consultation": 11000,
+  "Palmistry readings": 2100,
+};
 
 export const createBookingOrder = action({
   args: {
@@ -331,6 +338,11 @@ export const createBookingOrder = action({
 
     const orderId = `booking_${userId}_${Date.now()}`;
 
+    const amount = SERVICE_PRICES[args.serviceType];
+    if (!amount) {
+      throw new Error(`Invalid service type selected: ${args.serviceType}`);
+    }
+
     await ctx.runMutation(internal.bookings.savePendingBooking, {
       orderId,
       userId,
@@ -338,16 +350,16 @@ export const createBookingOrder = action({
       userPhone: args.userPhone,
       serviceType: args.serviceType,
       message: args.message,
-      amount: BOOKING_PRICE,
+      amount: amount,
     });
 
     const baseUrl =
       process.env.CASHFREE_ENV === "PRODUCTION"
-        ? "https://cosmic-path.vercel.app"
+        ? "https://cosmicpath.co"
         : "http://localhost:3000";
 
     const request = {
-      order_amount: BOOKING_PRICE,
+      order_amount: amount,
       order_currency: "INR",
       order_id: orderId,
       customer_details: {
