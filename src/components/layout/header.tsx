@@ -116,54 +116,15 @@ const Header = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger
+                  <NavigationMenuLink
+                    asChild
                     className={cn(
-                      "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c] data-[state=open]:hover:bg-transparent",
+                      "cursor-pointer bg-transparent text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent",
                       pathname.startsWith("/courses") && "text-primary",
                     )}
                   >
-                    Courses
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[240px] gap-1">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/courses?type=astrology"
-                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
-                          >
-                            <span className="text-base font-medium">
-                              Astrology courses
-                            </span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/courses?type=vastu"
-                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
-                          >
-                            <span className="text-base font-medium">
-                              Vastu courses
-                            </span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/courses?type=tarot"
-                            className="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none"
-                          >
-                            <span className="text-base font-medium">
-                              Tarot courses
-                            </span>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
+                    <Link href="/courses">Courses</Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
