@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import Link from "next/link";
+import { formatINR } from "@/lib/utils";
 
 type service = {
   label: string;
   slug?: string;
   img: string;
   desc: string;
+  price: number;
 };
 
 interface ServiceCardProps {
@@ -38,7 +40,7 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
           <div className="flex items-center gap-3">
             <div className="relative h-10 w-10 rounded-full">
               <Image
-                src="/testimonial-avatar-2.jpg"
+                src="/owner-photo.jpeg"
                 alt="avatar image"
                 fill
                 className="rounded-full object-cover"
@@ -50,9 +52,11 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="text-[12px] uppercase">Rate</p>
+            <p className="text-[12px] uppercase">Fee</p>
             <p className="text-black">
-              <span className="text-primary font-bold">₹15</span>/Min
+              <span className="text-primary font-bold">
+                ₹{formatINR(service.price)}
+              </span>
             </p>
           </div>
         </div>

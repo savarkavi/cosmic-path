@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { servicesData } from "@/lib/constants";
 import { CheckCircle2 } from "lucide-react";
+import { formatINR } from "@/lib/utils";
 
 interface ServicePageProps {
   params: Promise<{
@@ -77,7 +78,7 @@ const ServicePage = async ({ params }: ServicePageProps) => {
 
         <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
           <Link
-            href="/consultation/booking-details"
+            href={`/consultation/booking-details?service=${service.slug}`}
             className="w-full sm:w-auto"
           >
             <Button
@@ -87,9 +88,15 @@ const ServicePage = async ({ params }: ServicePageProps) => {
               Book Now
             </Button>
           </Link>
-          <p className="text-center text-sm text-gray-500 sm:text-left">
-            Secure your spot today. Limited availability!
-          </p>
+          <div className="flex flex-col items-center sm:items-start">
+            <p className="text-lg font-bold text-gray-800">
+              Fee:{" "}
+              <span className="text-primary">₹{formatINR(service.price)}</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              Secure your spot today. Limited availability!
+            </p>
+          </div>
         </div>
       </div>
     </div>
