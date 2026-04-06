@@ -4,7 +4,6 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import { use } from "react";
 import { Triangle } from "react-loader-spinner";
-import CourseAbout from "@/components/pages/course-info/course-about";
 import CourseDetails from "@/components/pages/course-info/course-details";
 
 const CourseInfoPage = ({
@@ -38,9 +37,8 @@ const CourseInfoPage = ({
     );
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-16">
+    <div className="flex w-full flex-col pb-20">
       <CourseDetails course={data} />
-      <CourseAbout course={data} />
     </div>
   );
 };

@@ -47,7 +47,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
             </div>
             <div className="flex items-center gap-2">
               <Clock size={16} />
-              <p>{course.duration}</p>
+              <p>{course.classes} Classes</p>
             </div>
           </div>
           <Button className="bg-foreground mt-2 cursor-pointer rounded-full py-6 text-lg text-white">
