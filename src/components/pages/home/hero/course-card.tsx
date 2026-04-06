@@ -45,7 +45,7 @@ const CourseCard = () => {
       <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
         <div className="flex items-center gap-2.5">
           <Image
-            src="/testimonial-avatar-2.jpg"
+            src="/owner-photo.jpeg"
             alt="Dr. A. Sharma"
             width={32}
             height={32}
