@@ -17,17 +17,12 @@ export const createCourse = mutation({
   args: {
     title: v.string(),
     description: v.string(),
-    about: v.string(),
     price: v.number(),
     discount: v.optional(v.number()),
-    duration: v.string(),
+    classes: v.number(),
     imageId: v.id("_storage"),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
-    type: v.union(
-      v.literal("astrology"),
-      v.literal("vastu"),
-      v.literal("tarot"),
-    ),
+    courseContent: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
@@ -60,12 +55,11 @@ export const createCourse = mutation({
       title: args.title,
       slug,
       description: args.description,
-      about: args.about,
       price: args.price,
       discount: args.discount,
-      duration: args.duration,
+      classes: args.classes,
       difficulty: args.difficulty,
-      type: args.type,
+      courseContent: args.courseContent,
       imageId: args.imageId,
       imageUrl: null,
     });

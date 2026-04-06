@@ -21,18 +21,13 @@ export default defineSchema({
     title: v.string(),
     slug: v.string(),
     description: v.string(),
-    about: v.string(),
     price: v.number(),
     discount: v.optional(v.number()),
-    duration: v.string(),
+    classes: v.optional(v.number()),
     imageId: v.id("_storage"),
     imageUrl: v.nullable(v.string()),
     difficulty: v.union(v.literal("beginner"), v.literal("advanced")),
-    type: v.union(
-      v.literal("astrology"),
-      v.literal("vastu"),
-      v.literal("tarot"),
-    ),
+    courseContent: v.optional(v.array(v.string())),
   }).index("by_slug", ["slug"]),
 
   cartItems: defineTable({
