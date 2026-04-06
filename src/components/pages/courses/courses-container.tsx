@@ -5,7 +5,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 const CoursesContainer = () => {
-  const data = useQuery(api.courses.getFeaturedCourses);
+  const data = useQuery(api.courses.getAllCourses);
 
   if (data === undefined)
     return (
