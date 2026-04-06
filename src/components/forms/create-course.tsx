@@ -46,6 +46,7 @@ import { api } from "../../../convex/_generated/api";
 export function CreateCourseForm() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentContent, setCurrentContent] = useState("");
 
   const generateUploadUrl = useMutation(api.courses.generateUploadUrl);
   const createCourse = useMutation(api.courses.createCourse);
@@ -55,10 +56,10 @@ export function CreateCourseForm() {
     defaultValues: {
       title: "",
       description: "",
-      about: "",
       price: 0,
       discount: 0,
-      duration: "",
+      classes: 1,
+      courseContent: [],
     },
   });
 
@@ -83,12 +84,11 @@ export function CreateCourseForm() {
       await createCourse({
         title: data.title,
         description: data.description,
-        about: data.about,
         price: data.price,
         discount: data.discount,
-        duration: data.duration,
+        classes: data.classes,
         difficulty: data.difficulty,
-        type: data.type,
+        courseContent: data.courseContent,
         imageId: storageId,
       });
     })();
@@ -170,31 +170,56 @@ export function CreateCourseForm() {
               )}
             />
 
+
             <Controller
-              name="about"
+              name="courseContent"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="course-about">
-                    About the Course
+                  <FieldLabel htmlFor="course-content-input">
+                    Course Content
                   </FieldLabel>
-                  <InputGroup>
-                    <InputGroupTextarea
-                      {...field}
-                      id="course-about"
-                      placeholder="What will students learn in this course?"
-                      rows={4}
-                      className="min-h-36 resize-none"
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap gap-2">
+                      {field.value?.map((content, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+                        >
+                          <span>{content}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newContent = [...field.value];
+                              newContent.splice(index, 1);
+                              field.onChange(newContent);
+                            }}
+                            className="hover:text-primary-focus ml-1 rounded-full hover:bg-primary/20 p-0.5"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    <Input
+                      id="course-content-input"
+                      placeholder="Add topic and press Enter..."
+                      value={currentContent}
+                      onChange={(e) => setCurrentContent(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (currentContent.trim()) {
+                            field.onChange([...(field.value || []), currentContent.trim()]);
+                            setCurrentContent("");
+                          }
+                        }
+                      }}
                       aria-invalid={fieldState.invalid}
                     />
-                    <InputGroupAddon align="block-end">
-                      <InputGroupText className="tabular-nums">
-                        {field.value?.length || 0}/1500
-                      </InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
+                  </div>
                   <FieldDescription>
-                    Include specific topics covered and requirements.
+                    Press enter to add topics one by one.
                   </FieldDescription>
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -244,15 +269,16 @@ export function CreateCourseForm() {
               />
 
               <Controller
-                name="duration"
+                name="classes"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="course-duration">Duration</FieldLabel>
+                    <FieldLabel htmlFor="course-classes">No. of classes</FieldLabel>
                     <Input
                       {...field}
-                      id="course-duration"
-                      placeholder="e.g. 3 weeks"
+                      id="course-classes"
+                      type="number"
+                      placeholder="e.g. 10"
                       aria-invalid={fieldState.invalid}
                     />
                     {fieldState.invalid && (
@@ -290,32 +316,7 @@ export function CreateCourseForm() {
                 )}
               />
 
-              <Controller
-                name="type"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="course-type">Course Type</FieldLabel>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        id="course-type"
-                        className="w-full"
-                        aria-invalid={fieldState.invalid}
-                      >
-                        <SelectValue placeholder="Select type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="astrology">Astrology</SelectItem>
-                        <SelectItem value="vastu">Vastu</SelectItem>
-                        <SelectItem value="tarot">Tarot</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
+
             </div>
 
             <Controller
