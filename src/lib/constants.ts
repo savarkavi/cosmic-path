@@ -146,34 +146,46 @@ export const bookConsultationInfo = [
 
 export const servicesData = [
   {
-    label: "Astrology consultations",
+    label: "Astrology consultation",
     slug: "astrology-consultations",
     desc: "Get deep astrological and spiritual insights to navigate life's challenges and discover your true path.",
     img: "/hero-img.jpg",
+    price: 5000,
   },
   {
     label: "Vastu Consultations",
     slug: "vastu-consultations",
     desc: "Harmonize your living and working spaces to attract positive cosmic energy, prosperity, and peace.",
     img: "/service-vastu-img.jpg",
+    price: 31000,
   },
   {
     label: "Remedies",
     slug: "remedies",
     desc: "Authentic Vedic remedies including Puja, Mantra Jaap, and Yagya Anushthan to overcome life's obstacles.",
     img: "/service-remedies-img.jpg",
+    price: 2100,
   },
   {
     label: "Scientific logo design",
     slug: "scientific-logo-design",
     desc: "Create a powerful brand identity with logos designed using Vastu and Astrological principles for success.",
     img: "/service-logo-design-img.jpg",
+    price: 30000,
   },
   {
     label: "Wrist watch consultation",
     slug: "wrist-watch-consultation",
     desc: "Optimize your time and energy by choosing the right wrist watch based on your planetary alignments.",
     img: "/service-watch-img.jpg",
+    price: 11000,
+  },
+  {
+    label: "Palmistry readings",
+    slug: "palmistry-readings",
+    desc: "Discover the secrets of your life, career, and relationships mapped out in the lines of your hands.",
+    img: "/service-palmistry-img.jpg",
+    price: 2100,
   },
 ];
 
