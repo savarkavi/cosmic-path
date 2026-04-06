@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { internalQuery, mutation, query, QueryCtx } from "./_generated/server";
-import { paginationOptsValidator } from "convex/server";
+
 import { Doc } from "./_generated/dataModel";
 import { requireAdmin } from "./helpers";
 
@@ -69,21 +69,21 @@ export const createCourse = mutation({
 export const getFeaturedCourses = query({
   args: {},
   handler: async (ctx) => {
-    const courses = await ctx.db.query("courses").order("desc").take(6);
+    const courses = await ctx.db.query("courses").order("asc").take(6);
 
     return getImageUrls(ctx, courses);
   },
 });
 
 export const getAllCourses = query({
-  args: { paginationOpts: paginationOptsValidator },
-  handler: async (ctx, args) => {
+  args: {},
+  handler: async (ctx) => {
     const courses = await ctx.db
       .query("courses")
-      .order("desc")
-      .paginate(args.paginationOpts);
+      .order("asc")
+      .collect();
 
-    return courses;
+    return getImageUrls(ctx, courses);
   },
 });
 
