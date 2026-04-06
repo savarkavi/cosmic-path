@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Link from "next/link";
 
 const ServiceBanner = () => {
   return (
@@ -26,17 +24,6 @@ const ServiceBanner = () => {
               astrologers.
             </p>
           </div>
-        </div>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-8">
-          <div className="flex flex-col gap-1">
-            <p className="text-xl text-gray-400 line-through">₹ 30/Min</p>
-            <p className="text-2xl text-white md:text-4xl">₹ 15/Min</p>
-          </div>
-          <Link href="/consultation">
-            <Button className="cursor-pointer rounded-full bg-white px-8 py-4 text-lg md:py-6">
-              Book Now
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

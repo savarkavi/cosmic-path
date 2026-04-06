@@ -80,9 +80,6 @@ const HeroContent = () => {
               height={48}
               className="z-10 h-12 w-12 rounded-full border-2 border-white object-cover shadow-sm"
             />
-            <div className="z-20 flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-[#e8edf5] text-sm font-medium text-slate-800 shadow-sm">
-              2k+
-            </div>
           </div>
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-1 text-[#d97706]">

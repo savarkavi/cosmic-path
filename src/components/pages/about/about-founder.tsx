@@ -47,7 +47,7 @@ const AboutFounder = () => {
       </div>
       <div className="relative h-[300px] w-[300px] shrink-0 rounded-full sm:h-[400px] sm:w-[400px] lg:h-[500px] lg:w-[500px]">
         <Image
-          src="/testimonial-avatar-2.jpg"
+          src="/owner-photo.jpeg"
           alt="founder image"
           fill
           className="rounded-full object-cover"
