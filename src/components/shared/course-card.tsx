@@ -30,7 +30,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
         </div>
         <div className="flex h-full flex-col justify-between gap-2 p-4">
           <div className="flex items-center justify-between">
-            <p className="text-lg uppercase md:text-2xl">{course.title}</p>
+            <p className="text-lg capitalize md:text-2xl">{course.title}</p>
           </div>
           <p className="text-muted-foreground line-clamp-2">
             {course.description}
