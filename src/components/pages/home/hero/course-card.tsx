@@ -15,10 +15,10 @@ const CourseCard = () => {
         <div className="mb-1 flex items-start justify-between">
           <div>
             <span className="text-xs font-bold tracking-wider text-[#d97706] uppercase">
-              Bestseller
+              Start here
             </span>
             <h3 className="mt-1 font-sans text-xl font-semibold text-gray-900">
-              Vedic Astrology Basics
+              Basic Astrology Course
             </h3>
           </div>
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#d97706]/10">
@@ -28,7 +28,7 @@ const CourseCard = () => {
         <div className="mt-4 flex flex-col gap-3.5">
           <div className="flex items-center gap-3 text-gray-600">
             <MonitorPlay className="h-5 w-5 text-gray-400" />
-            <span className="text-[15px]">3 weeks worth of Live content</span>
+            <span className="text-[15px]">10 classes / 1.5 hrs each</span>
           </div>
           <div className="flex items-center gap-3 text-gray-600">
             <SquareLibrary className="h-5 w-5 text-gray-400" />
@@ -55,7 +55,7 @@ const CourseCard = () => {
             Yahskaran Sharma
           </span>
         </div>
-        <Link href="/courses/vedic-astrology-research">
+        <Link href="/courses/basic-astrology-course">
           <button className="flex cursor-pointer items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-[#d97706]">
             Enroll Now
             <ChevronRight className="h-4 w-4" />
