@@ -2,6 +2,7 @@ import SectionTitle from "@/components/shared/section-title";
 import CoursesCarousel from "./courses-carousel";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const FeaturedCoursesSection = () => {
   const subtitle =
@@ -17,10 +18,12 @@ const FeaturedCoursesSection = () => {
         variant="outline"
         className="border-primary text-foreground mt-16 cursor-pointer rounded-full px-10 py-6"
       >
-        <div className="flex items-center gap-2">
-          Explore More Courses
-          <ArrowRight />
-        </div>
+        <Link href="/courses">
+          <div className="flex items-center gap-2">
+            Explore More Courses
+            <ArrowRight />
+          </div>
+        </Link>
       </Button>
     </section>
   );
