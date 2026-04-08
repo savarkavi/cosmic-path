@@ -38,7 +38,7 @@ const BookConsultation = () => {
               );
             })}
           </div>
-          <Link href="/consultation">
+          <Link href="/services">
             <Button size="lg" className="w-fit cursor-pointer text-white">
               Book Now
             </Button>

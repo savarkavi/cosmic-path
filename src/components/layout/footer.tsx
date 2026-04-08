@@ -62,7 +62,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/consultation/booking-details"
+                    href="/book-consultation"
                     className="transition-colors hover:text-white"
                   >
                     Book consultation

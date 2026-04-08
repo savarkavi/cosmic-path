@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Menu, PlusCircle, Phone, Mail, MapPin, Loader2 } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { SignInButton, UserButton } from "@clerk/nextjs";
@@ -40,7 +40,6 @@ const Header = () => {
   const user = useQuery(api.users.getMe);
   const isAdmin = user?.role === "admin";
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => {
@@ -128,10 +127,9 @@ const Header = () => {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    onClick={() => router.push("/services")}
                     className={cn(
                       "cursor-pointer bg-transparent px-0 text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#d49f3c] data-[state=open]:hover:bg-transparent",
-                      pathname.startsWith("/services") && "text-primary",
+                      pathname.startsWith("/services/") && "text-primary",
                     )}
                   >
                     Services
@@ -170,10 +168,10 @@ const Header = () => {
                     asChild
                     className={cn(
                       "cursor-pointer bg-transparent text-base font-semibold transition-colors hover:bg-transparent hover:text-[#d49f3c] focus:bg-transparent",
-                      pathname === "/consultation" && "text-primary",
+                      pathname === "/services" && "text-primary",
                     )}
                   >
-                    <Link href="/consultation">Book Consultation</Link>
+                    <Link href="/services">Book Consultation</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>

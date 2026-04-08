@@ -78,7 +78,7 @@ const ServicePage = async ({ params }: ServicePageProps) => {
 
         <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
           <Link
-            href={`/consultation/booking-details?service=${service.slug}`}
+            href={`/book-consultation?service=${service.slug}`}
             className="w-full sm:w-auto"
           >
             <Button

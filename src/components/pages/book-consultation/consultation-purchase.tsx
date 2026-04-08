@@ -11,7 +11,7 @@ const ConsultationPurchase = () => {
         </span>
       </div>
       <div className="mt-5">
-        <Link href="/consultation/booking-details">
+        <Link href="/book-consultation">
           <Button className="bg-foreground w-full cursor-pointer rounded-full px-8 py-4 text-white md:px-12 md:py-6">
             Book Now
           </Button>

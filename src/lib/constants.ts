@@ -49,7 +49,7 @@ export const headerItems = [
   },
   {
     label: "Book Consultation",
-    href: "consultation",
+    href: "/services",
   },
   {
     label: "About",

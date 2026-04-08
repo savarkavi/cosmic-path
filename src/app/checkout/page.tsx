@@ -95,7 +95,7 @@ function CheckoutStatus() {
         <div className="mt-8">
           <Button
             size="lg"
-            onClick={() => router.push(isBooking ? "/consultation" : "/cart")}
+            onClick={() => router.push(isBooking ? "/services" : "/cart")}
             className="rounded-lg bg-yellow-600 font-medium text-white transition hover:bg-yellow-700"
           >
             {isBooking ? "Return to Consultation" : "Return to Cart"}
@@ -149,7 +149,7 @@ function CheckoutStatus() {
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:space-x-4">
         <Button
           size="lg"
-          onClick={() => router.push(isBooking ? "/consultation" : "/cart")}
+          onClick={() => router.push(isBooking ? "/services" : "/cart")}
           className="bg-foreground rounded-lg font-medium text-white transition"
         >
           Try Again
