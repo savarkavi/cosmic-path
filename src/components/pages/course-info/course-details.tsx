@@ -139,17 +139,10 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
                     icon: <GraduationCap className="h-5 w-5" />,
                     text: "Professional certification upon completion",
                   },
-                  {
-                    icon: <BookOpen className="h-5 w-5" />,
-                    text: "Downloadable study materials & guides",
-                  },
+
                   {
                     icon: <Star className="h-5 w-5" />,
                     text: "Live Q&A sessions with the instructor",
-                  },
-                  {
-                    icon: <Sparkles className="h-5 w-5" />,
-                    text: "Lifetime access to course recordings",
                   },
                 ].map((item, index) => (
                   <div
@@ -202,15 +195,11 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
                   <div className="flex flex-col gap-2.5 text-xs text-[#8a8580]">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      <span>30-day money-back guarantee</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
                       <span>Secure payment via Cashfree</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                      <span>Instant access after purchase</span>
+                      <span>Instant Live classes after purchase</span>
                     </div>
                   </div>
                 </div>
