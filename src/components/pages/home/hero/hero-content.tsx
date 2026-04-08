@@ -46,7 +46,7 @@ const HeroContent = () => {
               <BookOpen />
             </Button>
           </Link>
-          <Link href="/consultation">
+          <Link href="/services">
             <Button
               size="lg"
               className="border-muted-foreground flex cursor-pointer items-center gap-2 rounded-full border bg-transparent py-6"
