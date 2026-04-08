@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const CourseCard = () => {
   return (
-    <div className="absolute top-4 left-1/2 z-20 h-fit w-[80%] max-w-[420px] -translate-x-1/2 overflow-hidden rounded-2xl border border-gray-100 bg-white/90 shadow-xl backdrop-blur-md 2xl:top-auto 2xl:-right-2 2xl:-bottom-6 2xl:left-auto 2xl:translate-0">
+    <div className="absolute top-4 left-1/2 z-20 h-fit w-[80%] max-w-[420px] -translate-x-1/2 overflow-hidden rounded-2xl border border-gray-100 bg-white/90 shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-[1.02] 2xl:top-auto 2xl:-right-2 2xl:-bottom-6 2xl:left-auto 2xl:translate-0">
       <div className="p-6 pb-4">
         <div className="mb-1 flex items-start justify-between">
           <div>

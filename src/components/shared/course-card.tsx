@@ -17,14 +17,14 @@ const CourseCard = ({ course }: CourseCardProps) => {
   );
 
   return (
-    <div className="bg-background h-full w-full rounded-md shadow-lg">
+    <div className="bg-background group h-full w-full rounded-md shadow-lg transition-transform duration-300 hover:scale-[1.02]">
       <Link href={`/courses/${course.slug}`} className="flex h-full flex-col">
-        <div className="relative h-[200px] w-full shrink-0 rounded-t-md md:h-[300px]">
+        <div className="relative h-[200px] w-full shrink-0 overflow-hidden rounded-t-md md:h-[300px]">
           <Image
             src={course.imageUrl ? course.imageUrl : "/placeholder.png"}
             alt="course banner image"
             fill
-            className="rounded-t-md object-cover"
+            className="rounded-t-md object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div className="from-accent absolute bottom-0 left-0 h-24 w-full bg-linear-to-t" />
         </div>
