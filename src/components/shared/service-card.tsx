@@ -32,7 +32,7 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
       </div>
       <div className="mt-4 flex flex-col gap-2 p-4">
         <div className="flex items-center justify-between">
-          <p className="line-clamp-1 text-2xl uppercase">{service.label}</p>
+          <p className="line-clamp-1 text-2xl capitalize">{service.label}</p>
         </div>
         <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
         <Separator className="my-4 w-full" />

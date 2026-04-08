@@ -187,6 +187,34 @@ export const servicesData = [
     img: "/service-palmistry-img.jpg",
     price: 2100,
   },
+  {
+    label: "Astrological Products",
+    slug: "astrological-products",
+    desc: "Explore our curated collection of authentic, energized Gems, Rudraksha, Yantras, and customized Puja & Yagya items.",
+    img: "/service-astrological-products-img.jpg",
+    price: 2100,
+  },
+  {
+    label: "Horary (Prashna)",
+    slug: "horary-prashna",
+    desc: "Find immediate and accurate answers to your specific, pressing questions using the ancient Prashna branch of astrology.",
+    img: "/service-horary-img.jpg",
+    price: 2100,
+  },
+  {
+    label: "Lalkitab",
+    slug: "lalkitab",
+    desc: "Experience rapid positive changes through unique, highly effective, and easy-to-perform Lal Kitab remedies.",
+    img: "/service-lalkitab-img.webp",
+    price: 2100,
+  },
+  {
+    label: "Jaimini Astrology",
+    slug: "jaimini-astrology",
+    desc: "Delve into precise life predictions and timing of events using the advanced and profound Jaimini sutras.",
+    img: "/service-jaimini-img.jpg",
+    price: 2100,
+  },
 ];
 
 export const aboutStats = [
