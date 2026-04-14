@@ -246,7 +246,7 @@ const Header = () => {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="z-99 flex w-72 flex-col border-white/10 text-black"
+                className="z-99 flex w-72 flex-col overflow-scroll border-white/10 text-black"
               >
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2">
