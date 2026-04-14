@@ -7,7 +7,15 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, PlusCircle, Phone, Mail, MapPin, Loader2 } from "lucide-react";
+import {
+  Menu,
+  PlusCircle,
+  Phone,
+  Mail,
+  MapPin,
+  Loader2,
+  ChevronDown,
+} from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import {
@@ -37,6 +45,7 @@ import {
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const user = useQuery(api.users.getMe);
   const isAdmin = user?.role === "admin";
   const pathname = usePathname();
@@ -253,22 +262,69 @@ const Header = () => {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-8 flex flex-col gap-2 px-4">
-                  {headerItems.map((item) => (
-                    <Link
-                      href={item.href}
-                      key={item.label}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={cn(
-                        "hover:text-primary rounded-md px-3 py-2.5 text-base font-semibold transition-colors hover:bg-white/5",
-                        (pathname === item.href ||
-                          (item.href !== "/" &&
-                            pathname.startsWith(item.href))) &&
-                          "text-primary",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                  {headerItems.map((item) => {
+                    if (item.label === "Services") {
+                      return (
+                        <div key={item.label} className="flex flex-col">
+                          <button
+                            onClick={() => setServicesOpen(!servicesOpen)}
+                            className={cn(
+                              "hover:text-primary flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-base font-semibold transition-colors hover:bg-white/5",
+                              pathname.startsWith("/services/") &&
+                                "text-primary",
+                            )}
+                          >
+                            {item.label}
+                            <ChevronDown
+                              className={cn(
+                                "h-4 w-4 transition-transform duration-200",
+                                servicesOpen && "rotate-180",
+                              )}
+                            />
+                          </button>
+                          {servicesOpen && (
+                            <div className="mt-1 ml-4 flex flex-col gap-1 border-l border-gray-200 pl-3">
+                              {servicesData.map((service) => (
+                                <Link
+                                  key={service.label}
+                                  href={
+                                    service.slug
+                                      ? `/services/${service.slug}`
+                                      : "/services"
+                                  }
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className={cn(
+                                    "hover:text-primary rounded-md py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-white/5",
+                                    pathname === `/services/${service.slug}` &&
+                                      "text-primary",
+                                  )}
+                                >
+                                  {service.label}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    }
+                    return (
+                      <Link
+                        href={item.href}
+                        key={item.label}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={cn(
+                          "hover:text-primary rounded-md px-3 py-2.5 text-base font-semibold transition-colors hover:bg-white/5",
+                          (pathname === item.href ||
+                            (item.href !== "/" &&
+                              item.href !== "/services" &&
+                              pathname.startsWith(item.href))) &&
+                            "text-primary",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
                 </nav>
                 <div className="mt-auto flex flex-col gap-4 border-t border-gray-200 px-4 pt-6 pb-8">
                   <AuthLoading>
