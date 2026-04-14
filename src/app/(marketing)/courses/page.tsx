@@ -1,16 +1,18 @@
 "use client";
 
 import { Suspense } from "react";
-import BundleBanner from "@/components/pages/courses/bundle-banner";
+import CourseHero from "@/components/pages/courses/course-hero";
 import CoursesContainer from "@/components/pages/courses/courses-container";
-import Header from "@/components/pages/courses/header";
 
 const CoursesPageContent = () => {
   return (
-    <div className="mx-auto w-full max-w-300 px-4 pt-28 md:pt-46 xl:px-0">
-      <Header />
-      <BundleBanner />
-      <CoursesContainer />
+    <div className="mx-auto pb-20 xl:pt-32">
+      <div className="flex flex-col gap-20">
+        <CourseHero />
+        <div id="courses">
+          <CoursesContainer />
+        </div>
+      </div>
     </div>
   );
 };
