@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { consultationHighlights, servicesData } from "@/lib/constants";
+import { servicesData } from "@/lib/constants";
 import { Sparkles } from "lucide-react";
 
 const ConsultationHero = () => {
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-slate-900 lg:mt-8">
+    <section className="relative w-full overflow-hidden bg-slate-900 md:px-6 lg:px-8">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -36,7 +36,7 @@ const ConsultationHero = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col gap-8 border px-6 py-16 md:px-12 md:py-20 lg:px-20">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-8 px-6 py-16 md:px-12 lg:px-20">
         <div className="flex max-w-3xl flex-col gap-6">
           <div className="flex items-center gap-3">
             <div className="h-px w-12 bg-amber-400/60" />
@@ -64,29 +64,6 @@ const ConsultationHero = () => {
 
         {/* Highlight badges */}
         <div className="flex flex-col gap-4">
-          <p className="text-sm font-medium tracking-widest text-slate-400 uppercase">
-            Areas of Life
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {consultationHighlights.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 backdrop-blur-sm transition-colors hover:border-amber-400/30 hover:bg-white/10"
-                >
-                  <Icon
-                    className="h-4 w-4"
-                    style={{ color: "oklch(76.856% 0.16472 70.113)" }}
-                  />
-                  <span className="text-sm font-medium text-slate-200">
-                    {item.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
           <p className="mt-2 text-sm font-medium tracking-widest text-slate-400 uppercase">
             Our Services
           </p>

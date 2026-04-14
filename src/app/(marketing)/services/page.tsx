@@ -4,7 +4,7 @@ import ConsultationCTA from "@/components/pages/book-consultation/consultation-c
 
 const ServicesPage = () => {
   return (
-    <div className="mx-auto max-w-7xl px-4 pt-32 pb-20 md:px-6 lg:px-8">
+    <div className="mx-auto pb-20 xl:pt-32">
       <div className="flex flex-col gap-20">
         {/* Hero section */}
         <ConsultationHero />

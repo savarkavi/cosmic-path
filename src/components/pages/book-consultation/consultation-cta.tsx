@@ -4,7 +4,7 @@ import { Phone, MessageCircle, Video } from "lucide-react";
 
 const ConsultationCTA = () => {
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-slate-900 px-6 py-16 text-center md:px-12 md:py-20">
+    <section className="relative overflow-hidden bg-slate-900 px-6 py-16 text-center md:px-12 md:py-20">
       {/* Decorative elements */}
       <div
         className="absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-3xl"
@@ -14,7 +14,7 @@ const ConsultationCTA = () => {
         }}
       />
       <div
-        className="absolute bottom-0 right-0 h-64 w-64 translate-x-1/2 translate-y-1/2 rounded-full opacity-15 blur-3xl"
+        className="absolute right-0 bottom-0 h-64 w-64 translate-x-1/2 translate-y-1/2 rounded-full opacity-15 blur-3xl"
         style={{
           background:
             "radial-gradient(circle, oklch(76.856% 0.16472 70.113), transparent)",

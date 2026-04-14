@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 const ConsultationServicesGrid = () => {
   return (
-    <section className="flex flex-col gap-12">
+    <section className="mx-auto flex max-w-7xl flex-col gap-12 px-4 md:px-6 lg:px-8">
       {/* Section header */}
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ const ConsultationServicesGrid = () => {
         {servicesData.map((service) => (
           <Link
             key={service.slug}
-            href={`/book-consultation`}
+            href={`/services/${service.slug}`}
             className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/5"
           >
             {/* Image */}
