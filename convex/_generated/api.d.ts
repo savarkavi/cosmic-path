@@ -17,6 +17,7 @@ import type * as helpers from "../helpers.js";
 import type * as http from "../http.js";
 import type * as orders from "../orders.js";
 import type * as users from "../users.js";
+import type * as webinars from "../webinars.js";
 
 import type {
   ApiFromModules,
@@ -34,6 +35,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   orders: typeof orders;
   users: typeof users;
+  webinars: typeof webinars;
 }>;
 
 /**
