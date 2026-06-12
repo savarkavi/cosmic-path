@@ -59,3 +59,29 @@ export const bookingDetailsSchema = z.object({
 });
 
 export type BookingDetailsFormValues = z.infer<typeof bookingDetailsSchema>;
+
+export const webinarSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(2, "Title must be at least 2 characters.")
+    .max(100, "Title must be at most 100 characters."),
+  headline: z
+    .string()
+    .trim()
+    .min(5, "Headline must be at least 5 characters.")
+    .max(150, "Headline must be at most 150 characters."),
+  description: z
+    .string()
+    .trim()
+    .min(10, "Description must be at least 10 characters.")
+    .max(300, "Description must be at most 300 characters."),
+  price: z.coerce.number<number>().min(0, "Price must be a positive number."),
+  duration: z.coerce
+    .number<number>()
+    .min(1, "Duration must be at least 1 minute."),
+  date: z.string().min(1, "Date is required."),
+  time: z.string().min(1, "Time is required."),
+});
+
+export type WebinarFormValues = z.infer<typeof webinarSchema>;
