@@ -2,7 +2,7 @@ import React from "react";
 
 const TermsAndConditionsPage = () => {
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 pt-28 pb-20 text-black md:pt-40">
+    <div className="mx-auto w-full max-w-4xl px-4 pt-28 pb-40 text-black md:pt-40">
       <h1 className="mb-8 font-serif text-4xl md:text-5xl">
         Terms &amp; Conditions
       </h1>
@@ -29,9 +29,7 @@ const TermsAndConditionsPage = () => {
         </div>
 
         <div>
-          <h2 className="mt-8 mb-4 font-serif text-2xl">
-            2. Use of Services
-          </h2>
+          <h2 className="mt-8 mb-4 font-serif text-2xl">2. Use of Services</h2>
           <p className="mb-4 text-gray-500">
             Our services, including astrological consultations and courses, are
             provided for informational and educational purposes only. You agree
@@ -46,9 +44,7 @@ const TermsAndConditionsPage = () => {
         </div>
 
         <div>
-          <h2 className="mt-8 mb-4 font-serif text-2xl">
-            3. User Accounts
-          </h2>
+          <h2 className="mt-8 mb-4 font-serif text-2xl">3. User Accounts</h2>
           <p className="text-gray-500">
             When you create an account with us, you must provide accurate,
             complete, and up-to-date information. You are responsible for
@@ -73,9 +69,7 @@ const TermsAndConditionsPage = () => {
         </div>
 
         <div>
-          <h2 className="mt-8 mb-4 font-serif text-2xl">
-            5. Payment Terms
-          </h2>
+          <h2 className="mt-8 mb-4 font-serif text-2xl">5. Payment Terms</h2>
           <p className="text-gray-500">
             All payments for services and courses are processed through secure
             third-party payment gateways. Prices are listed in Indian Rupees
@@ -99,9 +93,7 @@ const TermsAndConditionsPage = () => {
         </div>
 
         <div>
-          <h2 className="mt-8 mb-4 font-serif text-2xl">
-            7. Governing Law
-          </h2>
+          <h2 className="mt-8 mb-4 font-serif text-2xl">7. Governing Law</h2>
           <p className="text-gray-500">
             These Terms & Conditions are governed by and construed in accordance
             with the laws of India. Any disputes arising under these terms shall

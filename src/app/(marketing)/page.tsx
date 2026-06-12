@@ -7,7 +7,7 @@ import TestimonialSection from "@/components/pages/home/testimonial";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-40">
       <HeroSection />
       <FeaturedCoursesSection />
       <AboutSection />

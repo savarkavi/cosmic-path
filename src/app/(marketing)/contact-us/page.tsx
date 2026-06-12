@@ -8,7 +8,7 @@ import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 const ContactPage = () => {
   return (
-    <div className="mx-auto w-full max-w-340 px-4 pt-28 pb-20 md:pt-40">
+    <div className="mx-auto w-full max-w-340 px-4 pt-28 pb-40 md:pt-40">
       <div className="mb-16 flex flex-col items-center space-y-4 text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
           Get in Touch

@@ -10,7 +10,7 @@ const BookConsultationPage = () => {
 
   if (user === undefined || user === null) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center pb-40">
         <Loader2 className="animate-spin" />
       </div>
     );

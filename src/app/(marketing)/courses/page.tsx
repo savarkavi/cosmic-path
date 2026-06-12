@@ -6,7 +6,7 @@ import CoursesContainer from "@/components/pages/courses/courses-container";
 
 const CoursesPageContent = () => {
   return (
-    <div className="mx-auto pb-20 xl:pt-32">
+    <div className="mx-auto pb-40 xl:pt-32">
       <div className="flex flex-col gap-20">
         <CourseHero />
         <div id="courses">

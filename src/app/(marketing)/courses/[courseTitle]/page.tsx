@@ -17,7 +17,7 @@ const CourseInfoPage = ({
 
   if (data === undefined)
     return (
-      <div className="flex h-screen flex-col items-center justify-center gap-2">
+      <div className="flex h-screen flex-col items-center justify-center gap-2 pb-40">
         <Triangle
           visible={true}
           height="80"
@@ -31,13 +31,13 @@ const CourseInfoPage = ({
 
   if (data === null)
     return (
-      <div className="flex h-screen flex-col items-center justify-center gap-2">
+      <div className="flex h-screen flex-col items-center justify-center gap-2 pb-40">
         <p className="">This course doesnt exist.</p>
       </div>
     );
 
   return (
-    <div className="flex w-full flex-col pb-20">
+    <div className="flex w-full flex-col pb-40">
       <CourseDetails course={data} />
     </div>
   );

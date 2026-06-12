@@ -21,7 +21,7 @@ const ServicePage = async ({ params }: ServicePageProps) => {
   }
 
   return (
-    <div className="mx-auto mt-0 mb-20 flex w-full max-w-300 flex-col items-center gap-14 px-4 pt-28 md:mt-20 md:pt-32 lg:flex-row lg:justify-center lg:px-8 xl:px-0">
+    <div className="mx-auto mt-0 mb-20 flex w-full max-w-300 flex-col items-center gap-14 px-4 pt-28 pb-40 md:mt-20 md:pt-32 lg:flex-row lg:justify-center lg:px-8 xl:px-0">
       <div className="relative h-80 w-full shrink-0 rounded-lg shadow-xl sm:h-120 lg:h-[600px] lg:w-[500px]">
         <Image
           src={service.img}
