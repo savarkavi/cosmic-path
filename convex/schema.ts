@@ -72,4 +72,21 @@ export default defineSchema({
     ),
     emailsSent: v.optional(v.boolean()),
   }).index("by_order_id", ["orderId"]),
+
+  webinars: defineTable({
+    title: v.string(),
+    headline: v.string(),
+    slug: v.string(),
+    description: v.string(),
+    price: v.number(),
+    scheduledAt: v.string(),
+    status: v.union(
+      v.literal("upcoming"),
+      v.literal("completed"),
+      v.literal("cancelled"),
+    ),
+    createdAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status"]),
 });
