@@ -3,11 +3,37 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { faqs } from "./webinar-data";
 import WebinarSectionHeading from "./webinar-section-heading";
 
-const WebinarFaqSection = () => {
+const getWebinarFaqs = (price: number) => [
+  {
+    question: "Do I need any prior knowledge of astrology?",
+    answer:
+      "No. The webinar is designed for beginners as well as curious learners who want to understand how structured astrology training works.",
+  },
+  {
+    question: `Is the Rs. ${price} fee refundable?`,
+    answer: "The registration fee is non-refundable.",
+  },
+  {
+    question: "How will I join the webinar?",
+    answer:
+      "You will receive the joining instructions and Zoom link after registration confirmation.",
+  },
+  {
+    question: "Can I ask personal chart questions during Q&A?",
+    answer:
+      "Yes, you can ask questions during Q&A. Personal chart questions may be addressed depending on the available time.",
+  },
+];
+
+interface WebinarFaqSectionProps {
+  price: number;
+}
+
+const WebinarFaqSection = ({ price }: WebinarFaqSectionProps) => {
   const [openIndex, setOpenIndex] = useState(-1);
+  const faqs = getWebinarFaqs(price);
 
   return (
     <section className="mx-auto w-full max-w-300 px-4 py-16 md:py-24">

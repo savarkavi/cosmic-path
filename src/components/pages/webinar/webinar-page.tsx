@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { Loader2 } from "lucide-react";
 import WebinarBackground from "./webinar-background";
 import WebinarCountdown from "./webinar-countdown";
 import WebinarCta from "./webinar-cta";
@@ -16,11 +19,14 @@ import WebinarTestimonialsSection from "./webinar-testimonials-section";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const WebinarPage = () => {
+const WebinarPage = ({ slug }: { slug: string }) => {
+  const webinar = useQuery(api.webinars.getWebinarBySlug, { slug });
   const scope = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
+      if (!webinar) return;
+
       gsap.fromTo(
         "[data-hero-item]",
         { autoAlpha: 0, y: 28 },
@@ -59,8 +65,29 @@ const WebinarPage = () => {
         });
       });
     },
-    { scope },
+    { scope, dependencies: [webinar] },
   );
+
+  if (webinar === undefined) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#080613]">
+        <Loader2 className="size-8 animate-spin text-[#c9a84c]" />
+      </div>
+    );
+  }
+
+  if (webinar === null) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#080613] text-[#e4e0f0]">
+        <h1 className="text-3xl font-semibold">Webinar Not Found</h1>
+        <p className="text-[#bdb7ce]">
+          This webinar doesn&apos;t exist or may have been removed.
+        </p>
+      </div>
+    );
+  }
+
+  const isPast = new Date(webinar.scheduledAt).getTime() < Date.now();
 
   return (
     <main
@@ -81,14 +108,22 @@ const WebinarPage = () => {
       `}</style>
       <WebinarBackground />
       <div className="relative z-10">
-        <WebinarHero />
-        <WebinarCountdown />
+        <WebinarHero
+          headline={webinar.headline}
+          description={webinar.description}
+          scheduledAt={webinar.scheduledAt}
+          price={webinar.price}
+        />
+        <WebinarCountdown scheduledAt={webinar.scheduledAt} isPast={isPast} />
         <WebinarLearnSection />
-        <WebinarDetailsSection />
+        <WebinarDetailsSection
+          scheduledAt={webinar.scheduledAt}
+          duration={webinar.duration}
+        />
         <WebinarInstructorSection />
         <WebinarTestimonialsSection />
-        <WebinarFaqSection />
-        <WebinarCta />
+        <WebinarFaqSection price={webinar.price} />
+        <WebinarCta price={webinar.price} />
       </div>
     </main>
   );

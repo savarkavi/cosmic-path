@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { webinarDate } from "./webinar-data";
 
 const labels = ["Days", "Hours", "Mins", "Secs"];
 
@@ -16,8 +15,13 @@ const getTimeParts = (target: number) => {
   ];
 };
 
-const WebinarCountdown = () => {
-  const target = useMemo(() => new Date(webinarDate).getTime(), []);
+interface WebinarCountdownProps {
+  scheduledAt: string;
+  isPast: boolean;
+}
+
+const WebinarCountdown = ({ scheduledAt, isPast }: WebinarCountdownProps) => {
+  const target = useMemo(() => new Date(scheduledAt).getTime(), [scheduledAt]);
   const [parts, setParts] = useState(() => [0, 0, 0, 0]);
 
   useEffect(() => {
@@ -37,27 +41,31 @@ const WebinarCountdown = () => {
       >
         <div>
           <h2 className="text-2xl font-semibold text-white">
-            Webinar Starts In
+            {isPast ? "This Webinar Has Ended" : "Webinar Starts In"}
           </h2>
           <p className="mt-1 text-[#bdb7ce]">
-            Seats are limited for this live learning session.
+            {isPast
+              ? "Stay tuned for upcoming webinars."
+              : "Seats are limited for this live learning session."}
           </p>
         </div>
-        <div className="grid grid-cols-4 gap-3">
-          {parts.map((part, index) => (
-            <div
-              key={labels[index]}
-              className="min-w-16 rounded-lg border border-[#c9a84c]/20 bg-[#c9a84c]/10 px-3 py-4 text-center"
-            >
-              <span className="block text-2xl font-bold text-[#c9a84c] md:text-3xl">
-                {String(part).padStart(2, "0")}
-              </span>
-              <span className="mt-1 block text-[0.68rem] font-semibold tracking-[0.16em] text-[#bdb7ce] uppercase">
-                {labels[index]}
-              </span>
-            </div>
-          ))}
-        </div>
+        {!isPast && (
+          <div className="grid grid-cols-4 gap-3">
+            {parts.map((part, index) => (
+              <div
+                key={labels[index]}
+                className="min-w-16 rounded-lg border border-[#c9a84c]/20 bg-[#c9a84c]/10 px-3 py-4 text-center"
+              >
+                <span className="block text-2xl font-bold text-[#c9a84c] md:text-3xl">
+                  {String(part).padStart(2, "0")}
+                </span>
+                <span className="mt-1 block text-[0.68rem] font-semibold tracking-[0.16em] text-[#bdb7ce] uppercase">
+                  {labels[index]}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

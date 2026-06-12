@@ -1,7 +1,11 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
-const WebinarCta = () => {
+interface WebinarCtaProps {
+  price: number;
+}
+
+const WebinarCta = ({ price }: WebinarCtaProps) => {
   return (
     <section
       id="register"
@@ -22,7 +26,7 @@ const WebinarCta = () => {
           href="#"
           className="mt-8 inline-flex items-center gap-3 rounded-full bg-linear-to-br from-[#e8d08f] to-[#b08930] px-8 py-4 text-base font-bold text-[#0a0818] shadow-[0_12px_35px_rgba(201,168,76,0.24)] transition-transform hover:-translate-y-1"
         >
-          Register Now - Rs. 99
+          Register Now - Rs. {price}
           <ArrowRight className="size-5" />
         </Link>
         <p className="mt-5 ml-5 inline-flex items-center justify-center gap-2 text-sm text-[#bdb7ce]">
