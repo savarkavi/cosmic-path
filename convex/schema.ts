@@ -79,6 +79,7 @@ export default defineSchema({
     slug: v.string(),
     description: v.string(),
     price: v.number(),
+    duration: v.number(),
     scheduledAt: v.string(),
     status: v.union(
       v.literal("upcoming"),

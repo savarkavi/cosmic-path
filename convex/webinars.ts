@@ -8,6 +8,7 @@ export const createWebinar = mutation({
     headline: v.string(),
     description: v.string(),
     price: v.number(),
+    duration: v.number(),
     scheduledAt: v.string(),
   },
   handler: async (ctx, args) => {
@@ -41,6 +42,7 @@ export const createWebinar = mutation({
       slug,
       description: args.description,
       price: args.price,
+      duration: args.duration,
       scheduledAt: args.scheduledAt,
       status: "upcoming",
       createdAt: Date.now(),
