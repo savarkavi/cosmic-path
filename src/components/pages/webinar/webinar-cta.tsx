@@ -1,11 +1,13 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+import { Id } from "../../../../convex/_generated/dataModel";
+import WebinarRegisterButton from "@/components/webinar/webinar-register-button";
 
 interface WebinarCtaProps {
+  webinarId: Id<"webinars">;
   price: number;
 }
 
-const WebinarCta = ({ price }: WebinarCtaProps) => {
+const WebinarCta = ({ webinarId, price }: WebinarCtaProps) => {
   return (
     <section
       id="register"
@@ -22,13 +24,16 @@ const WebinarCta = ({ price }: WebinarCtaProps) => {
           Join the live webinar and understand the exact path to start learning
           astrology with confidence.
         </p>
-        <Link
-          href="#"
-          className="mt-8 inline-flex items-center gap-3 rounded-full bg-linear-to-br from-[#e8d08f] to-[#b08930] px-8 py-4 text-base font-bold text-[#0a0818] shadow-[0_12px_35px_rgba(201,168,76,0.24)] transition-transform hover:-translate-y-1"
-        >
-          Register Now - Rs. {price}
-          <ArrowRight className="size-5" />
-        </Link>
+        <div className="mt-8">
+          <WebinarRegisterButton
+            webinarId={webinarId}
+            price={price}
+            className="inline-flex cursor-pointer items-center gap-3 rounded-full bg-linear-to-br from-[#e8d08f] to-[#b08930] px-8 py-4 text-base font-bold text-[#0a0818] shadow-[0_12px_35px_rgba(201,168,76,0.24)] transition-transform hover:-translate-y-1 disabled:opacity-60"
+          >
+            Register Now - Rs. {price}
+            <ArrowRight className="size-5" />
+          </WebinarRegisterButton>
+        </div>
         <p className="mt-5 ml-5 inline-flex items-center justify-center gap-2 text-sm text-[#bdb7ce]">
           <ShieldCheck className="size-4 text-[#c9a84c]" />
           Secure payment. Instant confirmation. Limited seats.

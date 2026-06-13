@@ -109,6 +109,7 @@ const WebinarPage = ({ slug }: { slug: string }) => {
       <WebinarBackground />
       <div className="relative z-10">
         <WebinarHero
+          webinarId={webinar._id}
           headline={webinar.headline}
           description={webinar.description}
           scheduledAt={webinar.scheduledAt}
@@ -123,7 +124,7 @@ const WebinarPage = ({ slug }: { slug: string }) => {
         <WebinarInstructorSection />
         <WebinarTestimonialsSection />
         <WebinarFaqSection price={webinar.price} />
-        <WebinarCta price={webinar.price} />
+        <WebinarCta webinarId={webinar._id} price={webinar.price} />
       </div>
     </main>
   );

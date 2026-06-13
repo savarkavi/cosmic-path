@@ -11,10 +11,12 @@ function CheckoutStatus() {
   const router = useRouter();
   const verifyCoursePayment = useAction(api.cashfree.verifyCoursePayment);
   const verifyBookingPayment = useAction(api.cashfree.verifyBookingPayment);
+  const verifyWebinarPayment = useAction(api.cashfree.verifyWebinarPayment);
 
   const orderId = searchParams.get("order_id");
 
   const isBooking = orderId?.startsWith("booking_");
+  const isWebinar = orderId?.startsWith("webinar_");
 
   const [status, setStatus] = useState<
     "LOADING" | "PAID" | "FAILED" | "INCOMPLETE"
@@ -27,9 +29,11 @@ function CheckoutStatus() {
 
     const checkStatus = async (retriesLeft = 3) => {
       try {
-        const result = isBooking
-          ? await verifyBookingPayment({ orderId })
-          : await verifyCoursePayment({ orderId });
+        const result = isWebinar
+          ? await verifyWebinarPayment({ orderId })
+          : isBooking
+            ? await verifyBookingPayment({ orderId })
+            : await verifyCoursePayment({ orderId });
 
         if (result === "PAID") {
           setStatus("PAID");
@@ -48,7 +52,32 @@ function CheckoutStatus() {
     };
 
     checkStatus();
-  }, [orderId, verifyCoursePayment, verifyBookingPayment, isBooking]);
+  }, [
+    orderId,
+    verifyCoursePayment,
+    verifyBookingPayment,
+    verifyWebinarPayment,
+    isBooking,
+    isWebinar,
+  ]);
+
+  const orderLabel = isWebinar
+    ? "registration"
+    : isBooking
+      ? "booking"
+      : "order";
+
+  const returnPath = isWebinar
+    ? "/"
+    : isBooking
+      ? "/services"
+      : "/cart";
+
+  const returnLabel = isWebinar
+    ? "Back to Home"
+    : isBooking
+      ? "Return to Consultation"
+      : "Return to Cart";
 
   if (!orderId) {
     return (
@@ -71,8 +100,7 @@ function CheckoutStatus() {
         <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
         <h2 className="text-xl font-semibold">Verifying Payment...</h2>
         <p className="text-gray-500">
-          Please stay on this page while we confirm your{" "}
-          {isBooking ? "booking" : "order"}.
+          Please stay on this page while we confirm your {orderLabel}.
         </p>
       </div>
     );
@@ -95,10 +123,10 @@ function CheckoutStatus() {
         <div className="mt-8">
           <Button
             size="lg"
-            onClick={() => router.push(isBooking ? "/services" : "/cart")}
+            onClick={() => router.push(returnPath)}
             className="rounded-lg bg-yellow-600 font-medium text-white transition hover:bg-yellow-700"
           >
-            {isBooking ? "Return to Consultation" : "Return to Cart"}
+            {returnLabel}
           </Button>
         </div>
       </div>
@@ -115,9 +143,11 @@ function CheckoutStatus() {
           Payment Successful!
         </h1>
         <p className="mt-2 max-w-md text-gray-700">
-          {isBooking
-            ? "Thank you for booking! We have sent a confirmation email with your consultation details."
-            : "Thank you for your purchase. We have sent a confirmation email to you."}
+          {isWebinar
+            ? "You're registered! We'll send the Zoom link to your email before the webinar."
+            : isBooking
+              ? "Thank you for booking! We have sent a confirmation email with your consultation details."
+              : "Thank you for your purchase. We have sent a confirmation email to you."}
         </p>
 
         <div className="mt-8 space-x-4">
@@ -149,7 +179,7 @@ function CheckoutStatus() {
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:space-x-4">
         <Button
           size="lg"
-          onClick={() => router.push(isBooking ? "/services" : "/cart")}
+          onClick={() => router.push(returnPath)}
           className="bg-foreground rounded-lg font-medium text-white transition"
         >
           Try Again
