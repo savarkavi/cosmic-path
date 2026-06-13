@@ -305,6 +305,10 @@ export const SERVICE_PRICES: Record<string, number> = {
   "Scientific logo design": 30000,
   "Wrist watch consultation": 11000,
   "Palmistry readings": 2100,
+  "Astrological Products": 2100,
+  "Horary (Prashna)": 2100,
+  Lalkitab: 2100,
+  "Jaimini Astrology": 2100,
 };
 
 export const createBookingOrder = action({
