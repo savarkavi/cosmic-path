@@ -9,6 +9,7 @@ import {
   StudentWelcomeEmail,
   AdminNotificationEmail,
   StudentBookingEmail,
+  StudentWebinarEmail,
 } from "./emailTemplates";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -203,7 +204,7 @@ export const createCourseOrder = action({
 
     const baseUrl =
       process.env.CASHFREE_ENV === "PRODUCTION"
-        ? "https://cosmic-path.vercel.app"
+        ? "https://cosmicpath.co"
         : "http://localhost:3000";
 
     const request = {
@@ -444,6 +445,221 @@ export const verifyBookingPayment = action({
 });
 
 // --------------------------------------------------------
+// Webinar registration order creation & verification
+// --------------------------------------------------------
+
+export const fulfillWebinarRegistration = internalAction({
+  args: { orderId: v.string(), paymentId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    const { alreadyPaid } = await ctx.runMutation(
+      internal.webinarRegistrations.markRegistrationAsPaid,
+      {
+        orderId: args.orderId,
+        paymentId: args.paymentId,
+      },
+    );
+
+    if (alreadyPaid) {
+      console.log(
+        `fulfillWebinarRegistration: ${args.orderId} already fulfilled, skipping emails.`,
+      );
+      return;
+    }
+
+    const registration = await ctx.runQuery(
+      internal.webinarRegistrations.getRegistrationDetails,
+      { orderId: args.orderId },
+    );
+
+    if (!registration) {
+      console.error(
+        `fulfillWebinarRegistration: Registration ${args.orderId} missing after marking paid`,
+      );
+      return;
+    }
+
+    const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+      clerkId: registration.userId,
+    });
+
+    try {
+      await resend.emails.send({
+        from: "Cosmic Path <onboarding@resend.dev>",
+        to: registration.userEmail,
+        subject: "Webinar Registration Confirmed! 🎉",
+        react: (
+          <StudentWebinarEmail
+            name={user?.name || user?.email}
+            orderId={registration.orderId}
+            amount={registration.amount}
+            webinarTitle={registration.webinarTitle}
+            webinarDate={registration.webinarDate}
+          />
+        ),
+      });
+
+      await resend.emails.send({
+        from: "System <onboarding@resend.dev>",
+        to: "myaccount.abc@gmail.com",
+        subject: `New Webinar Registration: ₹${registration.amount}`,
+        react: (
+          <AdminNotificationEmail
+            amount={registration.amount}
+            customerName={user?.name}
+            customerEmail={user?.email}
+            customerPhone={user?.phone}
+            webinarDetails={{
+              title: registration.webinarTitle,
+              date: registration.webinarDate,
+            }}
+          />
+        ),
+      });
+    } catch (emailError) {
+      console.error(
+        "fulfillWebinarRegistration: Failed to send emails:",
+        emailError,
+      );
+    }
+  },
+});
+
+export const createWebinarRegistrationOrder = action({
+  args: {
+    userPhone: v.string(),
+    webinarId: v.id("webinars"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity)
+      throw new Error("You must be logged in to register for a webinar.");
+
+    const userId = identity.subject;
+    const userEmail = identity.email;
+
+    if (!userEmail) {
+      throw new Error("Your account must have an email to register.");
+    }
+
+    const webinar = await ctx.runQuery(internal.webinars.getWebinarById, {
+      id: args.webinarId,
+    });
+
+    if (!webinar) {
+      throw new Error("Webinar not found.");
+    }
+
+    const orderId = `webinar_${userId}_${Date.now()}`;
+
+    await ctx.runMutation(
+      internal.webinarRegistrations.savePendingRegistration,
+      {
+        orderId,
+        userId,
+        userEmail,
+        userPhone: args.userPhone,
+        webinarId: args.webinarId,
+        amount: webinar.price,
+      },
+    );
+
+    const baseUrl =
+      process.env.CASHFREE_ENV === "PRODUCTION"
+        ? "https://cosmicpath.co"
+        : "http://localhost:3000";
+
+    const request = {
+      order_amount: webinar.price,
+      order_currency: "INR",
+      order_id: orderId,
+      customer_details: {
+        customer_id: userId,
+        customer_email: userEmail,
+        customer_phone: args.userPhone,
+      },
+      order_meta: {
+        return_url: `${baseUrl}/checkout?order_id=${orderId}`,
+      },
+    };
+
+    try {
+      const response = await cashfree.PGCreateOrder(request);
+      return response.data.payment_session_id;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(
+        "Error setting up webinar order request:",
+        error.response.data.message,
+      );
+      throw new Error("Payment init failed");
+    }
+  },
+});
+
+export const verifyWebinarPayment = action({
+  args: { orderId: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthorized: You must be logged in.");
+    }
+
+    const currentUserId = identity.subject;
+
+    const prefixLength = "webinar_".length;
+    const lastUnderscoreIndex = args.orderId.lastIndexOf("_");
+    const orderUserId = args.orderId.substring(
+      prefixLength,
+      lastUnderscoreIndex,
+    );
+
+    if (orderUserId !== currentUserId) {
+      console.error(
+        `Malicious attempt: User ${currentUserId} tried to verify webinar registration ${args.orderId}`,
+      );
+      throw new Error(
+        "Unauthorized: You can only verify your own registrations.",
+      );
+    }
+
+    try {
+      const response = await cashfree.PGFetchOrder(args.orderId);
+      const orderData = response.data;
+      const status = orderData.order_status;
+
+      if (status === "PAID") {
+        await ctx.runAction(internal.cashfree.fulfillWebinarRegistration, {
+          orderId: args.orderId,
+          paymentId: orderData.payment_session_id,
+        });
+        return "PAID";
+      }
+
+      if (
+        status === "EXPIRED" ||
+        status === "TERMINATED" ||
+        status === "TERMINATION_REQUESTED"
+      ) {
+        await ctx.runMutation(
+          internal.webinarRegistrations.markRegistrationAsFailed,
+          {
+            orderId: args.orderId,
+          },
+        );
+        return "FAILED";
+      }
+
+      return "PENDING";
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Error verifying webinar payment:", error.response.data);
+      throw new Error("Webinar payment verification failed (network)");
+    }
+  },
+});
+
+// --------------------------------------------------------
 // Webhook handler
 // --------------------------------------------------------
 
@@ -477,6 +693,7 @@ export const processWebhookPayment = internalAction({
     const orderId: string = orderData.order_id;
     const isBooking = orderId.startsWith("booking_");
     const isCourseOrder = orderId.startsWith("order_");
+    const isWebinar = orderId.startsWith("webinar_");
 
     if (eventType === "PAYMENT_SUCCESS_WEBHOOK") {
       const paymentData = payload.data?.payment;
@@ -493,6 +710,11 @@ export const processWebhookPayment = internalAction({
           orderId,
           paymentId,
         });
+      } else if (isWebinar) {
+        await ctx.runAction(internal.cashfree.fulfillWebinarRegistration, {
+          orderId,
+          paymentId,
+        });
       }
     }
 
@@ -506,6 +728,11 @@ export const processWebhookPayment = internalAction({
         });
       } else if (isCourseOrder) {
         await ctx.runMutation(internal.orders.markOrderAsFailed, { orderId });
+      } else if (isWebinar) {
+        await ctx.runMutation(
+          internal.webinarRegistrations.markRegistrationAsFailed,
+          { orderId },
+        );
       }
     }
   },
