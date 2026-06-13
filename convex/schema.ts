@@ -90,4 +90,22 @@ export default defineSchema({
   })
     .index("by_slug", ["slug"])
     .index("by_status", ["status"]),
+
+  webinarRegistrations: defineTable({
+    userId: v.string(),
+    userEmail: v.string(),
+    userPhone: v.string(),
+    webinarId: v.id("webinars"),
+    amount: v.number(),
+    orderId: v.string(),
+    paymentId: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("paid"),
+      v.literal("failed"),
+    ),
+    emailsSent: v.optional(v.boolean()),
+  })
+    .index("by_order_id", ["orderId"])
+    .index("by_user_webinar", ["userId", "webinarId"]),
 });

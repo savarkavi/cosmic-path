@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { internalQuery, mutation, query } from "./_generated/server";
 import { requireAdmin } from "./helpers";
 
 export const createWebinar = mutation({
@@ -83,5 +83,12 @@ export const getAllWebinars = query({
   args: {},
   handler: async (ctx) => {
     return ctx.db.query("webinars").order("desc").collect();
+  },
+});
+
+export const getWebinarById = internalQuery({
+  args: { id: v.id("webinars") },
+  handler: async (ctx, args) => {
+    return ctx.db.get(args.id);
   },
 });
