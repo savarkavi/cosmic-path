@@ -2,41 +2,36 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Calendar } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import Image from "next/image";
-import { Star } from "lucide-react";
 import { playfair } from "@/app/layout";
 
 const HeroContent = () => {
   return (
     <div className="z-10 w-full px-8 2xl:px-0">
-      <div className="flex h-full w-full flex-col justify-center gap-4">
-        <div className="bg-accent border-primary mb-6 flex w-fit items-center justify-center gap-2 rounded-full border px-3 py-1">
-          <div className="relative">
-            <div className="bg-primary h-2 w-2 rounded-full" />
-            <div className="bg-primary absolute top-0 left-0 h-2 w-2 animate-ping rounded-full" />
-          </div>
-          <p className="text-accent-foreground text-[12px] font-semibold uppercase">
-            New Palmistry course now available
-          </p>
-        </div>
+      <div className="flex h-full w-full flex-col items-center justify-center gap-4 lg:items-start">
         <div className="flex flex-col gap-12">
           <p
-            className={`${playfair.className} scale-y-120 text-5xl leading-12 font-semibold sm:text-6xl lg:text-7xl lg:leading-14`}
+            className={`${playfair.className} max-w-2xl scale-y-120 text-center text-5xl leading-12 sm:text-6xl lg:text-left lg:leading-14`}
           >
-            Master the
-            <br /> <span className="text-accent-foreground">Language</span> of
-            the Stars
-          </p>
-          <p className="max-w-xl leading-tight font-light sm:text-xl lg:text-2xl">
-            Professional{" "}
-            <span className="text-primary font-semibold italic">
+            Discover the Power of{" "}
+            <span className="text-accent-foreground font-semibold italic">
               Vedic Astrology
+            </span>
+          </p>
+          <p className="mx-auto max-w-xl text-center leading-tight font-light capitalize sm:text-xl lg:text-left lg:text-xl">
+            Explore professional{" "}
+            <span className="font-bold">
+              astrology courses, one-on-one consultations, Vastu guidance,
+              personalized remedies
+            </span>
+            , and more with the renowned astrologer
+            <span className="text-primary font-semibold italic">
+              Yashkaran Sharma
             </span>{" "}
-            certification for the modern seeker. Bring order to chaos and
-            illuminate lives with ancient starlit wisdom.
+            —helping you understand life&apos;s patterns through authentic Vedic
+            wisdom.
           </p>
         </div>
-        <div className="mt-6 flex items-center gap-6">
+        <div className="mt-6 flex items-center gap-4">
           <Link href="/courses">
             <Button
               size="lg"
@@ -56,42 +51,16 @@ const HeroContent = () => {
             </Button>
           </Link>
         </div>
-        <Separator className="my-2 w-full bg-gray-300 2xl:my-6" />
-        <div className="flex items-center gap-4">
-          <div className="flex -space-x-3">
-            <Image
-              src="/testimonial-avatar-1.jpg"
-              alt="Student"
-              width={48}
-              height={48}
-              className="h-12 w-12 rounded-full border-2 border-white bg-blue-50 object-cover shadow-sm"
-            />
-            <Image
-              src="/testimonial-avatar-2.jpg"
-              alt="Student"
-              width={48}
-              height={48}
-              className="h-12 w-12 rounded-full border-2 border-white object-cover shadow-sm"
-            />
-            <Image
-              src="/testimonial-avatar-3.jpg"
-              alt="Student"
-              width={48}
-              height={48}
-              className="z-10 h-12 w-12 rounded-full border-2 border-white object-cover shadow-sm"
-            />
-          </div>
-          <div className="flex flex-col gap-0.5">
-            <div className="flex items-center gap-1 text-[#d97706]">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-sm font-medium text-[#2d5c8f]">
-              Trusted by 2,000+ Students
-            </p>
-          </div>
+        <div className="border-primary mt-6 border-l pl-4">
+          <p className="text-accent-foreground max-w-md font-serif text-lg leading-relaxed font-semibold italic">
+            &quot;A chart doesn&apos;t predict your fate. It shows you where
+            your leverage is.&quot;
+          </p>
+          <p className="text-muted-foreground mt-2 text-[10px] tracking-[0.22em] uppercase">
+            Yashkaran Sharma, Founder, Cosmic Path
+          </p>
         </div>
+        <Separator className="my-2 w-full bg-gray-300 2xl:my-6" />
       </div>
     </div>
   );
