@@ -2,9 +2,9 @@ import SectionTitle from "@/components/shared/section-title";
 import Image from "next/image";
 
 const stats = [
-  { value: "15+", label: "Years Practicing" },
-  { value: "3", label: "Disciplines Taught" },
-  { value: "2,000+", label: "Students" },
+  { value: "20+", label: "Years Practicing" },
+  { value: "5,000+", label: "Consulations" },
+  { value: "1,000+", label: "Students" },
 ];
 
 const title = (
@@ -39,10 +39,10 @@ const MeetTheFounderSection = () => {
             />
           </div>
 
-          <div className="mt-5 grid grid-cols-3 border border-white/12 px-5 py-6">
+          <div className="mt-5 flex items-center justify-between border border-white/12 px-4 py-6">
             {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="text-primary font-serif text-2xl leading-none font-semibold">
+              <div key={stat.label} className="flex flex-col items-center">
+                <p className="text-primary font-serif text-xl leading-none font-semibold">
                   {stat.value}
                 </p>
                 <p className="mt-2 font-mono text-[11px] tracking-[0.08em] text-white/80">
@@ -67,6 +67,12 @@ const MeetTheFounderSection = () => {
               Mr. Yashkaran Sharma has spent years in serious study of Vedic
               astrology, Tantra, numerology, and remedial traditions, learning
               through classical texts, teachers, saints, and practicing masters.
+              He is the author of the acclaimed books{" "}
+              <span className="font-bold italic">
+                Author of Encyclopedia of Astrological Remedies
+              </span>
+              , <span className="font-bold italic">Jyotish Sutram</span> and{" "}
+              <span className="font-bold italic">Brihat Upay Samhita</span>
               His work blends tradition with a modern, practical outlook.
             </p>
             <p>

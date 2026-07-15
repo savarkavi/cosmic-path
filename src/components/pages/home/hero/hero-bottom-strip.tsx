@@ -4,11 +4,11 @@ const heroStats = [
     label: "Years in Practice",
   },
   {
-    value: "10,000+",
+    value: "5,000+",
     label: "Consultations Delivered",
   },
   {
-    value: "2,000+",
+    value: "1,000+",
     label: "Students Trained",
   },
   {

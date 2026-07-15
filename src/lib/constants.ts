@@ -223,17 +223,17 @@ export const servicesData = [
 export const aboutStats = [
   {
     label: "Happy Students",
-    stats: "100+",
+    stats: "1000+",
     icon: UsersRound,
   },
   {
     label: "Chart Reads",
-    stats: "2000+",
+    stats: "5000+",
     icon: SquareChartGantt,
   },
   {
     label: "Years of Wisdom",
-    stats: "15+",
+    stats: "20+",
     icon: Sparkles,
   },
 ];
