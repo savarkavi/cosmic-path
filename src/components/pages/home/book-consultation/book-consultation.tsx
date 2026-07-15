@@ -1,56 +1,58 @@
 import { Button } from "@/components/ui/button";
-import { bookConsultationInfo } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
 const BookConsultation = () => {
   return (
-    <div className="bg-accent relative mt-16 min-h-[650px] w-full overflow-hidden rounded-lg px-4 py-16 xl:px-0">
-      <div className="mx-auto flex max-w-300 items-center">
-        <div className="flex flex-col items-center gap-12 sm:items-start">
-          <div className="flex max-w-[800px] flex-col gap-6">
-            <p className="font-italiana text-accent-foreground text-3xl font-semibold uppercase lg:text-5xl">
-              Gain clarity of your life through Expert Readings
-            </p>
-            <p className="text-muted-foreground max-w-xl text-xl lg:text-2xl">
-              Connect with a top astrologer in minutes! Simply choose your
-              problem type, select a convenient time, provide your birth
-              details, and start your insightful consultation via call, chat, or
-              detailed report.
-            </p>
-          </div>
-          <div className="flex flex-col flex-wrap items-center gap-12 sm:flex-row">
-            {bookConsultationInfo.map((info) => {
-              const Icon = info.icon;
-              return (
-                <div
-                  key={info.label}
-                  className="flex w-[200px] flex-col items-center justify-center gap-2 rounded-lg bg-white px-4 py-3 shadow-lg"
-                >
-                  <Icon
-                    size={36}
-                    className="text-accent fill-accent-foreground shrink-0"
-                  />
-                  <p className="text-muted-foreground text-lg font-semibold capitalize">
-                    {info.label}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-          <Link href="/services">
-            <Button size="lg" className="w-fit cursor-pointer text-white">
-              Book Now
-            </Button>
-          </Link>
+    <div className="relative isolate flex min-h-[680px] items-center justify-center overflow-hidden bg-[#181817] px-6 py-24 text-white">
+      <div
+        className="pointer-events-none absolute top-1/2 right-0 h-[820px] w-[820px] translate-x-[46%] -translate-y-1/2 opacity-[0.08] md:h-[980px] md:w-[980px]"
+        aria-hidden="true"
+      >
+        <Image
+          src="/astrology-wheel.png"
+          alt=""
+          fill
+          className="object-contain"
+          sizes="980px"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center text-center">
+        <div className="mb-7 flex items-center gap-3">
+          <span className="bg-primary h-px w-6" />
+          <p className="text-primary font-mono text-[11px] tracking-[0.28em] uppercase">
+            Ready when you are
+          </p>
         </div>
-        <div className="animation-duration-[20s] absolute top-1/2 right-0 hidden h-[1010px] w-[1000px] translate-x-1/2 -translate-y-1/2 animate-spin xl:block 2xl:h-[1210px] 2xl:w-[1200px]">
-          <Image
-            src="/astrology-wheel.png"
-            alt="astrology wheel"
-            fill
-            className="object-cover"
-          />
+
+        <h2 className="max-w-xl text-4xl leading-[1.05] font-medium text-balance text-white md:text-6xl">
+          Your chart won&apos;t change.{" "}
+          <span className="text-primary font-serif italic">
+            How soon you understand it - will.
+          </span>
+        </h2>
+
+        <p className="mt-8 max-w-xl text-base leading-7 text-white/72 md:text-lg">
+          Book a one-on-one consultation with Yashkaran Sharma and leave with a
+          clear, honest read on what&apos;s ahead - and what to actually do
+          about it.
+        </p>
+
+        <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
+          <Button
+            asChild
+            className="h-13 w-full max-w-56 rounded-none bg-[#8c3928] px-8 text-sm font-bold text-white hover:bg-[#9b422f]"
+          >
+            <Link href="/book-consultation">Book a Consultation</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-13 w-full max-w-48 rounded-none border-white/30 bg-transparent px-8 text-sm font-bold text-white hover:border-primary hover:bg-white/5 hover:text-white"
+          >
+            <Link href="/courses">Explore Courses</Link>
+          </Button>
         </div>
       </div>
     </div>

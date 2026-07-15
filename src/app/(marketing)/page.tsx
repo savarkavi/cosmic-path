@@ -3,17 +3,19 @@ import BookConsultationSection from "@/components/pages/home/book-consultation";
 import ServicesSection from "@/components/pages/home/services";
 import FeaturedCoursesSection from "@/components/pages/home/featured-courses";
 import HeroSection from "@/components/pages/home/hero";
+import MeetTheFounderSection from "@/components/pages/home/meet-the-founder";
 import TestimonialSection from "@/components/pages/home/testimonial";
 
 export default function Home() {
   return (
-    <div className="min-h-screen pb-40">
+    <div className="min-h-screen">
       <HeroSection />
       <FeaturedCoursesSection />
       <AboutSection />
       <ServicesSection />
-      <BookConsultationSection />
+      <MeetTheFounderSection />
       <TestimonialSection />
+      <BookConsultationSection />
     </div>
   );
 }

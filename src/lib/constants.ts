@@ -107,25 +107,28 @@ export const testimonialsData = [
     name: "Ananya Sharma",
     avatar: "/testimonial-avatar-1.jpg",
     quote:
-      "The course gave me a completely new perspective on astrology. The concepts were explained with clarity and depth, and I now feel confident reading my own chart.",
+      "I'd spoken to three other astrologers before this. Yashkaran was the first one who actually explained my chart instead of just telling me what to do. I finally understood my own decisions.",
     stars: 5,
     date: "March 12, 2025",
+    type: "Career Consulation",
   },
   {
     name: "Rohit Verma",
     avatar: "/testimonial-avatar-2.jpg",
     quote:
-      "I had read many astrology books before, but this course connected everything logically. The teachings felt authentic and deeply rooted in tradition.",
+      "The Basic Astrology course completely changed how I read charts. Structured, patient, and grounded in tradition — not a single filler session in ten classes.",
     stars: 5,
     date: "February 28, 2025",
+    type: "Basic Astrology Course",
   },
   {
     name: "Priya Nair",
     avatar: "/testimonial-avatar-3.jpg",
     quote:
-      "This course helped me understand planetary energies in a very practical way. I’ve started applying the knowledge in daily life with amazing results.",
+      "What stood out wasn't the prediction — it was how methodically he walked through the dasha timing. It felt less like a reading and more like a proper consultation.",
     stars: 5,
     date: "January 19, 2025",
+    type: "Marriage Consulation",
   },
 ];
 

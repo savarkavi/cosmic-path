@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { FaQuoteLeft, FaStar } from "react-icons/fa";
 
 type TestimonyType = {
   name: string;
@@ -7,6 +6,7 @@ type TestimonyType = {
   quote: string;
   date: string;
   stars: number;
+  type: string;
 };
 
 interface TestimonialCardProps {
@@ -15,30 +15,32 @@ interface TestimonialCardProps {
 
 const TestimonialCard = ({ data }: TestimonialCardProps) => {
   return (
-    <div className="bg-background relative h-full w-full max-w-[450px] overflow-clip rounded-lg border border-gray-200 p-4 shadow-xl transition-all duration-500 hover:-translate-y-2">
-      <div className="bg-primary absolute top-0 left-0 flex h-30 w-30 -translate-1/2 items-center justify-center rounded-full text-white">
-        <FaQuoteLeft className="absolute top-[65%] left-[60%] size-4 sm:top-[60%]" />
-      </div>
-      <div className="ml-20 flex flex-col gap-4">
-        <div className="flex gap-4">
-          <div className="relative h-14 w-14 rounded-full">
+    <div className="h-full w-full max-w-[320px] rounded-lg border border-[#d9d3c8] bg-white px-7 py-4 text-black shadow-lg">
+      <p className="text-primary font-serif text-4xl leading-none font-bold">
+        &quot;
+      </p>
+
+      <p className="mt-9 min-h-[120px] text-[15px] leading-6 font-medium">
+        {data.quote}
+      </p>
+
+      <div className="mt-8 border-t border-[#ded8cf] pt-5">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary relative flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white">
             <Image
               src={data.avatar}
-              alt="user profile"
+              alt="Testimonial avatar"
               fill
               className="rounded-full object-cover"
             />
           </div>
-          <p className="text-accent-foreground cursor-default text-2xl font-bold">
-            {data.name}
-          </p>
+          <div>
+            <p className="text-sm font-bold">{data.name}</p>
+            <p className="mt-1 font-mono text-[11px] tracking-[0.06em] text-black/75">
+              {data.type}
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          {Array.from({ length: data.stars }, (_, i) => (
-            <FaStar key={i} className="fill-amber-400" />
-          ))}
-        </div>
-        <p className="text-muted-foreground cursor-default">{data.quote}</p>
       </div>
     </div>
   );

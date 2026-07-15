@@ -41,7 +41,7 @@ const CoursesCarousel = () => {
           stopOnInteraction: false,
         }),
       ]}
-      className="relative mx-auto mt-16 w-full max-w-md lg:max-w-300"
+      className="relative mx-auto mt-16 w-full max-w-md lg:max-w-340"
     >
       <CarouselContent>
         {data.map((course, i) => (

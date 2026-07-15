@@ -1,37 +1,62 @@
+import type { ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
-import { IoStar } from "react-icons/io5";
 
 interface SectionTitleProps {
-  title: string;
-  subtitle: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  badge?: string;
+  className?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  badgeClassName?: string;
 }
 
-const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
+const SectionTitle = ({
+  title,
+  subtitle,
+  badge = "Learn directly from him",
+  className,
+  titleClassName,
+  subtitleClassName,
+  badgeClassName,
+}: SectionTitleProps) => {
   return (
-    <div className="flex w-full flex-col items-center gap-8">
-      <div className="flex w-full max-w-100 items-center gap-2">
-        <div className="bg-primary h-px w-1/2" />
-        <IoStar className="text-primary size-6" />
-        <div className="bg-primary h-px w-1/2" />
-      </div>
-      <div className="relative flex flex-col items-center justify-center">
-        <div className="flex flex-wrap items-center justify-center gap-5">
-          {title.split(" ").map((word, i) => (
-            <p
-              key={i}
-              className={cn(
-                "text-center text-4xl uppercase xl:text-6xl",
-                i === 1 && "text-accent-foreground italic",
-              )}
-            >
-              {word}
-            </p>
-          ))}
-        </div>
-        <p className="text-muted-foreground mt-4 max-w-150 text-center lg:text-lg">
-          {subtitle}
+    <div
+      className={cn(
+        "flex w-full max-w-3xl flex-col items-start self-start",
+        className,
+      )}
+    >
+      <div className="mb-6 flex items-center gap-3">
+        <span className="bg-primary h-px w-6" />
+        <p
+          className={cn(
+            "text-primary font-mono text-[11px] tracking-[0.28em] uppercase",
+            badgeClassName,
+          )}
+        >
+          {badge}
         </p>
       </div>
+      <h2
+        className={cn(
+          "text-foreground max-w-2xl text-4xl leading-[1.08] font-medium text-balance md:text-5xl",
+          titleClassName,
+        )}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          className={cn(
+            "text-muted-foreground mt-6 max-w-xl text-base leading-7 md:text-lg",
+            subtitleClassName,
+          )}
+        >
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 };

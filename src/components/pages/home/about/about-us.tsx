@@ -1,38 +1,136 @@
-import { Button } from "@/components/ui/button";
+import SectionTitle from "@/components/shared/section-title";
 import Image from "next/image";
-import Link from "next/link";
 
-const about = `At Cosmic Path, we believe that astrology is not just a subject, but a timeless science that connects the cosmic with the human experience. Our mission is to provide authentic, structured, and practical education in Vedic Astrology, Palmistry, and Vastu Shastra, empowering learners to unlock the wisdom of the stars and apply it meaningfully in everyday life.<br /><br />
+const philosophyItems = [
+  {
+    title: "Empowerment over prediction",
+    description: "You leave with understanding, not dependency.",
+  },
+  {
+    title: "Honesty over theatre",
+    description: "If a chart doesn't call for a remedy, you won't be sold one.",
+  },
+  {
+    title: "Tradition, applied practically",
+    description: "Vedic method, explained in language you can actually use.",
+  },
+  {
+    title: "One practitioner, full accountability",
+    description:
+      "Every reading is done personally by Yashkaran - nothing outsourced.",
+  },
+];
 
-With carefully designed courses ranging from Vedic Astrology Basics to Research and Professional Practice, as well as specialized programs in Palmistry, Astro Palmistry & Vastu, and hands-on practice sessions, we cater to learners at every stage — beginners, enthusiasts, and aspiring professionals. Each module is taught in a step-by-step manner to ensure clarity, depth, and accuracy in learning.<br /><br />
+const title = (
+  <>
+    Awareness, not fear.{" "}
+    <span className="text-primary font-serif italic">
+      {"That's the entire practice."}
+    </span>
+  </>
+);
 
-What sets us apart is our commitment to integrity, authenticity, and personalized learning. We believe that astrology is both an art and a science, and our purpose is to keep its purity intact while making it accessible to all. By joining us, you become part of a supportive community of seekers and practitioners who share the same passion for uncovering life’s deeper truths.`;
+const subtitle =
+  "Astrology is easy to sell through fear - vague warnings, urgent remedies, endless follow-ups. Cosmic Path is built the opposite way: every session exists to give you clarity you can act on, not anxiety you have to keep paying to manage.";
 
 const AboutUs = () => {
   return (
-    <div className="bg-accent-foreground mt-16 flex w-full rounded-lg px-4 py-12 2xl:rounded-none">
-      <div className="mx-auto flex flex-col items-center gap-10 lg:flex-row lg:gap-30 xl:gap-40">
-        <div className="relative h-[600px] w-[280px] shrink-0">
-          <Image
-            src="/vedic-astrologer-cropped.png"
-            alt="astrologer art image"
-            fill
-            className="object-cover"
-          />
+    <div className="bg-accent-foreground mt-24 w-full overflow-hidden px-6 py-24 text-white md:py-32 xl:px-0">
+      <div className="mx-auto grid w-full max-w-300 items-center gap-16 lg:grid-cols-[0.8fr_1fr] lg:gap-24">
+        <div className="flex justify-center">
+          <div className="relative flex h-[400px] w-[250px] items-end justify-center md:h-[520px] md:w-[340px]">
+            <div
+              className="absolute top-1/2 left-1/2 h-[120%] w-[170%] -translate-x-1/2 -translate-y-1/2 animate-[spin_28s_linear_infinite]"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 500 500"
+                className="h-full w-full overflow-visible"
+                fill="none"
+              >
+                <circle
+                  cx="250"
+                  cy="250"
+                  r="177"
+                  stroke="#d97706"
+                  strokeOpacity="0.45"
+                  strokeWidth="1"
+                />
+                <circle
+                  cx="250"
+                  cy="250"
+                  r="210"
+                  stroke="#d97706"
+                  strokeOpacity="0.35"
+                  strokeWidth="1"
+                />
+                <path
+                  d="M250 40L400 104L462 250L400 396L250 460L100 396L38 250L100 104Z"
+                  stroke="#d97706"
+                  strokeOpacity="0.5"
+                  strokeWidth="1"
+                />
+                <path
+                  d="M250 40L462 250M400 104L250 460M100 104L400 396M38 250L250 460M100 396L250 40"
+                  stroke="#d97706"
+                  strokeOpacity="0.3"
+                  strokeWidth="1"
+                />
+                {[
+                  [250, 40],
+                  [400, 104],
+                  [462, 250],
+                  [400, 396],
+                  [250, 460],
+                  [100, 396],
+                  [38, 250],
+                  [100, 104],
+                ].map(([cx, cy]) => (
+                  <circle
+                    key={`${cx}-${cy}`}
+                    cx={cx}
+                    cy={cy}
+                    r="5"
+                    fill="#d97706"
+                    fillOpacity="0.34"
+                  />
+                ))}
+              </svg>
+            </div>
+            <Image
+              src="/vedic-astrologer-cropped.png"
+              alt="Vedic astrologer illustration"
+              fill
+              className="relative z-10 ml-4 object-contain object-bottom"
+              sizes="(min-width: 768px) 340px, 280px"
+            />
+          </div>
         </div>
-        <div className="flex max-w-[600px] flex-col gap-12 text-white">
-          <p className="text-5xl font-semibold uppercase">
-            See beyond through ancient wisdom
-          </p>
-          <div
-            dangerouslySetInnerHTML={{ __html: about }}
-            className="text-justify"
-          ></div>
-          <Link href="/about">
-            <Button className="w-fit cursor-pointer text-white">
-              Learn More
-            </Button>
-          </Link>
+
+        <div>
+          <SectionTitle
+            badge="Our Philosophy"
+            title={title}
+            subtitle={subtitle}
+            className="max-w-2xl"
+            titleClassName="text-white md:text-5xl"
+            subtitleClassName="max-w-2xl text-white/85 md:text-base"
+            badgeClassName="text-primary"
+          />
+
+          <div className="mt-8 grid gap-x-8 gap-y-0 sm:grid-cols-2">
+            {philosophyItems.map((item) => (
+              <div
+                key={item.title}
+                className="border-t border-white/25 py-5 text-white"
+              >
+                <h3 className="text-base font-bold">{item.title}</h3>
+                <p className="mt-3 max-w-sm text-sm leading-6 text-white/75">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
